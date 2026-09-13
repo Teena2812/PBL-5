@@ -23,7 +23,12 @@ RESULTS_DIR = PROJECT_ROOT / "experiments" / "results"
 
 N_CLIENTS = 5
 ALPHA = 0.5
-SEED = 42
+# seed=8 was selected after comparing 50 seeds (see experiments/phase2_seed_search.py
+# output) as the most size-balanced non-IID split at this alpha: no hospital holds
+# more than ~24% of patients, which keeps FedAvg's sample-weighted aggregation from
+# being dominated by a single client while still preserving strong label heterogeneity
+# (disease rate ranges 0.0-0.97 across hospitals).
+SEED = 8
 
 
 def main() -> None:

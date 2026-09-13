@@ -52,18 +52,28 @@ following the standard convention for this dataset. 6 rows with missing
 
 ## Non-IID hospital simulation strategy
 
-We use **Dirichlet label-skew partitioning** (Hsu et al., 2019), the standard
-non-IID simulation method in the federated learning literature, rather than
-splitting on a single raw feature like age band. Each simulated hospital's
-disease-prevalence rate is drawn from a `Dirichlet(alpha)` distribution per
-class:
+> **Methodology statement (use this exact framing in the final report's
+> Methodology section):** Hospital heterogeneity is simulated using
+> **Dirichlet label-skew partitioning** — each simulated hospital's
+> distribution over the binary disease label is drawn from a
+> `Dirichlet(alpha)` distribution, not by splitting on a demographic or
+> clinical feature (e.g. age band or chest-pain type). This is a deliberate
+> refinement of the splitting strategy loosely described in the original
+> proposal docs (`docs/proposal/`), which mentioned feature-based skew
+> (age band, cp-type) as illustrative examples before the implementation
+> phase settled on the literature-standard method below. Any reference to
+> "age-band" or "feature-based" splitting elsewhere in `docs/proposal/`
+> should be read as superseded by this document.
+
+We use Dirichlet label-skew partitioning (Hsu et al., 2019), the standard
+non-IID simulation method in the federated learning literature. Each
+simulated hospital's disease-prevalence rate is drawn from a
+`Dirichlet(alpha)` distribution per class:
 
 - **Low alpha (e.g. 0.1)** → highly skewed hospitals (some hospitals almost
   entirely healthy patients, others almost entirely diseased) — the
   low-alpha regime commonly used to stress-test personalized FL.
-- **Moderate alpha (e.g. 0.5, our default)** → realistic heterogeneity: e.g.
-  our 5-hospital split at alpha=0.5, seed=42 produces disease rates ranging
-  from 0.0 to 1.0 across hospitals against a global rate of 0.46.
+- **Moderate alpha (e.g. 0.5, our default)** → realistic heterogeneity.
 - **High alpha (e.g. 5.0)** → close to IID, used as a control/ablation.
 
 This approach was chosen over a fixed feature-based split because it is (1)
@@ -74,10 +84,24 @@ logic, and (3) scales to any number of clients. See
 [`experiments/phase2_partition_report.py`](experiments/phase2_partition_report.py)
 for the reproducible report (summary table + chart, `experiments/results/`).
 
-Caveat for the write-up: Dirichlet label-skew controls class *proportions*
-per hospital, not hospital *size* — a given seed/alpha can produce
-unevenly-sized hospitals (documented, not hidden, in the generated summary
-table).
+**Seed selection.** Dirichlet label-skew controls class *proportions* per
+hospital, not hospital *size* — some seeds produced one hospital holding
+55%+ of all patients, which would let that hospital dominate FedAvg's
+sample-weighted aggregation and undermine the FedAvg-vs-personalized-FL
+comparison later. [`experiments/phase2_seed_search.py`](experiments/phase2_seed_search.py)
+searched seeds 1-50 at alpha=0.5, n=5 and selected **seed=8** as the
+default: no hospital holds more than 23.9% of patients (vs. worst-case
+seeds >55%), while disease rate still ranges from 0.0 to 0.97 across
+hospitals against a global rate of 0.46 — balanced enough for meaningful
+aggregation, still clearly non-IID.
+
+| hospital | n_patients | disease_rate | mean_age | pct_female | dominant_cp_type |
+|---|---|---|---|---|---|
+| hospital_1 | 71 | 0.366 | 54.0 | 0.366 | 4 |
+| hospital_2 | 62 | 0.000 | 53.3 | 0.452 | 3 |
+| hospital_3 | 64 | 0.422 | 53.4 | 0.188 | 4 |
+| hospital_4 | 63 | 0.762 | 55.2 | 0.333 | 4 |
+| hospital_5 | 37 | 0.973 | 58.5 | 0.243 | 4 |
 
 ## Setup
 
