@@ -179,24 +179,73 @@ Run: `venv\Scripts\python experiments\phase4_fedavg.py` — 20 rounds, 5
 local epochs/round, lr=0.01. Results in `experiments/results/phase4_*.csv`
 and `phase4_fedavg_learning_curve.png`.
 
-| Experiment | Accuracy |
-|---|---|
-| Local ML (RF, mean/hospital) | 0.833 |
-| Local ML (LR, mean/hospital) | 0.819 |
-| **FedAvg (final round, global weighted)** | **0.829** |
-| Centralized ML (RF, pooled) | 0.842 |
-| Centralized ML (LR, pooled) | 0.855 |
+### ⚠️ Is Phase 3 vs Phase 4 an apples-to-apples comparison? No — read this before citing either table.
 
-FedAvg lands between Local ML and Centralized ML, consistent with the
-project's hypothesis (Local ≤ FedAvg ≤ Personalized FL ≤ Centralized) —
-though note the NN's FedAvg accuracy and the RF/LR baselines aren't a
-perfectly controlled comparison, since they use different model
-architectures (this is expected: baselines are sklearn per the tech stack,
-FL uses the PyTorch NN required for FedAvg/FedProx). The learning curve
-rises quickly (round 1: 0.684 → round 4: 0.842) then plateaus/oscillates
-mildly around 0.82-0.83 for the remaining rounds — expected behavior for
-a full-batch, low-epoch-count NN on a dataset this small (170 total
-training examples across all 5 hospitals).
+Phase 3's Local ML / Centralized ML baselines use sklearn Random Forest /
+Logistic Regression. FedAvg necessarily uses a PyTorch NN, because FedAvg
+averages weight *tensors* across clients — that operation has no RF/LR
+equivalent (you can't "average" two decision forests or two independently
+fit logistic models into a meaningful combined model the way you can
+average two neural nets' weights). So directly comparing FedAvg's 0.829
+against Phase 3's Local ML RF number (0.833) mixes two variables at once —
+**algorithm choice** (RF/LR vs. NN) and **collaboration strategy** (none
+vs. FedAvg) — into a single number. An apparent "Local ML beats FedAvg"
+result in that mixed comparison could just mean "Random Forest beats a
+small NN on this tiny dataset," and would tell us nothing about whether
+federation itself helped.
+
+| Experiment | Model | Accuracy |
+|---|---|---|
+| Local ML (mean/hospital) | Random Forest | 0.833 |
+| Local ML (mean/hospital) | Logistic Regression | 0.819 |
+| FedAvg (final round, global weighted) | PyTorch NN | 0.829 |
+| Centralized ML (pooled) | Random Forest | 0.842 |
+| Centralized ML (pooled) | Logistic Regression | 0.855 |
+
+**Do not cite this table as a test of "Local ≤ FedAvg ≤ Centralized."** It
+mixes architectures. Keep it only as a reference for how a classical-ML
+baseline performs on this dataset/partition — a separate, legitimate
+question from whether federation helps.
+
+### The real apples-to-apples test: same architecture (HeartDiseaseNet) throughout
+
+[`experiments/phase4_nn_baselines.py`](experiments/phase4_nn_baselines.py)
+retrains Local ML and Centralized ML using the *same* `HeartDiseaseNet`
+architecture as FedAvg, trained for `TOTAL_EPOCHS = N_ROUNDS *
+LOCAL_EPOCHS_PER_ROUND = 100` epochs (matching the total local compute one
+FedAvg client experiences across the full 20-round run), same lr=0.01,
+same seed=117 partition / seed=42 local split. This isolates the
+collaboration-strategy variable by holding the model fixed:
+
+| Experiment (all PyTorch NN) | Accuracy |
+|---|---|
+| Local NN (per-hospital, isolated) | 0.816 |
+| **FedAvg NN (collaborative, no personalization)** | **0.829** |
+| Centralized NN (pooled, not privacy-preserving) | 0.816 |
+
+(`experiments/results/phase4_nn_comparison_summary.csv`,
+`phase4_nn_comparison.png`)
+
+**This is the result to actually cite for the FL research question**, and
+it does *not* fully match the naive hypothesis: FedAvg (0.829) slightly
+*outperforms* both Local NN and Centralized NN, which tie exactly at
+0.816. Report this honestly rather than forcing it into "Local ≤ FedAvg ≤
+Centralized" — a plausible explanation (not a proven one; this is a single
+seed, not verified across repeated runs) is that FedAvg's periodic weight
+averaging across 5 differently-skewed local datasets acts as an implicit
+regularizer on this very small NN (170 pooled training examples, only
+100 epochs, full-batch Adam), while Centralized training on the same
+architecture may overfit its single pooled dataset slightly more without
+that averaging effect. **For the final report:** rerun
+`phase4_fedavg.py` + `phase4_nn_baselines.py` across a few different
+`MODEL_INIT_SEED` values and report mean ± std, rather than relying on
+this one seed's exact numbers, before drawing a firm conclusion about
+whether FedAvg beats Centralized here.
+
+The learning curve (from the original `phase4_fedavg.py` run) rises
+quickly (round 1: 0.684 → round 4: 0.842) then plateaus/oscillates mildly
+around 0.82-0.83 for the remaining rounds — expected behavior for a
+full-batch, low-epoch-count NN on a dataset this small.
 
 **Per-hospital breakdown (final round):** hospital_4 (0.905) and
 hospital_5 (0.889) do best; hospital_1 (0.733) and hospital_2 (0.750) do
