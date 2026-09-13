@@ -34,8 +34,8 @@ Following the 8-phase roadmap in `docs/proposal/`:
 
 - [x] Phase 1 — Literature survey, dataset & gap statement
 - [x] Phase 2 — Dataset preprocessing; non-IID hospital splits
-- [x] **Phase 3 — Baseline: Local ML + Centralized ML** (this commit)
-- [ ] Phase 4 — Federated Learning (FedAvg via Flower)
+- [x] Phase 3 — Baseline: Local ML + Centralized ML
+- [x] **Phase 4 — Federated Learning (FedAvg via Flower)** (this commit)
 - [ ] Phase 5 — Personalization (FedProx) vs FedAvg comparison
 - [ ] Phase 6 — SHAP explainability integration
 - [ ] Phase 7 — FastAPI backend + React dashboard
@@ -157,6 +157,66 @@ class-imbalance limitation of evaluating on tiny local hospital test sets
 (14-21 examples per hospital), not a single-class artifact — report it as
 such, and prefer per-hospital F1/AUC breakdowns
 (`phase3_local_ml_*.csv`) over accuracy alone when writing the final paper.
+
+## Phase 4: Federated Learning (FedAvg via Flower)
+
+Uses `flwr.simulation.run_simulation` (in-process virtual clients, no
+separate OS processes per hospital, per the locked tech stack) with a small
+PyTorch feed-forward NN ([`src/models/nn_model.py`](src/models/nn_model.py):
+2 hidden layers, 16→8 units) as the shared model architecture. Every
+hospital is a Flower `NumPyClient`
+([`src/federated/client.py`](src/federated/client.py)) that trains locally
+for 5 epochs/round on its own `x_train`/`y_train` and is evaluated on its
+own `x_test`/`y_test` — the exact same partition and local split as Phase 3
+(seed=117 / seed=42), so results are directly comparable.
+
+Aggregation is Flower's built-in `FedAvg` strategy: each round, the server
+averages client weights weighted by each client's number of local training
+examples (θ_global = Σ (n_k/n) · θ_k). No FedProx proximal term yet — that's
+Phase 5.
+
+Run: `venv\Scripts\python experiments\phase4_fedavg.py` — 20 rounds, 5
+local epochs/round, lr=0.01. Results in `experiments/results/phase4_*.csv`
+and `phase4_fedavg_learning_curve.png`.
+
+| Experiment | Accuracy |
+|---|---|
+| Local ML (RF, mean/hospital) | 0.833 |
+| Local ML (LR, mean/hospital) | 0.819 |
+| **FedAvg (final round, global weighted)** | **0.829** |
+| Centralized ML (RF, pooled) | 0.842 |
+| Centralized ML (LR, pooled) | 0.855 |
+
+FedAvg lands between Local ML and Centralized ML, consistent with the
+project's hypothesis (Local ≤ FedAvg ≤ Personalized FL ≤ Centralized) —
+though note the NN's FedAvg accuracy and the RF/LR baselines aren't a
+perfectly controlled comparison, since they use different model
+architectures (this is expected: baselines are sklearn per the tech stack,
+FL uses the PyTorch NN required for FedAvg/FedProx). The learning curve
+rises quickly (round 1: 0.684 → round 4: 0.842) then plateaus/oscillates
+mildly around 0.82-0.83 for the remaining rounds — expected behavior for
+a full-batch, low-epoch-count NN on a dataset this small (170 total
+training examples across all 5 hospitals).
+
+**Per-hospital breakdown (final round):** hospital_4 (0.905) and
+hospital_5 (0.889) do best; hospital_1 (0.733) and hospital_2 (0.750) do
+worse than the global average (0.829) — this per-hospital gap under one
+shared global model is exactly the motivation for Phase 5's personalization
+(FedProx). hospital_3 again shows precision=0.333/recall=0.5 (F1=0.4) — the
+same small-sample limitation as Phase 3 (only 2 positive examples in its
+local test set of 14), not new to FedAvg.
+
+**Caveat:** `flwr.simulation.run_simulation` prints a deprecation warning
+in favor of the `flwr run` CLI / project-based workflow (`pyproject.toml` +
+ServerApp/ClientApp). We kept `run_simulation` for this phase since it
+still works correctly on the installed `flwr==1.36.0` and fits a
+single-script experiment far more simply than migrating to the full
+project-based workflow; if evaluators run this on a `flwr` release where
+`run_simulation` has actually been removed, this is the place to migrate.
+Flower also warns that Ray-based simulation on Windows is experimental —
+it ran correctly here (verified via a smoke test and the full 20-round run
+above), but Linux/WSL2 is Flower's recommended platform if issues appear
+on a different machine.
 
 ## Setup
 

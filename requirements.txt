@@ -7,6 +7,9 @@ plotly>=5.20
 requests>=2.31
 
 # Federated learning (Phase 4+)
+# Install torch from the CPU-only index to avoid pulling large CUDA wheels
+# on a machine with no GPU:
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
 torch>=2.2
 flwr[simulation]>=1.8
 
