@@ -34,12 +34,10 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 import matplotlib.pyplot as plt
 import pandas as pd
-import torch
 
 from src.data.load_dataset import load_and_preprocess
 from src.data.partition import add_local_train_test_split, create_hospital_partitions
-from src.models.nn_model import HeartDiseaseNet
-from src.models.nn_train import evaluate_nn, local_train
+from src.models.nn_baseline_runner import run_centralized_nn, run_local_nn
 
 RESULTS_DIR = PROJECT_ROOT / "experiments" / "results"
 
@@ -55,39 +53,6 @@ TOTAL_EPOCHS = N_ROUNDS * LOCAL_EPOCHS_PER_ROUND  # 100: same total local comput
 LEARNING_RATE = 0.01
 
 
-def run_local_nn(partitions, n_features) -> pd.DataFrame:
-    rows = []
-    for p in partitions:
-        torch.manual_seed(MODEL_SEED)
-        model = HeartDiseaseNet(n_features)
-        local_train(model, p.x_train, p.y_train, epochs=TOTAL_EPOCHS, lr=LEARNING_RATE)
-        metrics = evaluate_nn(model, p.x_test, p.y_test)
-        rows.append({"hospital": p.name, "n_train": len(p.x_train), **metrics})
-    return pd.DataFrame(rows)
-
-
-def run_centralized_nn(partitions, n_features) -> tuple[dict, pd.DataFrame]:
-    x_train_pooled = pd.concat([p.x_train for p in partitions], ignore_index=True)
-    y_train_pooled = pd.concat([p.y_train for p in partitions], ignore_index=True)
-    x_test_pooled = pd.concat([p.x_test for p in partitions], ignore_index=True)
-    y_test_pooled = pd.concat([p.y_test for p in partitions], ignore_index=True)
-
-    torch.manual_seed(MODEL_SEED)
-    model = HeartDiseaseNet(n_features)
-    local_train(model, x_train_pooled, y_train_pooled, epochs=TOTAL_EPOCHS, lr=LEARNING_RATE)
-
-    overall_metrics = evaluate_nn(model, x_test_pooled, y_test_pooled)
-    overall_metrics["n_train"] = len(x_train_pooled)
-
-    per_hospital_rows = []
-    for p in partitions:
-        metrics = evaluate_nn(model, p.x_test, p.y_test)
-        per_hospital_rows.append({"hospital": p.name, **metrics})
-    per_hospital_df = pd.DataFrame(per_hospital_rows)
-
-    return overall_metrics, per_hospital_df
-
-
 def main() -> None:
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -99,14 +64,14 @@ def main() -> None:
     print(f"Training Local NN and Centralized NN for {TOTAL_EPOCHS} epochs each "
           f"(= {N_ROUNDS} rounds x {LOCAL_EPOCHS_PER_ROUND} local epochs, matching FedAvg's per-client compute)\n")
 
-    local_df = run_local_nn(partitions, n_features)
+    local_df = run_local_nn(partitions, n_features, seed=MODEL_SEED, epochs=TOTAL_EPOCHS, lr=LEARNING_RATE)
     local_path = RESULTS_DIR / "phase4_local_nn.csv"
     local_df.to_csv(local_path, index=False)
     print("[Local NN] per-hospital results:")
     print(local_df.to_string(index=False))
     print(f"Saved to {local_path}\n")
 
-    central_overall, central_per_hospital = run_centralized_nn(partitions, n_features)
+    central_overall, central_per_hospital = run_centralized_nn(partitions, n_features, seed=MODEL_SEED, epochs=TOTAL_EPOCHS, lr=LEARNING_RATE)
     central_path = RESULTS_DIR / "phase4_centralized_nn_per_hospital.csv"
     central_per_hospital.to_csv(central_path, index=False)
     print(f"[Centralized NN] overall (pooled test set): {central_overall}")

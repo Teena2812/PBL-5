@@ -229,20 +229,45 @@ collaboration-strategy variable by holding the model fixed:
 **This is the result to actually cite for the FL research question**, and
 it does *not* fully match the naive hypothesis: FedAvg (0.829) slightly
 *outperforms* both Local NN and Centralized NN, which tie exactly at
-0.816. Report this honestly rather than forcing it into "Local ≤ FedAvg ≤
-Centralized" — a plausible explanation (not a proven one; this is a single
-seed, not verified across repeated runs) is that FedAvg's periodic weight
-averaging across 5 differently-skewed local datasets acts as an implicit
-regularizer on this very small NN (170 pooled training examples, only
-100 epochs, full-batch Adam), while Centralized training on the same
-architecture may overfit its single pooled dataset slightly more without
-that averaging effect. **For the final report:** rerun
-`phase4_fedavg.py` + `phase4_nn_baselines.py` across a few different
-`MODEL_INIT_SEED` values and report mean ± std, rather than relying on
-this one seed's exact numbers, before drawing a firm conclusion about
-whether FedAvg beats Centralized here.
+0.816.
 
-The learning curve (from the original `phase4_fedavg.py` run) rises
+#### Robustness check: does this hold across seeds, or was it noise?
+
+[`experiments/phase4_multiseed_comparison.py`](experiments/phase4_multiseed_comparison.py)
+reran all three settings (Local NN / FedAvg NN / Centralized NN, same
+architecture, same seed=117 partition / seed=42 local split) across 5
+different `MODEL_INIT_SEED` values (42, 1, 7, 123, 2024) — the *only*
+thing that varies between runs is the random initial network weights.
+Results (`experiments/results/phase4_multiseed_results.csv`,
+`phase4_multiseed_summary.csv`, `phase4_multiseed_comparison.png`):
+
+| Experiment | mean accuracy | std | min | max |
+|---|---|---|---|---|
+| Local NN | 0.805 | 0.017 | 0.789 | 0.829 |
+| **FedAvg NN** | **0.832** | **0.006** | 0.829 | 0.842 |
+| Centralized NN | 0.805 | 0.027 | 0.776 | 0.829 |
+
+**Confirmed — FedAvg's edge is not seed-specific noise.** Per-seed, FedAvg
+matched or beat Local NN in all 5 seeds and beat Centralized NN in 4/5
+(tied at seed=7). FedAvg also has by far the *lowest variance* (std=0.006
+vs. 0.017 for Local and 0.027 for Centralized) — four of the five seeds
+landed on nearly the same FedAvg accuracy (0.8290 / 0.8290 / 0.8290 /
+0.8290 / 0.8421), while Local and Centralized swing more with
+initialization. **This is the finding to lead with in the final report:**
+on this small NN and this dataset, federated averaging across 5
+non-IID hospitals is not just competitive with pooling all the data
+centrally — it is *more accurate on average and more stable across random
+initializations* than either training in isolation or training on the
+pooled data with this architecture. A plausible explanation (offered as
+a hypothesis, not a proven mechanism) is that FedAvg's periodic
+cross-client weight averaging acts as an implicit regularizer/ensembling
+effect on a network this small and data this limited (170-221 training
+examples). This 5-seed result is still a small sample for a formal
+statistical claim (no significance test was run) — treat it as strong
+supporting evidence, not statistical proof, in the write-up.
+
+The single-seed learning curve (from the original `phase4_fedavg.py`
+run, seed=42) rises
 quickly (round 1: 0.684 → round 4: 0.842) then plateaus/oscillates mildly
 around 0.82-0.83 for the remaining rounds — expected behavior for a
 full-batch, low-epoch-count NN on a dataset this small.

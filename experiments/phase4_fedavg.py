@@ -25,18 +25,10 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 import matplotlib.pyplot as plt
 import pandas as pd
-import torch
-from flwr.client import ClientApp
-from flwr.common import Context, ndarrays_to_parameters
-from flwr.server import ServerApp, ServerAppComponents, ServerConfig
-from flwr.server.strategy import FedAvg
-from flwr.simulation import run_simulation
 
 from src.data.load_dataset import load_and_preprocess
 from src.data.partition import add_local_train_test_split, create_hospital_partitions
-from src.federated.client import make_client_fn
-from src.federated.strategy_utils import MetricsRecorder
-from src.models.nn_model import HeartDiseaseNet, get_model_parameters
+from src.federated.fedavg_runner import run_fedavg_simulation, weighted_accuracy
 
 RESULTS_DIR = PROJECT_ROOT / "experiments" / "results"
 
@@ -49,10 +41,6 @@ MODEL_INIT_SEED = 42
 N_ROUNDS = 20
 LOCAL_EPOCHS = 5
 LEARNING_RATE = 0.01
-
-
-def fit_config_fn(server_round: int) -> dict:
-    return {"epochs": LOCAL_EPOCHS, "lr": LEARNING_RATE}
 
 
 def main() -> None:
@@ -69,54 +57,22 @@ def main() -> None:
     for p in partitions:
         print(f"  {p.name}: train={len(p.x_train)}, test={len(p.x_test)}")
 
-    torch.manual_seed(MODEL_INIT_SEED)
-    initial_model = HeartDiseaseNet(n_features)
-    initial_parameters = ndarrays_to_parameters(get_model_parameters(initial_model))
-
-    recorder = MetricsRecorder()
-
-    strategy = FedAvg(
-        fraction_fit=1.0,
-        fraction_evaluate=1.0,
-        min_fit_clients=N_CLIENTS,
-        min_evaluate_clients=N_CLIENTS,
-        min_available_clients=N_CLIENTS,
-        initial_parameters=initial_parameters,
-        on_fit_config_fn=fit_config_fn,
-        fit_metrics_aggregation_fn=recorder.record_fit,
-        evaluate_metrics_aggregation_fn=recorder.record_evaluate,
-    )
-
-    client_app = ClientApp(client_fn=make_client_fn(partitions, n_features, seed=MODEL_INIT_SEED))
-
-    def server_fn(context: Context) -> ServerAppComponents:
-        return ServerAppComponents(strategy=strategy, config=ServerConfig(num_rounds=N_ROUNDS))
-
-    server_app = ServerApp(server_fn=server_fn)
-
     print(f"\nRunning FedAvg simulation: {N_ROUNDS} rounds, {N_CLIENTS} clients, "
           f"{LOCAL_EPOCHS} local epochs/round, lr={LEARNING_RATE}\n")
 
-    run_simulation(
-        server_app=server_app,
-        client_app=client_app,
-        num_supernodes=N_CLIENTS,
-        backend_config={"client_resources": {"num_cpus": 1, "num_gpus": 0}},
+    per_round_df = run_fedavg_simulation(
+        partitions, n_features, model_init_seed=MODEL_INIT_SEED,
+        n_rounds=N_ROUNDS, local_epochs=LOCAL_EPOCHS, lr=LEARNING_RATE,
     )
-
-    per_round_df = recorder.to_dataframe()
     per_round_path = RESULTS_DIR / "phase4_fedavg_per_round_per_hospital.csv"
     per_round_df.to_csv(per_round_path, index=False)
     print(f"\nSaved per-round, per-hospital results to {per_round_path}")
 
     # Global weighted accuracy per round (sample-size weighted, same
     # convention as FedAvg's own aggregation), for the learning-curve chart.
-    def weighted_round_accuracy(group: pd.DataFrame) -> float:
-        return (group["accuracy"] * group["n_test"]).sum() / group["n_test"].sum()
-
     round_summary = (
         per_round_df.groupby("round")
-        .apply(weighted_round_accuracy, include_groups=False)
+        .apply(weighted_accuracy, include_groups=False)
         .reset_index(name="global_weighted_accuracy")
     )
     round_summary_path = RESULTS_DIR / "phase4_fedavg_round_summary.csv"
@@ -132,7 +88,7 @@ def main() -> None:
     print(final_per_hospital.to_string(index=False))
     print(f"Saved to {final_path}")
 
-    final_global_accuracy = weighted_round_accuracy(final_per_hospital.assign(round=final_round))
+    final_global_accuracy = weighted_accuracy(final_per_hospital)
     print(f"\n[FedAvg] final global weighted accuracy: {final_global_accuracy:.4f}")
 
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(13, 4.5))
