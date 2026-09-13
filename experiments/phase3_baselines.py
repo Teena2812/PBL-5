@@ -12,10 +12,11 @@ Phase 3 deliverable: Local ML and Centralized ML baseline experiments.
   only for comparison purposes.
 
 Both experiments use the SAME hospital partition and local train/test
-split (seed=8 for the Dirichlet partition, chosen in Phase 2 for balanced
-hospital sizes; seed=42 for the local train/test split) so that later
-FedAvg and Personalized FL experiments (Phase 4-5) can reuse this exact
-protocol and produce directly comparable numbers.
+split (seed=117 for the Dirichlet partition, chosen in Phase 2 for balanced
+hospital sizes with no single-class hospitals; seed=42 for the local
+train/test split) so that later FedAvg and Personalized FL experiments
+(Phase 4-5) can reuse this exact protocol and produce directly comparable
+numbers.
 
 Run from the project root:
     venv\\Scripts\\python.exe experiments\\phase3_baselines.py
@@ -38,7 +39,8 @@ RESULTS_DIR = PROJECT_ROOT / "experiments" / "results"
 
 N_CLIENTS = 5
 ALPHA = 0.5
-PARTITION_SEED = 8      # selected in Phase 2 for balanced hospital sizes
+PARTITION_SEED = 117     # selected in Phase 2: balanced sizes AND every hospital
+                          # has >= 5 samples of both classes (no single-class hospitals)
 SPLIT_SEED = 42          # local train/test split seed
 LOCAL_TEST_SIZE = 0.25
 MODEL_SEED = 42

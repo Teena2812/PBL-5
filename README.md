@@ -85,23 +85,40 @@ logic, and (3) scales to any number of clients. See
 for the reproducible report (summary table + chart, `experiments/results/`).
 
 **Seed selection.** Dirichlet label-skew controls class *proportions* per
-hospital, not hospital *size* — some seeds produced one hospital holding
-55%+ of all patients, which would let that hospital dominate FedAvg's
-sample-weighted aggregation and undermine the FedAvg-vs-personalized-FL
-comparison later. [`experiments/phase2_seed_search.py`](experiments/phase2_seed_search.py)
-searched seeds 1-50 at alpha=0.5, n=5 and selected **seed=8** as the
-default: no hospital holds more than 23.9% of patients (vs. worst-case
-seeds >55%), while disease rate still ranges from 0.0 to 0.97 across
-hospitals against a global rate of 0.46 — balanced enough for meaningful
-aggregation, still clearly non-IID.
+hospital, not hospital *size* or *minimum class count* — so a given seed can
+independently produce two different problems: (a) one hospital holding 55%+
+of all patients, which would let that hospital dominate FedAvg's
+sample-weighted aggregation, and (b) a hospital with **zero** examples of one
+class. (b) is the more serious problem: an earlier pass of this search
+(seed=42, then seed=8) optimized only for size balance and both times left a
+hospital with disease_rate 0.0 or 1.0 — a *single-class hospital*. That's not
+just a cosmetic issue with one baseline number: a single-class hospital
+can't fit Logistic Regression at all (its solver requires 2+ classes) and
+forces Random Forest into a degenerate majority-class predictor, and going
+into Phase 4-5 it would contribute no meaningful gradient signal for the
+missing class during federated training — a problem for FedAvg/FedProx
+itself, not just for reporting one baseline's accuracy.
+
+[`experiments/phase2_seed_search.py`](experiments/phase2_seed_search.py) was
+extended to search seeds 1-500 at alpha=0.5, n=5 under **two constraints
+together**: (1) low max hospital share of total patients, and (2) every
+hospital has **>= 5 samples of both classes**. Only 38/500 seeds satisfy
+both. Among those, **seed=117** was selected: max hospital share 27.6%
+(close to the best unconstrained value of 26.6%) with a comfortable
+class-count margin (min 8, vs. the 5 required) — reducing the number of
+simulated hospitals (to 4 or 3) was not needed since 5 hospitals already
+had enough valid seeds.
 
 | hospital | n_patients | disease_rate | mean_age | pct_female | dominant_cp_type |
 |---|---|---|---|---|---|
-| hospital_1 | 71 | 0.366 | 54.0 | 0.366 | 4 |
-| hospital_2 | 62 | 0.000 | 53.3 | 0.452 | 3 |
-| hospital_3 | 64 | 0.422 | 53.4 | 0.188 | 4 |
-| hospital_4 | 63 | 0.762 | 55.2 | 0.333 | 4 |
-| hospital_5 | 37 | 0.973 | 58.5 | 0.243 | 4 |
+| hospital_1 | 60 | 0.717 | 56.2 | 0.283 | 4 |
+| hospital_2 | 29 | 0.690 | 54.4 | 0.310 | 4 |
+| hospital_3 | 54 | 0.148 | 53.6 | 0.278 | 3 |
+| hospital_4 | 82 | 0.341 | 54.7 | 0.378 | 3 |
+| hospital_5 | 72 | 0.528 | 53.7 | 0.333 | 4 |
+
+Every hospital now has both classes present in both its local train and
+local test split (verified — see Phase 3 below); no hospital is single-class.
 
 ## Phase 3: Local ML vs Centralized ML baselines
 
@@ -117,29 +134,29 @@ Forest and Logistic Regression baselines, evaluates:
 - **Centralized ML**: one model trained on all hospitals' pooled training
   data, evaluated both overall (pooled test set) and per-hospital
 
-Results (`experiments/results/phase3_*.csv`, `phase3_local_vs_centralized.png`):
+Results (`experiments/results/phase3_*.csv`, `phase3_local_vs_centralized.png`),
+with the seed=117 partition (no single-class hospitals):
 
 | model | Local ML (mean/hospital) | Centralized ML (pooled) |
 |---|---|---|
-| random_forest | 0.834 | 0.921 |
-| logistic_regression | 0.848 | 0.855 |
+| random_forest | 0.833 | 0.842 |
+| logistic_regression | 0.819 | 0.855 |
 
-Direction matches the project hypothesis (Local ≤ Centralized) for both
-models, with Random Forest showing a clearer gap.
+Direction still matches the project hypothesis (Local ≤ Centralized) for
+both models, though the gap is smaller than under the earlier single-class
+seed — expected, since that seed's inflated "Local ML" accuracy (below) is
+gone.
 
-**Caveat for the write-up — read before citing these numbers:**
-hospital_2 has a disease rate of 0.0 (zero diseased patients in the whole
-partition, per the Phase 2 split). Its "model" is necessarily a
-majority-class `DummyClassifier` (Logistic Regression cannot fit a single
-class at all; Random Forest degenerates to the same behavior) that scores
-**accuracy = 1.0 but precision/recall/F1 = 0 and AUC = NaN** — it is
-correct only because every local test example happens to be the majority
-class, not because it learned anything. This inflates the "Local ML mean
-accuracy" figure above. **Do not report Local ML accuracy alone in the
-final paper** — report per-hospital F1/AUC breakdowns
-(`phase3_local_ml_*.csv`) alongside accuracy, and call out hospital_2 (and
-any other single-class hospital) as a known limitation of evaluating on
-tiny, extremely non-IID local test sets, not a modeling success.
+**Caveat for the write-up — read before citing these numbers:** every
+hospital now has both classes in its local test set, so there is no more
+single-class degeneracy. However, hospital_3 (disease_rate=0.148, only 8
+diseased patients total → 2 in its local test set of 14) still gets
+precision/recall/F1 = 0 from both models: with only 2 positive test
+examples, the model missed both. This is an honest small-sample /
+class-imbalance limitation of evaluating on tiny local hospital test sets
+(14-21 examples per hospital), not a single-class artifact — report it as
+such, and prefer per-hospital F1/AUC breakdowns
+(`phase3_local_ml_*.csv`) over accuracy alone when writing the final paper.
 
 ## Setup
 
