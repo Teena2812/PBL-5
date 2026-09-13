@@ -33,8 +33,8 @@ Layer 3 — Explainability: SHAP applied to every prediction (ranked feature con
 Following the 8-phase roadmap in `docs/proposal/`:
 
 - [x] Phase 1 — Literature survey, dataset & gap statement
-- [x] **Phase 2 — Dataset preprocessing; non-IID hospital splits** (this commit)
-- [ ] Phase 3 — Baseline: Local ML + Centralized ML
+- [x] Phase 2 — Dataset preprocessing; non-IID hospital splits
+- [x] **Phase 3 — Baseline: Local ML + Centralized ML** (this commit)
 - [ ] Phase 4 — Federated Learning (FedAvg via Flower)
 - [ ] Phase 5 — Personalization (FedProx) vs FedAvg comparison
 - [ ] Phase 6 — SHAP explainability integration
@@ -102,6 +102,44 @@ aggregation, still clearly non-IID.
 | hospital_3 | 64 | 0.422 | 53.4 | 0.188 | 4 |
 | hospital_4 | 63 | 0.762 | 55.2 | 0.333 | 4 |
 | hospital_5 | 37 | 0.973 | 58.5 | 0.243 | 4 |
+
+## Phase 3: Local ML vs Centralized ML baselines
+
+Each hospital's local data was split into a local train/test set
+(75/25, stratified where possible, seed=42) using
+[`add_local_train_test_split`](src/data/partition.py) — every later
+experiment (FedAvg, Personalized FL) will reuse this exact split so
+per-hospital results stay comparable across phases.
+
+Run: `venv\Scripts\python experiments\phase3_baselines.py` — trains Random
+Forest and Logistic Regression baselines, evaluates:
+- **Local ML**: each hospital's own model on its own local test set
+- **Centralized ML**: one model trained on all hospitals' pooled training
+  data, evaluated both overall (pooled test set) and per-hospital
+
+Results (`experiments/results/phase3_*.csv`, `phase3_local_vs_centralized.png`):
+
+| model | Local ML (mean/hospital) | Centralized ML (pooled) |
+|---|---|---|
+| random_forest | 0.834 | 0.921 |
+| logistic_regression | 0.848 | 0.855 |
+
+Direction matches the project hypothesis (Local ≤ Centralized) for both
+models, with Random Forest showing a clearer gap.
+
+**Caveat for the write-up — read before citing these numbers:**
+hospital_2 has a disease rate of 0.0 (zero diseased patients in the whole
+partition, per the Phase 2 split). Its "model" is necessarily a
+majority-class `DummyClassifier` (Logistic Regression cannot fit a single
+class at all; Random Forest degenerates to the same behavior) that scores
+**accuracy = 1.0 but precision/recall/F1 = 0 and AUC = NaN** — it is
+correct only because every local test example happens to be the majority
+class, not because it learned anything. This inflates the "Local ML mean
+accuracy" figure above. **Do not report Local ML accuracy alone in the
+final paper** — report per-hospital F1/AUC breakdowns
+(`phase3_local_ml_*.csv`) alongside accuracy, and call out hospital_2 (and
+any other single-class hospital) as a known limitation of evaluating on
+tiny, extremely non-IID local test sets, not a modeling success.
 
 ## Setup
 

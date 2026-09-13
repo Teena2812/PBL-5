@@ -36,6 +36,14 @@ class HospitalPartition:
     x: pd.DataFrame
     y: pd.Series
     demographics: dict = field(default_factory=dict)
+    # Local train/test split, populated by add_local_train_test_split().
+    # Every experiment (Local ML, Centralized ML, FedAvg, Personalized FL)
+    # trains on x_train/y_train and is evaluated on this hospital's own
+    # x_test/y_test, so per-hospital accuracy is comparable across phases.
+    x_train: pd.DataFrame | None = None
+    y_train: pd.Series | None = None
+    x_test: pd.DataFrame | None = None
+    y_test: pd.Series | None = None
 
     def __len__(self) -> int:
         return len(self.indices)
@@ -133,6 +141,43 @@ def create_hospital_partitions(
             x=subset_x,
             y=subset_y,
         ))
+    return partitions
+
+
+def add_local_train_test_split(
+    partitions: list[HospitalPartition],
+    test_size: float = 0.25,
+    seed: int = 42,
+) -> list[HospitalPartition]:
+    """
+    Splits each hospital's local data into a local train/test set, in place.
+
+    Used to give every experiment (Local ML, Centralized ML, and later
+    FedAvg/Personalized FL) the same evaluation protocol: train on
+    x_train/y_train, evaluate on this hospital's own held-out x_test/y_test,
+    so per-hospital accuracy is directly comparable across all experiments.
+
+    Stratifies by label when a hospital has 2+ samples of every class (most
+    hospitals); falls back to a plain random split for any hospital where a
+    class has too few samples to stratify (e.g. a hospital with disease_rate
+    of 0.0 or 1.0 from extreme Dirichlet skew).
+    """
+    from sklearn.model_selection import train_test_split
+
+    for p in partitions:
+        class_counts = p.y.value_counts()
+        can_stratify = (class_counts >= 2).all() and len(class_counts) > 1
+        x_train, x_test, y_train, y_test = train_test_split(
+            p.x, p.y,
+            test_size=test_size,
+            random_state=seed,
+            stratify=p.y if can_stratify else None,
+        )
+        p.x_train = x_train.reset_index(drop=True)
+        p.y_train = y_train.reset_index(drop=True)
+        p.x_test = x_test.reset_index(drop=True)
+        p.y_test = y_test.reset_index(drop=True)
+
     return partitions
 
 
