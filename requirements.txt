@@ -1,0 +1,20 @@
+# Core data / ML
+numpy>=1.26
+pandas==2.2.3  # pinned: pandas>=3.0 DLL is blocked by this machine's Windows Application Control policy
+scikit-learn>=1.4
+matplotlib>=3.8
+plotly>=5.20
+requests>=2.31
+
+# Federated learning (Phase 4+)
+torch>=2.2
+flwr[simulation]>=1.8
+
+# Explainability (Phase 6+)
+shap>=0.45
+
+# Backend / frontend glue (Phase 7+)
+fastapi>=0.110
+uvicorn[standard]>=0.29
+supabase>=2.4
+pydantic>=2.6
