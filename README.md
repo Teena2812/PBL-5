@@ -441,9 +441,39 @@ python -m venv venv
 venv\Scripts\pip install -r requirements.txt
 ```
 
-> Note: on this development machine, `pandas>=3.0` failed to import due to a
-> Windows Application Control policy blocking one of its DLLs. `pandas` is
-> pinned to `2.2.3` in `requirements.txt`, which works correctly.
+> **Environment note (as of Phase 6):** on this development machine,
+> Windows **Smart App Control** is ON and blocks native ML library DLLs
+> under an "Application Control policy" — confirmed via Event Viewer.
+> `pandas>=3.0` and `matplotlib>=3.9` were worked around with version pins
+> (below), but `shap`'s dependency chain (`numba`, then several
+> `scikit-learn` submodules) triggered a worsening whack-a-mole of blocked
+> files that pinning could not resolve — and, critically, Smart App Control
+> **cannot be turned off without a full Windows reinstall**. A fresh venv
+> still hits the same block, confirming it's a machine-wide policy, not a
+> dependency-version issue.
+>
+> **Going forward, Google Colab is the primary execution environment for
+> this project** (see [`notebooks/phase6_colab.ipynb`](notebooks/phase6_colab.ipynb)),
+> starting with Phase 6. The local machine is used for editing code/docs
+> and git operations only — not for running experiments. Phases 1-5 were
+> fully verified locally before this switch and their results are trusted;
+> Phase 6 onward is verified on Colab instead.
+>
+> `pandas` is pinned to `2.2.3` and `matplotlib` to `3.8.4` in
+> `requirements.txt` for the LOCAL environment (both worked around this
+> machine's DLL blocks before the SHAP issue forced the Colab switch) —
+> neither pin should be necessary on Colab, but they're kept so a Colab run
+> reproduces the exact same versions used for every phase's committed
+> results.
+
+## Running on Google Colab
+
+Open [`notebooks/phase6_colab.ipynb`](notebooks/phase6_colab.ipynb) in
+Colab (File → Open notebook → GitHub → paste this repo's URL, or use
+`https://colab.research.google.com/github/Teena2812/PBL-5/blob/master/notebooks/phase6_colab.ipynb`
+directly), then Runtime → Run all. It clones this repo, installs
+`requirements.txt` fresh, re-verifies Phase 3-5 reproduce their committed
+results, and runs Phase 6's SHAP analysis. No GPU needed.
 
 ## Running Phase 2
 
