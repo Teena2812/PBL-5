@@ -2,7 +2,7 @@
 numpy>=1.26
 pandas==2.2.3  # pinned: pandas>=3.0 DLL is blocked by this machine's Windows Application Control policy
 scikit-learn>=1.4
-matplotlib>=3.8
+matplotlib==3.8.4  # pinned: matplotlib>=3.9's _c_internal_utils DLL is blocked by this machine's Windows Application Control policy (same class of issue as the pandas pin above)
 plotly>=5.20
 requests>=2.31
 

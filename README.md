@@ -371,8 +371,9 @@ Results (`experiments/results/phase5_multiseed_results.csv`,
 | **Personalized (FedProx + fine-tuning)** | **0.832** | 0.011 | 0.816 | 0.842 |
 | Centralized NN | 0.805 | 0.027 | 0.776 | 0.829 |
 
-**This is a genuinely mixed result, and it's reported honestly rather than
-forced into a clean "personalization wins" story:**
+**On the single global, sample-weighted accuracy number, this is a
+genuinely mixed result, reported honestly rather than forced into a clean
+"personalization wins" story:**
 
 - **FedProx's proximal term alone (before fine-tuning) is not a win over
   plain FedAvg** — its mean (0.818) is *lower* than FedAvg's (0.832) across
@@ -383,27 +384,55 @@ forced into a clean "personalization wins" story:**
   (0.832 both), but does **not exceed it** on average. Per-seed, Personalized
   beat FedAvg in 2/5 seeds (42, 123), was about equal in 1/5 (seed 7), and
   was *worse* in 2/5 (seeds 1, 2024) — see `phase5_multiseed_results.csv`
-  for the exact matched numbers. So at the level of one **global,
-  sample-weighted accuracy number**, this run does not support a claim that
-  FedProx+fine-tuning beats FedAvg overall.
-- **However**, the single-seed (seed=42) per-hospital breakdown above told
-  a different, more encouraging story: personalization raised hospital_1's
-  individual accuracy from 0.733 to 0.867 without hurting any other
-  hospital. A global sample-weighted mean is dominated by the largest
-  hospitals (hospital_4 has 82 patients vs. hospital_2's 29) and can hide
-  exactly this kind of improvement for a smaller, underserved hospital.
-  **This equity angle — does personalization consistently help the
-  worst-performing hospital, even when it doesn't move the global mean? —
-  was only checked at one seed here and is a clear next step**: rerun with
-  per-hospital (not just global) accuracy captured at every seed, and
-  compare each seed's *worst-hospital* accuracy under FedAvg vs
-  Personalized, not just the global weighted mean.
+  for the exact matched numbers. So at the level of a global weighted-mean
+  accuracy, this run does not support a claim that FedProx+fine-tuning
+  beats FedAvg overall.
 
-**For the final report:** present both findings — the global-accuracy
-comparison above (honest, mixed) and the per-hospital equity story from the
-single-seed detailed run — rather than only the more flattering one. If
-time allows, extend the multi-seed script to capture per-hospital results
-per seed to properly test the equity claim before finalizing.
+### The headline finding: the equity metric
+
+A global sample-weighted mean is dominated by the largest hospitals
+(hospital_4 has 82 patients vs. hospital_2's 29) and can hide exactly the
+kind of improvement that matters for **this project's actual hypothesis**
+([`docs/proposal/01_Problem_Definition.md`](docs/proposal/01_Problem_Definition.md)):
+personalization should help the **worst-served** hospital, not necessarily
+move the global average.
+
+[`experiments/phase5_equity_analysis.py`](experiments/phase5_equity_analysis.py)
+tests this directly, across the same 5 seeds: for each seed, find the
+hospital with the *lowest* accuracy under plain FedAvg, then check whether
+FedProx + local fine-tuning improved *that specific hospital's* accuracy.
+(Note: `phase5_multiseed_comparison.py` above only saved each seed's global
+weighted accuracy, not the per-hospital breakdown, so this required a
+separate, targeted rerun — same partition/split/seeds as everywhere else,
+just with per-hospital results actually captured this time.)
+
+| seed | worst-served hospital (FedAvg) | FedAvg accuracy | Personalized accuracy | Δ |
+|---|---|---|---|---|
+| 42 | hospital_1 | 0.733 | 0.867 | +13.3 pp |
+| 1 | hospital_1 | 0.733 | 0.800 | +6.7 pp |
+| 7 | hospital_1 | 0.733 | 0.867 | +13.3 pp |
+| 123 | hospital_1 | 0.733 | 0.867 | +13.3 pp |
+| 2024 | hospital_2 | 0.750 | 0.750 | +0.0 pp |
+
+(`experiments/results/phase5_equity_analysis.csv`,
+`phase5_equity_analysis.png`)
+
+**Personalization improved the worst-performing hospital in 4/5 seeds, by
+an average of +11.67 percentage points among the seeds where it improved
+(+9.34 pp averaged across all 5 seeds, including the one flat case).**
+hospital_1 was the worst-served hospital under FedAvg in 4/5 seeds
+(consistently at 0.733 accuracy — FedAvg's per-hospital results were very
+stable across seeds, matching Phase 4's low-variance finding), and
+personalization helped it every one of those 4 times, never made it worse.
+In the fifth seed (2024), hospital_2 was worst-served instead, and
+fine-tuning left it exactly unchanged (delta=0.0) rather than helping —
+an honest null result for that one case, not hidden.
+
+**This is the result to lead with in the final report.** It directly
+answers the project's core research question in a way the global-accuracy
+comparison alone could not: personalization's real value here is in
+protecting/improving the worst-off participant, which a single pooled
+accuracy metric can mask.
 
 ## Setup
 
