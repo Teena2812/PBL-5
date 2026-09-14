@@ -36,7 +36,7 @@ Following the 8-phase roadmap in `docs/proposal/`:
 - [x] Phase 2 — Dataset preprocessing; non-IID hospital splits
 - [x] Phase 3 — Baseline: Local ML + Centralized ML
 - [x] **Phase 4 — Federated Learning (FedAvg via Flower)** (this commit)
-- [ ] Phase 5 — Personalization (FedProx) vs FedAvg comparison
+- [x] **Phase 5 — Personalization (FedProx) vs FedAvg comparison** (this commit)
 - [ ] Phase 6 — SHAP explainability integration
 - [ ] Phase 7 — FastAPI backend + React dashboard
 - [ ] Phase 8 — Results compilation, research paper draft
@@ -266,6 +266,16 @@ examples). This 5-seed result is still a small sample for a formal
 statistical claim (no significance test was run) — treat it as strong
 supporting evidence, not statistical proof, in the write-up.
 
+**TODO for the final report (not done yet, not blocking further phases):**
+1. Run a formal paired significance test (e.g. paired t-test) on the 5-seed
+   FedAvg-vs-Local and FedAvg-vs-Centralized results in
+   `phase4_multiseed_results.csv` — we now have the matched per-seed data
+   for it (same 5 `MODEL_INIT_SEED` values across all three settings).
+2. The "FedAvg beats Centralized" result is counter-intuitive and needs
+   careful discussion in the final report/paper. Keep the "implicit
+   regularization on a small NN" explanation framed explicitly as a
+   hypothesis to discuss, not a proven mechanism — do not state it as fact.
+
 The single-seed learning curve (from the original `phase4_fedavg.py`
 run, seed=42) rises
 quickly (round 1: 0.684 → round 4: 0.842) then plateaus/oscillates mildly
@@ -291,6 +301,109 @@ Flower also warns that Ray-based simulation on Windows is experimental —
 it ran correctly here (verified via a smoke test and the full 20-round run
 above), but Linux/WSL2 is Flower's recommended platform if issues appear
 on a different machine.
+
+## Phase 5: Personalization (FedProx + local fine-tuning)
+
+Two-layer personalization, matching the proposal's stated strategy:
+
+1. **FedProx** ([`src/federated/fedprox_runner.py`](src/federated/fedprox_runner.py)):
+   same federated training loop as FedAvg, but each hospital's local loss
+   gets a proximal term `(mu/2)||local - global||^2`
+   ([`src/models/nn_train.py`](src/models/nn_train.py), wired through
+   [`src/federated/client.py`](src/federated/client.py)'s `fit()`) that
+   keeps its local update from drifting too far from the shared global
+   model — using Flower's built-in `FedProx` strategy, which sends
+   `proximal_mu` in the fit config automatically.
+2. **Local fine-tuning** ([`src/federated/personalize.py`](src/federated/personalize.py)):
+   after FedProx training finishes, each hospital fine-tunes its own copy
+   of the trained global model for 10 more epochs on only its own local
+   training data (no proximal term this time — the point here is to let it
+   adapt), then is evaluated on its own local test set. This is the
+   "Personalized FL" result.
+
+**Choosing `proximal_mu`:** an informal sweep over {0, 0.01, 0.1, 1.0} at
+seed=42 gave final global weighted accuracy 0.8290 / 0.8290 / 0.8158 / 0.8289
+— note mu=0 exactly reproduces Phase 4's plain FedAvg result (a useful
+sanity check that the implementation is correct), and mu=0.01 / mu=1.0 were
+statistically indistinguishable from plain FedAvg in this single-seed test.
+**mu=0.1 was chosen because it's the only value that visibly changed
+training dynamics from vanilla FedAvg** — the smaller/larger values were
+too weak or too dominated by other loss terms to matter in this setup. This
+was not a rigorous hyperparameter search (single seed, 4 values); revisit
+with a proper sweep (and ideally per-mu multi-seed runs) for the final
+paper if time allows.
+
+Run: `venv\Scripts\python experiments\phase5_fedprox.py` (after Phase 4's
+scripts). Results in `experiments/results/phase5_*.csv` and
+`phase5_fedprox_personalization.png`.
+
+| Experiment | Global weighted accuracy |
+|---|---|
+| FedAvg (Phase 4, mu=0) | 0.829 |
+| FedProx (mu=0.1, before fine-tuning) | 0.816 |
+| **Personalized (FedProx + local fine-tuning)** | **0.842** |
+
+**Per-hospital: personalization helped exactly where it should.**
+hospital_1 — the weakest performer under the shared global model in both
+Phase 4's FedAvg (0.733) and Phase 5's FedProx (0.733) — improved to
+**0.867** after local fine-tuning (F1: 0.800 → 0.909). Every other
+hospital's accuracy was unchanged by fine-tuning (10 epochs at lr=0.01
+didn't flip any test predictions for hospitals whose local model was
+already a good fit). This is a genuinely encouraging result: personalization
+targeted the hospital that actually needed it, without hurting the others.
+
+#### Robustness check: does this hold across seeds?
+
+Following the same verified structure as Phase 4's multi-seed check,
+[`experiments/phase5_multiseed_comparison.py`](experiments/phase5_multiseed_comparison.py)
+reran Local NN / FedAvg NN / FedProx NN / Personalized / Centralized NN
+across the SAME 5 `MODEL_INIT_SEED` values as Phase 4 (42, 1, 7, 123, 2024),
+partition and local split held fixed.
+
+Results (`experiments/results/phase5_multiseed_results.csv`,
+`phase5_multiseed_summary.csv`, `phase5_multiseed_comparison.png`):
+
+| Experiment | mean accuracy | std | min | max |
+|---|---|---|---|---|
+| Local NN | 0.805 | 0.017 | 0.789 | 0.829 |
+| FedAvg NN | 0.832 | 0.006 | 0.829 | 0.842 |
+| FedProx NN (before fine-tuning) | 0.818 | 0.014 | 0.803 | 0.842 |
+| **Personalized (FedProx + fine-tuning)** | **0.832** | 0.011 | 0.816 | 0.842 |
+| Centralized NN | 0.805 | 0.027 | 0.776 | 0.829 |
+
+**This is a genuinely mixed result, and it's reported honestly rather than
+forced into a clean "personalization wins" story:**
+
+- **FedProx's proximal term alone (before fine-tuning) is not a win over
+  plain FedAvg** — its mean (0.818) is *lower* than FedAvg's (0.832) across
+  all 5 seeds. This makes sense: constraining each hospital's local update
+  to stay close to the global model trades away some of the local
+  adaptation that seemed to be helping FedAvg in Phase 4's finding.
+- **Local fine-tuning recovers that loss and ties FedAvg's mean exactly**
+  (0.832 both), but does **not exceed it** on average. Per-seed, Personalized
+  beat FedAvg in 2/5 seeds (42, 123), was about equal in 1/5 (seed 7), and
+  was *worse* in 2/5 (seeds 1, 2024) — see `phase5_multiseed_results.csv`
+  for the exact matched numbers. So at the level of one **global,
+  sample-weighted accuracy number**, this run does not support a claim that
+  FedProx+fine-tuning beats FedAvg overall.
+- **However**, the single-seed (seed=42) per-hospital breakdown above told
+  a different, more encouraging story: personalization raised hospital_1's
+  individual accuracy from 0.733 to 0.867 without hurting any other
+  hospital. A global sample-weighted mean is dominated by the largest
+  hospitals (hospital_4 has 82 patients vs. hospital_2's 29) and can hide
+  exactly this kind of improvement for a smaller, underserved hospital.
+  **This equity angle — does personalization consistently help the
+  worst-performing hospital, even when it doesn't move the global mean? —
+  was only checked at one seed here and is a clear next step**: rerun with
+  per-hospital (not just global) accuracy captured at every seed, and
+  compare each seed's *worst-hospital* accuracy under FedAvg vs
+  Personalized, not just the global weighted mean.
+
+**For the final report:** present both findings — the global-accuracy
+comparison above (honest, mixed) and the per-hospital equity story from the
+single-seed detailed run — rather than only the more flattering one. If
+time allows, extend the multi-seed script to capture per-hospital results
+per seed to properly test the equity claim before finalizing.
 
 ## Setup
 

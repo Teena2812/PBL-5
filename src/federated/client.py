@@ -1,14 +1,21 @@
 """
 Flower NumPyClient wrapping HeartDiseaseNet for one simulated hospital.
 
-Each client trains locally with src.models.nn_train.local_train (plain
-FedAvg here: mu=0, no proximal term) and evaluates with evaluate_nn, using
-the SAME local train/test split produced by src.data.partition for Local ML
-/ Centralized ML (Phase 3), so results stay comparable across phases.
+Each client trains locally with src.models.nn_train.local_train and
+evaluates with evaluate_nn, using the SAME local train/test split produced
+by src.data.partition for Local ML / Centralized ML (Phase 3), so results
+stay comparable across phases.
+
+Plain FedAvg (Phase 4) vs FedProx (Phase 5) is controlled entirely by
+whether the server sends a "proximal_mu" key in the fit config: Flower's
+built-in FedProx strategy adds it automatically (see
+src/federated/fedprox_runner.py); FedAvg's strategy never does, so
+config.get("proximal_mu", 0.0) defaults to plain FedAvg here.
 """
 
 from __future__ import annotations
 
+import torch
 from flwr.client import Client, NumPyClient
 from flwr.common import Context
 
@@ -28,10 +35,21 @@ class HospitalFlowerClient(NumPyClient):
         return get_model_parameters(self.model)
 
     def fit(self, parameters, config):
+        # Capture the global weights AS RECEIVED (before local training moves
+        # them) as the FedProx proximal anchor point -- ||local - global||^2
+        # is measured against this, not against whatever the local model
+        # drifts to during training.
+        global_params = [torch.tensor(p) for p in parameters]
         set_model_parameters(self.model, parameters)
+
         epochs = int(config.get("epochs", 5))
         lr = float(config.get("lr", 0.01))
-        local_train(self.model, self.partition.x_train, self.partition.y_train, epochs=epochs, lr=lr)
+        mu = float(config.get("proximal_mu", 0.0))
+
+        local_train(
+            self.model, self.partition.x_train, self.partition.y_train,
+            epochs=epochs, lr=lr, mu=mu, global_params=global_params,
+        )
         return get_model_parameters(self.model), len(self.partition.x_train), {
             "hospital": self.partition.name,
         }
