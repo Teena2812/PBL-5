@@ -37,7 +37,7 @@ Following the 8-phase roadmap in `docs/proposal/`:
 - [x] Phase 3 — Baseline: Local ML + Centralized ML
 - [x] **Phase 4 — Federated Learning (FedAvg via Flower)** (this commit)
 - [x] **Phase 5 — Personalization (FedProx) vs FedAvg comparison** (this commit)
-- [ ] Phase 6 — SHAP explainability integration
+- [x] **Phase 6 — SHAP explainability integration** (this commit; run on Colab)
 - [ ] Phase 7 — FastAPI backend + React dashboard
 - [ ] Phase 8 — Results compilation, research paper draft
 
@@ -433,6 +433,117 @@ answers the project's core research question in a way the global-accuracy
 comparison alone could not: personalization's real value here is in
 protecting/improving the worst-off participant, which a single pooled
 accuracy metric can mask.
+
+## Phase 6: Explainability (SHAP)
+
+Run on Google Colab (see the environment note above) via
+[`notebooks/phase6_colab.ipynb`](notebooks/phase6_colab.ipynb), which
+executes [`experiments/phase6_shap_analysis.py`](experiments/phase6_shap_analysis.py).
+Two analyses, per the proposal's stated plan:
+
+1. **Global explainability** — SHAP `TreeExplainer` (exact, fast) on the
+   Phase 3 Centralized ML Random Forest, over the full pooled test set.
+2. **Personalized explainability** — SHAP `KernelExplainer` (model-agnostic,
+   since there's no exact/fast SHAP method for an arbitrary small NN) on
+   hospital_1's Phase 5 personalized model — hospital_1 chosen because it's
+   the hospital personalization most reliably helped, per Phase 5's equity
+   analysis.
+
+Results in `experiments/results/phase6_shap_*.csv` / `*.png`.
+
+**Global feature importance (Random Forest, mean |SHAP value|), top 5:**
+
+| feature | mean \|SHAP\| |
+|---|---|
+| `ca` (number of major vessels colored by fluoroscopy) | 0.094 |
+| `thal_3` (thalassemia = normal) | 0.077 |
+| `oldpeak` (ST depression induced by exercise) | 0.061 |
+| `cp_4` (chest pain type = asymptomatic) | 0.054 |
+| `thal_7` (thalassemia = reversible defect) | 0.050 |
+
+**hospital_1's personalized NN produces an almost identical top-5** (`ca`,
+`thal_7`, `sex`, `cp_3`, `thal_3`) despite being a completely different
+model architecture (NN vs. Random Forest) trained on a very different,
+tiny, non-IID local dataset (hospital_1: n=45 train / 15 test, disease
+rate 0.717 vs. the pooled Random Forest's global rate of 0.46) —
+`ca` and thalassemia status dominate both.
+
+**Clinical plausibility: yes, this matches established Cleveland Heart
+Disease literature.** `ca`, `thal`, chest pain type (`cp`), `oldpeak`
+(exercise-induced ST depression), and `exang` (exercise-induced angina)
+are consistently reported as the strongest predictors for this exact
+dataset across the published literature reviewed in
+[`docs/proposal/03_Literature_Survey.md`](docs/proposal/03_Literature_Survey.md)
+and the broader UCI Heart Disease body of work — these are core cardiac
+stress-test and catheterization findings, not incidental demographic
+features. Example patient explanation
+(`phase6_shap_rf_example_patient.csv`/`.png`) shows the same features
+(`oldpeak`, `ca`, `thal_3`=0 i.e. *not* normal, `cp_4`, `thal_7`, `exang`)
+driving one specific prediction, all pushing toward disease — a concrete
+"Cholesterol +23%, Age +17%"-style panel as described in the proposal,
+just with the features this model actually relied on rather than assumed
+ones.
+
+**Caveat:** this is a plausibility check by a domain non-expert (SHAP
+rankings matching known literature themes), not a clinical validation by
+a cardiologist — note this distinction in the final report rather than
+overclaiming clinical validation.
+
+## Phase 7 prep: saving model checkpoints for live prediction
+
+Live single-patient prediction is a core Phase 7 dashboard feature, not a
+stretch goal — **inference and single-instance SHAP explanation only, no
+retraining ever happens in the live endpoint.**
+
+Checked first: Phases 4-5 never saved any model weights to disk — every
+FedAvg/FedProx/personalized model existed only in memory, used to compute
+metrics, then discarded when the script exited. Two things needed adding,
+not just the weights:
+
+1. **Preprocessing persistence.** Standardization (means/stds) and
+   categorical one-hot encoding were previously recomputed fresh from the
+   training data every run, never saved as a reusable artifact. A live
+   endpoint needs to transform a brand-new raw patient record into
+   *exactly* the vector the model was trained on. Fixed in
+   [`src/data/load_dataset.py`](src/data/load_dataset.py):
+   `compute_preprocessing_artifact()` / `save_preprocessing_artifact()` /
+   `load_preprocessing_artifact()` / `transform_new_patient()`. Along the
+   way, fixed an inconsistency where `cp`/`restecg`/`slope` produced
+   float-suffixed dummy column names (`cp_4.0`) while `thal` didn't
+   (`thal_3`) — all categorical columns are now cast to `int` consistently
+   before encoding (`cp_4`, not `cp_4.0`), so a new patient's raw integer
+   codes map unambiguously to column names. **Verified with a round-trip
+   test:** transforming patient #0's raw values through
+   `transform_new_patient()` reproduces the training pipeline's `X.iloc[0]`
+   exactly (`np.allclose` — confirmed locally, this part needs no torch/
+   sklearn so it works outside Colab).
+2. **Model checkpoints.** [`src/federated/personalize.py`](src/federated/personalize.py)
+   gained `personalize_per_hospital_with_models()` (returns the trained
+   model objects, not just metrics — the existing `personalize_per_hospital()`
+   is unchanged and now just calls it and discards the models, so Phase 5/6
+   aren't affected). [`experiments/save_personalized_models.py`](experiments/save_personalized_models.py)
+   reruns the exact Phase 5 pipeline (same seed=117 partition, seed=42
+   split/init, mu=0.1, 20 rounds, 10 fine-tune epochs) and saves each
+   hospital's final personalized model to
+   `experiments/results/models/{hospital}_personalized.pt`, plus
+   `preprocessing.json` and a `manifest.json` (architecture + per-hospital
+   test accuracy, for the backend to sanity-check what it loaded).
+
+**To run:** add a Colab notebook cell (`notebooks/phase6_colab.ipynb`,
+section 9) — needs torch/flwr, so per this project's Colab-primary
+policy it isn't run on the local machine. Its printed metrics should
+exactly match Phase 5's `[Personalized FL]` results, confirming nothing
+changed except that the models are now saved.
+
+**Feasibility confirmed for the planned dashboard feature:**
+- Loading a saved `state_dict` + running one forward pass is fast and
+  needs no training — straightforward.
+- Single-instance SHAP (`KernelExplainer`) is fast enough for an
+  interactive UI (sub-second to ~1-2s on this tiny NN with a small
+  background sample) but not instant — the UI should show it as "computing
+  explanation," not claim a truly live/real-time indicator.
+- Fully consistent with the "no live training" rule: only a forward pass
+  and a single-instance SHAP explanation happen at request time.
 
 ## Setup
 

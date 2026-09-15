@@ -76,8 +76,16 @@ def clean_and_engineer(df: pd.DataFrame) -> pd.DataFrame:
         print(f"Dropped {n_before - n_after} rows with missing values "
               f"({n_before} -> {n_after} rows).")
 
-    df["ca"] = df["ca"].astype(int)
-    df["thal"] = df["thal"].astype(int)
+    # Cast every categorical/count code column to int (not just ca/thal,
+    # which needed it to fix their missing-value float upcast). Without
+    # this, pd.get_dummies produces inconsistent column names ("cp_4.0" vs
+    # "thal_3") depending on which columns pandas happened to read as
+    # float64 -- harmless for training (the column names are just labels),
+    # but it makes the categorical_categories mapping in the preprocessing
+    # artifact (see compute_preprocessing_artifact) ambiguous for
+    # transforming a new raw patient record at inference time (Phase 7).
+    for col in ["ca", "thal", "cp", "restecg", "slope"]:
+        df[col] = df[col].astype(int)
 
     # Binarize target: 0 stays 0 (no disease), 1-4 (increasing severity) -> 1 (disease).
     df["target"] = (df["target"] > 0).astype(int)
@@ -126,6 +134,85 @@ def load_and_preprocess() -> tuple[pd.DataFrame, pd.Series, pd.DataFrame]:
     df_clean = clean_and_engineer(df_raw)
     x, y = build_feature_matrix(df_clean)
     return x, y, df_clean
+
+
+PREPROCESSING_ARTIFACT_PATH = (
+    Path(__file__).resolve().parents[2] / "experiments" / "results" / "models" / "preprocessing.json"
+)
+
+
+def compute_preprocessing_artifact(df_clean: pd.DataFrame, x: pd.DataFrame) -> dict:
+    """
+    Captures everything needed to transform a NEW raw patient record into
+    the exact numeric vector a trained model expects (Phase 7's live
+    prediction endpoint): standardization constants, the categorical
+    dummy-column mapping, and the final column order. Without this, a live
+    endpoint has no way to reproduce build_feature_matrix()'s encoding for
+    a single new patient outside the training pipeline.
+    """
+    means = df_clean[NUMERIC_FEATURES].mean()
+    stds = df_clean[NUMERIC_FEATURES].std()
+
+    categorical_categories = {
+        feature: sorted(df_clean[feature].unique().tolist())
+        for feature in CATEGORICAL_FEATURES
+    }
+
+    return {
+        "numeric_features": NUMERIC_FEATURES,
+        "binary_features": BINARY_FEATURES,
+        "categorical_features": CATEGORICAL_FEATURES,
+        "categorical_categories": categorical_categories,
+        "means": {f: float(means[f]) for f in NUMERIC_FEATURES},
+        "stds": {f: float(stds[f]) for f in NUMERIC_FEATURES},
+        "feature_order": list(x.columns),
+    }
+
+
+def save_preprocessing_artifact(artifact: dict, path: Path = PREPROCESSING_ARTIFACT_PATH) -> Path:
+    import json
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(artifact, indent=2), encoding="utf-8")
+    return path
+
+
+def load_preprocessing_artifact(path: Path = PREPROCESSING_ARTIFACT_PATH) -> dict:
+    import json
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def transform_new_patient(raw: dict, artifact: dict) -> pd.DataFrame:
+    """
+    Transforms ONE new raw patient record (a flat dict with keys age, sex,
+    cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca,
+    thal -- the original UCI feature codes, e.g. cp one of {1,2,3,4}) into
+    a single-row DataFrame matching the exact column order and encoding a
+    trained model expects. Used only for live inference (Phase 7) -- never
+    for anything that would need to be reproduced exactly for training.
+
+    Raises KeyError if a required raw feature is missing, and ValueError if
+    a categorical feature's value was never seen during training (the
+    artifact's categorical_categories lists what's valid).
+    """
+    row = {}
+
+    for f in artifact["numeric_features"]:
+        row[f] = (float(raw[f]) - artifact["means"][f]) / artifact["stds"][f]
+
+    for f in artifact["binary_features"]:
+        row[f] = float(raw[f])
+
+    for f in artifact["categorical_features"]:
+        value = raw[f]
+        categories = artifact["categorical_categories"][f]
+        if value not in categories:
+            raise ValueError(
+                f"'{f}'={value!r} was never seen during training (valid values: {categories})"
+            )
+        for c in categories:
+            row[f"{f}_{c}"] = 1.0 if value == c else 0.0
+
+    return pd.DataFrame([row])[artifact["feature_order"]]
 
 
 def save_processed(x: pd.DataFrame, y: pd.Series) -> Path:
