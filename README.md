@@ -628,6 +628,43 @@ training (no gradients, no `local_train()` call anywhere in this module).
 Run: `venv\Scripts\uvicorn src.backend.main:app --reload` (add `--port` to
 change from the default 8000). Interactive docs at `/docs`.
 
+## Phase 7, step 3: React frontend (Screen 1 — Overview)
+
+`src/frontend/` — a Vite + React app, one screen built so far (of 7
+planned: Overview, Hospitals, Experiment Comparison, Training Curves,
+Equity Analysis, Explainability, Predict Risk — the other 6 are routed
+placeholders for now, built one at a time).
+
+| File | Role |
+|---|---|
+| [`api/client.js`](src/frontend/src/api/client.js) | Axios client, one function per backend endpoint |
+| [`hooks/useApiData.js`](src/frontend/src/hooks/useApiData.js) | Shared fetch-on-mount hook (`{data, loading, error}`) every screen uses |
+| [`components/Sidebar.jsx`](src/frontend/src/components/Sidebar.jsx) | Nav — all 7 routes, active-link highlighting |
+| [`pages/Overview.jsx`](src/frontend/src/pages/Overview.jsx) | Screen 1: privacy banner, stat cards, global-accuracy bar chart (Recharts), per-hospital accuracy table |
+
+**Environment note:** Vite 8's default bundler (`rolldown-vite`, a Rust
+binary) hit the exact same Smart App Control block as `sklearn`/`shap`/
+`matplotlib` before it (`Cannot find native binding ... Application
+Control policy has blocked this file`, on `@rolldown/binding-win32-x64-msvc`).
+Pinned `vite` to `^5.4.0` (the pre-rolldown, esbuild/rollup-based engine)
+in `src/frontend/package.json`, which boots cleanly — same fix pattern as
+the Python pins, just for Node this time. Unlike the Python ML stack, this
+one was fixable with a version pin rather than needing Colab, so the
+frontend runs and was verified on the local machine.
+
+**Verified in a real browser** (backend running locally on port 8000,
+`live_prediction_available: false` as expected without torch, frontend on
+Vite's dev server): Overview screen renders with live data from all 4
+data endpoints it uses, all four stat cards show correct values (5
+hospitals, 297 patients, 20 rounds, 88.9% best personalized accuracy),
+the accuracy bar chart and per-hospital table match the committed numbers
+exactly, sidebar navigation and active-link highlighting work, and
+placeholder pages render for the unbuilt screens. Zero console errors.
+
+Run: `cd src/frontend && npm install && npm run dev` (needs the backend
+running separately for data to load — see Phase 7 step 2 above). Set
+`VITE_API_BASE_URL` to point at a non-default backend URL.
+
 ## Setup
 
 ```bash
