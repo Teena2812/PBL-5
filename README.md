@@ -600,12 +600,24 @@ and a real `uvicorn` process on port 8123:
 - Invalid patient input (e.g. `age=-5`) correctly returns `422` (Pydantic validation)
 - `/docs` (Swagger UI) loads
 
-**Not yet verified:** an actual successful prediction — that needs
-torch/shap, so it can only be tested where those are installed (Colab, or
-wherever this backend eventually deploys). The prediction/explanation
-logic in `inference.py` mirrors `experiments/phase6_shap_analysis.py`'s
-already-verified SHAP code path closely, but hasn't itself been executed
-end-to-end yet.
+**Verified end-to-end on Colab** (`notebooks/phase6_colab.ipynb`, section
+10 — starts the backend as a real background process, sends real HTTP
+requests, checks error paths, stops the server):
+- `POST /api/predict` returns a correct `200` response for all 5
+  hospitals' personalized checkpoints (not just one) — each with a
+  plausible predicted probability, risk level, and single-instance SHAP
+  explanation. `oldpeak` consistently showed as risk-increasing across
+  hospitals, matching the clinical pattern from Phase 6's global
+  explainability results, and each response's `base_value` + SHAP
+  breakdown was internally consistent.
+- Error paths correctly return `400` (unknown `hospital_id`; an
+  in-range-but-untrained category — e.g. `thal=4`, since `thal`'s valid
+  trained categories `{3, 6, 7}` are non-sequential so its Pydantic bound
+  is deliberately loose enough to admit them, leaving room in between for
+  the app-level category check to catch) vs `422` (Pydantic-level
+  violations like `age=-5` or a clearly out-of-bounds `thal=99` — a
+  different, earlier validation layer, not the same code path as the 400
+  case above).
 
 **No live retraining, by design:** `get_partitions()` in `inference.py`
 recomputes the same deterministic Dirichlet partition (seed=117) and local
