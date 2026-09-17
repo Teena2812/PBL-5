@@ -571,6 +571,51 @@ pandas, so it runs fine locally despite the Smart App Control block.
 Run: `venv\Scripts\python experiments\export_dashboard_data.py`. Re-run
 whenever any upstream CSV changes, before starting/restarting the backend.
 
+## Phase 7, step 2: FastAPI backend
+
+Single central backend (`src/backend/`), per the locked architecture — one
+FastAPI app for the whole system, not one per hospital.
+
+| File | Role |
+|---|---|
+| [`main.py`](src/backend/main.py) | App setup, CORS, `/api/health`, `POST /api/predict` |
+| [`data_routes.py`](src/backend/data_routes.py) | 6 GET endpoints serving the Phase 7-step-1 JSON files as-is |
+| [`inference.py`](src/backend/inference.py) | Live prediction: load checkpoint → forward pass → single-instance SHAP. **No retraining code exists here at all.** |
+| [`schemas.py`](src/backend/schemas.py) | Pydantic request/response models, with clinical sanity bounds on `PatientInput` |
+
+**Designed to degrade gracefully, not crash, when torch/shap aren't
+installed** — relevant because the local dev machine can't install them
+(Smart App Control). `inference.py` imports torch/shap in a `try/except`
+at module load and sets `TORCH_AVAILABLE = False` on failure; every data
+endpoint is completely unaffected, and `POST /api/predict` returns a clear
+`503` with an explanatory message instead of crashing the whole app.
+`GET /api/health` reports `live_prediction_available` so the frontend can
+show a banner rather than silently failing.
+
+**Verified locally** (torch unavailable here) via FastAPI's `TestClient`
+and a real `uvicorn` process on port 8123:
+- All 6 data endpoints return `200` with the expected JSON structure
+- `GET /api/health` correctly reports `live_prediction_available: false`
+- `POST /api/predict` returns `503` (not a crash) with a clear message
+- Invalid patient input (e.g. `age=-5`) correctly returns `422` (Pydantic validation)
+- `/docs` (Swagger UI) loads
+
+**Not yet verified:** an actual successful prediction — that needs
+torch/shap, so it can only be tested where those are installed (Colab, or
+wherever this backend eventually deploys). The prediction/explanation
+logic in `inference.py` mirrors `experiments/phase6_shap_analysis.py`'s
+already-verified SHAP code path closely, but hasn't itself been executed
+end-to-end yet.
+
+**No live retraining, by design:** `get_partitions()` in `inference.py`
+recomputes the same deterministic Dirichlet partition (seed=117) and local
+split (seed=42) used everywhere else, purely to supply each hospital's
+`x_train` as the SHAP background sample — this is data loading, not model
+training (no gradients, no `local_train()` call anywhere in this module).
+
+Run: `venv\Scripts\uvicorn src.backend.main:app --reload` (add `--port` to
+change from the default 8000). Interactive docs at `/docs`.
+
 ## Setup
 
 ```bash
