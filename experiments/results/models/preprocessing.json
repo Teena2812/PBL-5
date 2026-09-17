@@ -1,0 +1,84 @@
+{
+  "numeric_features": [
+    "age",
+    "trestbps",
+    "chol",
+    "thalach",
+    "oldpeak",
+    "ca"
+  ],
+  "binary_features": [
+    "sex",
+    "fbs",
+    "exang"
+  ],
+  "categorical_features": [
+    "cp",
+    "restecg",
+    "slope",
+    "thal"
+  ],
+  "categorical_categories": {
+    "cp": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "restecg": [
+      0,
+      1,
+      2
+    ],
+    "slope": [
+      1,
+      2,
+      3
+    ],
+    "thal": [
+      3,
+      6,
+      7
+    ]
+  },
+  "means": {
+    "age": 54.54208754208754,
+    "trestbps": 131.69360269360268,
+    "chol": 247.35016835016836,
+    "thalach": 149.5993265993266,
+    "oldpeak": 1.0555555555555556,
+    "ca": 0.6767676767676768
+  },
+  "stds": {
+    "age": 9.049735681096765,
+    "trestbps": 17.762806366598998,
+    "chol": 51.99758253513897,
+    "thalach": 22.941562061360813,
+    "oldpeak": 1.1661227818468953,
+    "ca": 0.93896452630245
+  },
+  "feature_order": [
+    "age",
+    "trestbps",
+    "chol",
+    "thalach",
+    "oldpeak",
+    "ca",
+    "sex",
+    "fbs",
+    "exang",
+    "cp_1",
+    "cp_2",
+    "cp_3",
+    "cp_4",
+    "restecg_0",
+    "restecg_1",
+    "restecg_2",
+    "slope_1",
+    "slope_2",
+    "slope_3",
+    "thal_3",
+    "thal_6",
+    "thal_7"
+  ]
+}
