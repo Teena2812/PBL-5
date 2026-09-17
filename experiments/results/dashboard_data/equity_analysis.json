@@ -1,0 +1,113 @@
+{
+  "per_seed": [
+    {
+      "seed": 42,
+      "worst_hospital": "hospital_1",
+      "fedavg_accuracy": 0.7333,
+      "personalized_accuracy": 0.8667,
+      "delta": 0.1334,
+      "improved": true
+    },
+    {
+      "seed": 1,
+      "worst_hospital": "hospital_1",
+      "fedavg_accuracy": 0.7333,
+      "personalized_accuracy": 0.8,
+      "delta": 0.0667,
+      "improved": true
+    },
+    {
+      "seed": 7,
+      "worst_hospital": "hospital_1",
+      "fedavg_accuracy": 0.7333,
+      "personalized_accuracy": 0.8667,
+      "delta": 0.1334,
+      "improved": true
+    },
+    {
+      "seed": 123,
+      "worst_hospital": "hospital_1",
+      "fedavg_accuracy": 0.7333,
+      "personalized_accuracy": 0.8667,
+      "delta": 0.1334,
+      "improved": true
+    },
+    {
+      "seed": 2024,
+      "worst_hospital": "hospital_2",
+      "fedavg_accuracy": 0.75,
+      "personalized_accuracy": 0.75,
+      "delta": 0.0,
+      "improved": false
+    }
+  ],
+  "phase4_multiseed_summary": [
+    {
+      "experiment": "Local NN",
+      "mean_accuracy": 0.8053,
+      "std_accuracy": 0.0172,
+      "min_accuracy": 0.7895,
+      "max_accuracy": 0.829,
+      "n_seeds": 5
+    },
+    {
+      "experiment": "FedAvg NN",
+      "mean_accuracy": 0.8316,
+      "std_accuracy": 0.0059,
+      "min_accuracy": 0.829,
+      "max_accuracy": 0.8421,
+      "n_seeds": 5
+    },
+    {
+      "experiment": "Centralized NN",
+      "mean_accuracy": 0.8052,
+      "std_accuracy": 0.027,
+      "min_accuracy": 0.7763,
+      "max_accuracy": 0.8289,
+      "n_seeds": 5
+    }
+  ],
+  "phase5_multiseed_summary": [
+    {
+      "experiment": "Local NN",
+      "mean_accuracy": 0.8053,
+      "std_accuracy": 0.0172,
+      "min_accuracy": 0.7895,
+      "max_accuracy": 0.829,
+      "n_seeds": 5
+    },
+    {
+      "experiment": "FedAvg NN",
+      "mean_accuracy": 0.8316,
+      "std_accuracy": 0.0059,
+      "min_accuracy": 0.829,
+      "max_accuracy": 0.8421,
+      "n_seeds": 5
+    },
+    {
+      "experiment": "FedProx NN",
+      "mean_accuracy": 0.8184,
+      "std_accuracy": 0.0144,
+      "min_accuracy": 0.8026,
+      "max_accuracy": 0.8421,
+      "n_seeds": 5
+    },
+    {
+      "experiment": "Personalized (FedProx+FT)",
+      "mean_accuracy": 0.8316,
+      "std_accuracy": 0.011,
+      "min_accuracy": 0.8158,
+      "max_accuracy": 0.8421,
+      "n_seeds": 5
+    },
+    {
+      "experiment": "Centralized NN",
+      "mean_accuracy": 0.8052,
+      "std_accuracy": 0.027,
+      "min_accuracy": 0.7763,
+      "max_accuracy": 0.8289,
+      "n_seeds": 5
+    }
+  ],
+  "headline": "Personalization improved the worst-performing hospital in 4/5 seeds, by an average of +11.67 percentage points among the seeds where it improved (+9.34 pp across all 5, including one flat case)."
+}

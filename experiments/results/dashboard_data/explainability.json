@@ -1,0 +1,214 @@
+{
+  "rf_global_importance": [
+    {
+      "feature": "ca",
+      "mean_abs_shap": 0.0937036858797282
+    },
+    {
+      "feature": "thal_3",
+      "mean_abs_shap": 0.0773126208336605
+    },
+    {
+      "feature": "oldpeak",
+      "mean_abs_shap": 0.0612732610191246
+    },
+    {
+      "feature": "cp_4.0",
+      "mean_abs_shap": 0.054495224688556
+    },
+    {
+      "feature": "thal_7",
+      "mean_abs_shap": 0.0499479032172819
+    },
+    {
+      "feature": "slope_1.0",
+      "mean_abs_shap": 0.0368802557129132
+    },
+    {
+      "feature": "exang",
+      "mean_abs_shap": 0.0339335736901477
+    },
+    {
+      "feature": "chol",
+      "mean_abs_shap": 0.0313719402266854
+    },
+    {
+      "feature": "age",
+      "mean_abs_shap": 0.0312331067316165
+    },
+    {
+      "feature": "thalach",
+      "mean_abs_shap": 0.0309832168608956
+    },
+    {
+      "feature": "slope_2.0",
+      "mean_abs_shap": 0.0235296543423045
+    },
+    {
+      "feature": "sex",
+      "mean_abs_shap": 0.0222671205779539
+    },
+    {
+      "feature": "cp_3.0",
+      "mean_abs_shap": 0.0161044248848875
+    },
+    {
+      "feature": "restecg_2.0",
+      "mean_abs_shap": 0.0130863147214966
+    },
+    {
+      "feature": "restecg_0.0",
+      "mean_abs_shap": 0.010372012878446
+    },
+    {
+      "feature": "trestbps",
+      "mean_abs_shap": 0.0102177351385977
+    },
+    {
+      "feature": "cp_1.0",
+      "mean_abs_shap": 0.0039807822957947
+    },
+    {
+      "feature": "cp_2.0",
+      "mean_abs_shap": 0.0027566702734487
+    },
+    {
+      "feature": "fbs",
+      "mean_abs_shap": 0.0024718419658673
+    },
+    {
+      "feature": "thal_6",
+      "mean_abs_shap": 0.0011657463141764
+    },
+    {
+      "feature": "slope_3.0",
+      "mean_abs_shap": 0.0008445871346813
+    },
+    {
+      "feature": "restecg_1.0",
+      "mean_abs_shap": 0.0002736291863112
+    }
+  ],
+  "nn_hospital_1_importance": [
+    {
+      "feature": "ca",
+      "mean_abs_shap": 0.0943321235923324
+    },
+    {
+      "feature": "thal_7",
+      "mean_abs_shap": 0.0752558599714494
+    },
+    {
+      "feature": "sex",
+      "mean_abs_shap": 0.0563243388464279
+    },
+    {
+      "feature": "cp_3.0",
+      "mean_abs_shap": 0.0547832430200518
+    },
+    {
+      "feature": "thal_3",
+      "mean_abs_shap": 0.0452806053705799
+    },
+    {
+      "feature": "age",
+      "mean_abs_shap": 0.0267012032659538
+    },
+    {
+      "feature": "exang",
+      "mean_abs_shap": 0.0260370282126351
+    },
+    {
+      "feature": "cp_4.0",
+      "mean_abs_shap": 0.0238785387725477
+    },
+    {
+      "feature": "slope_1.0",
+      "mean_abs_shap": 0.0236881797558803
+    },
+    {
+      "feature": "oldpeak",
+      "mean_abs_shap": 0.0136449511401732
+    },
+    {
+      "feature": "thalach",
+      "mean_abs_shap": 0.0134219597640791
+    },
+    {
+      "feature": "trestbps",
+      "mean_abs_shap": 0.0053697252892669
+    },
+    {
+      "feature": "thal_6",
+      "mean_abs_shap": 0.0043050539115861
+    },
+    {
+      "feature": "restecg_2.0",
+      "mean_abs_shap": 0.0042768236856891
+    },
+    {
+      "feature": "restecg_0.0",
+      "mean_abs_shap": 0.003586007985552
+    },
+    {
+      "feature": "cp_2.0",
+      "mean_abs_shap": 0.0034586091525849
+    },
+    {
+      "feature": "chol",
+      "mean_abs_shap": 0.0030490677086465
+    },
+    {
+      "feature": "cp_1.0",
+      "mean_abs_shap": 0.0029868707892257
+    },
+    {
+      "feature": "slope_2.0",
+      "mean_abs_shap": 0.0029006870690982
+    },
+    {
+      "feature": "fbs",
+      "mean_abs_shap": 0.0006790471871232
+    },
+    {
+      "feature": "restecg_1.0",
+      "mean_abs_shap": 0.0
+    },
+    {
+      "feature": "slope_3.0",
+      "mean_abs_shap": 0.0
+    }
+  ],
+  "example_patient": [
+    {
+      "feature": "oldpeak",
+      "feature_value": 2.5249866397267864,
+      "shap_value": 0.0818452656798606
+    },
+    {
+      "feature": "ca",
+      "feature_value": 1.4092463412255647,
+      "shap_value": 0.0808868916910717
+    },
+    {
+      "feature": "thal_3",
+      "feature_value": 0.0,
+      "shap_value": 0.0671205528792447
+    },
+    {
+      "feature": "cp_4.0",
+      "feature_value": 1.0,
+      "shap_value": 0.0661479505441606
+    },
+    {
+      "feature": "thal_7",
+      "feature_value": 1.0,
+      "shap_value": 0.0472174565177726
+    },
+    {
+      "feature": "exang",
+      "feature_value": 1.0,
+      "shap_value": 0.044031675148799
+    }
+  ]
+}

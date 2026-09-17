@@ -1,0 +1,29 @@
+{
+  "dataset": {
+    "name": "UCI Heart Disease (Cleveland processed)",
+    "n_patients": 297,
+    "n_features": 22
+  },
+  "n_hospitals": 5,
+  "model_architecture": {
+    "class": "HeartDiseaseNet",
+    "hidden_sizes": [
+      16,
+      8
+    ]
+  },
+  "training": {
+    "n_rounds": 20,
+    "local_epochs": 5,
+    "fine_tune_epochs": 10,
+    "proximal_mu": 0.1
+  },
+  "global_accuracy": {
+    "local": 0.8158,
+    "fedavg": 0.829,
+    "centralized": 0.8158,
+    "fedprox": 0.8158,
+    "personalized": 0.8421
+  },
+  "privacy_statement": "Only model weight updates are shared during training -- no raw patient data ever left any simulated hospital. This is a research prototype using non-IID partitions of one public dataset, not a real multi-hospital deployment."
+}

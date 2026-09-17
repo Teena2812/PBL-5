@@ -1,0 +1,257 @@
+{
+  "global_accuracy": {
+    "local": 0.8158,
+    "fedavg": 0.829,
+    "centralized": 0.8158,
+    "fedprox": 0.8158,
+    "personalized": 0.8421
+  },
+  "per_hospital": {
+    "local": [
+      {
+        "hospital": "hospital_1",
+        "n_train": 45,
+        "n_test": 15,
+        "accuracy": 0.8,
+        "precision": 0.9,
+        "recall": 0.8182,
+        "f1": 0.8571,
+        "auc": 0.6591
+      },
+      {
+        "hospital": "hospital_2",
+        "n_train": 21,
+        "n_test": 8,
+        "accuracy": 0.875,
+        "precision": 1.0,
+        "recall": 0.8333,
+        "f1": 0.9091,
+        "auc": 0.9167
+      },
+      {
+        "hospital": "hospital_3",
+        "n_train": 40,
+        "n_test": 14,
+        "accuracy": 0.7857,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "auc": 0.5833
+      },
+      {
+        "hospital": "hospital_4",
+        "n_train": 61,
+        "n_test": 21,
+        "accuracy": 0.7619,
+        "precision": 0.625,
+        "recall": 0.7143,
+        "f1": 0.6667,
+        "auc": 0.8061
+      },
+      {
+        "hospital": "hospital_5",
+        "n_train": 54,
+        "n_test": 18,
+        "accuracy": 0.8889,
+        "precision": 0.8889,
+        "recall": 0.8889,
+        "f1": 0.8889,
+        "auc": 0.8765
+      }
+    ],
+    "fedavg": [
+      {
+        "hospital": "hospital_4",
+        "n_test": 21,
+        "accuracy": 0.9048,
+        "precision": 0.8571,
+        "recall": 0.8571,
+        "f1": 0.8571,
+        "auc": 0.9184
+      },
+      {
+        "hospital": "hospital_5",
+        "n_test": 18,
+        "accuracy": 0.8889,
+        "precision": 0.8889,
+        "recall": 0.8889,
+        "f1": 0.8889,
+        "auc": 0.9753
+      },
+      {
+        "hospital": "hospital_2",
+        "n_test": 8,
+        "accuracy": 0.75,
+        "precision": 1.0,
+        "recall": 0.6667,
+        "f1": 0.8,
+        "auc": 1.0
+      },
+      {
+        "hospital": "hospital_3",
+        "n_test": 14,
+        "accuracy": 0.7857,
+        "precision": 0.3333,
+        "recall": 0.5,
+        "f1": 0.4,
+        "auc": 0.8333
+      },
+      {
+        "hospital": "hospital_1",
+        "n_test": 15,
+        "accuracy": 0.7333,
+        "precision": 0.8889,
+        "recall": 0.7273,
+        "f1": 0.8,
+        "auc": 0.75
+      }
+    ],
+    "fedprox": [
+      {
+        "hospital": "hospital_4",
+        "n_test": 21,
+        "accuracy": 0.8571,
+        "precision": 0.8333,
+        "recall": 0.7143,
+        "f1": 0.7692,
+        "auc": 0.9082
+      },
+      {
+        "hospital": "hospital_2",
+        "n_test": 8,
+        "accuracy": 0.75,
+        "precision": 1.0,
+        "recall": 0.6667,
+        "f1": 0.8,
+        "auc": 1.0
+      },
+      {
+        "hospital": "hospital_5",
+        "n_test": 18,
+        "accuracy": 0.8889,
+        "precision": 0.8889,
+        "recall": 0.8889,
+        "f1": 0.8889,
+        "auc": 0.9877
+      },
+      {
+        "hospital": "hospital_1",
+        "n_test": 15,
+        "accuracy": 0.7333,
+        "precision": 0.8889,
+        "recall": 0.7273,
+        "f1": 0.8,
+        "auc": 0.75
+      },
+      {
+        "hospital": "hospital_3",
+        "n_test": 14,
+        "accuracy": 0.7857,
+        "precision": 0.3333,
+        "recall": 0.5,
+        "f1": 0.4,
+        "auc": 0.75
+      }
+    ],
+    "personalized": [
+      {
+        "hospital": "hospital_1",
+        "n_train": 45,
+        "n_test": 15,
+        "accuracy": 0.8667,
+        "precision": 0.9091,
+        "recall": 0.9091,
+        "f1": 0.9091,
+        "auc": 0.6818
+      },
+      {
+        "hospital": "hospital_2",
+        "n_train": 21,
+        "n_test": 8,
+        "accuracy": 0.75,
+        "precision": 1.0,
+        "recall": 0.6667,
+        "f1": 0.8,
+        "auc": 1.0
+      },
+      {
+        "hospital": "hospital_3",
+        "n_train": 40,
+        "n_test": 14,
+        "accuracy": 0.7857,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "auc": 0.7917
+      },
+      {
+        "hospital": "hospital_4",
+        "n_train": 61,
+        "n_test": 21,
+        "accuracy": 0.8571,
+        "precision": 0.8333,
+        "recall": 0.7143,
+        "f1": 0.7692,
+        "auc": 0.8776
+      },
+      {
+        "hospital": "hospital_5",
+        "n_train": 54,
+        "n_test": 18,
+        "accuracy": 0.8889,
+        "precision": 0.8889,
+        "recall": 0.8889,
+        "f1": 0.8889,
+        "auc": 0.9753
+      }
+    ],
+    "centralized": [
+      {
+        "hospital": "hospital_1",
+        "n_test": 15,
+        "accuracy": 0.7333,
+        "precision": 0.8889,
+        "recall": 0.7273,
+        "f1": 0.8,
+        "auc": 0.5909
+      },
+      {
+        "hospital": "hospital_2",
+        "n_test": 8,
+        "accuracy": 0.75,
+        "precision": 1.0,
+        "recall": 0.6667,
+        "f1": 0.8,
+        "auc": 1.0
+      },
+      {
+        "hospital": "hospital_3",
+        "n_test": 14,
+        "accuracy": 0.7857,
+        "precision": 0.3333,
+        "recall": 0.5,
+        "f1": 0.4,
+        "auc": 0.875
+      },
+      {
+        "hospital": "hospital_4",
+        "n_test": 21,
+        "accuracy": 0.8095,
+        "precision": 0.7143,
+        "recall": 0.7143,
+        "f1": 0.7143,
+        "auc": 0.8673
+      },
+      {
+        "hospital": "hospital_5",
+        "n_test": 18,
+        "accuracy": 0.9444,
+        "precision": 1.0,
+        "recall": 0.8889,
+        "f1": 0.9412,
+        "auc": 1.0
+      }
+    ]
+  },
+  "note": "All five settings use the identical HeartDiseaseNet architecture (apples-to-apples). See README.md 'Phase 4' section for why the Phase 3 sklearn RF/LR baselines are NOT included here -- they use a different model and are not directly comparable."
+}

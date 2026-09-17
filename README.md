@@ -529,11 +529,15 @@ not just the weights:
    `preprocessing.json` and a `manifest.json` (architecture + per-hospital
    test accuracy, for the backend to sanity-check what it loaded).
 
-**To run:** add a Colab notebook cell (`notebooks/phase6_colab.ipynb`,
-section 9) — needs torch/flwr, so per this project's Colab-primary
-policy it isn't run on the local machine. Its printed metrics should
-exactly match Phase 5's `[Personalized FL]` results, confirming nothing
-changed except that the models are now saved.
+**Run on Colab** (`notebooks/phase6_colab.ipynb`, section 9) — needs
+torch/flwr, so per this project's Colab-primary policy it wasn't run on
+the local machine. **Confirmed and committed:** the printed metrics
+exactly matched Phase 5's `[Personalized FL]` results
+(hospital_1=0.8667, hospital_2=0.75, hospital_3=0.7857, hospital_4=0.8571,
+hospital_5=0.8889) and `manifest.json`'s source params match every other
+phase's protocol (partition_seed=117, split_seed=42, proximal_mu=0.1).
+The 5 checkpoints + `manifest.json` + `preprocessing.json` are committed
+in `experiments/results/models/`.
 
 **Feasibility confirmed for the planned dashboard feature:**
 - Loading a saved `state_dict` + running one forward pass is fast and
@@ -544,6 +548,28 @@ changed except that the models are now saved.
   explanation," not claim a truly live/real-time indicator.
 - Fully consistent with the "no live training" rule: only a forward pass
   and a single-instance SHAP explanation happen at request time.
+
+## Phase 7, step 1: dashboard data export
+
+[`experiments/export_dashboard_data.py`](experiments/export_dashboard_data.py)
+consolidates every phase's result CSVs (Phases 2-6) into 6 clean JSON
+files under `experiments/results/dashboard_data/`, for the FastAPI backend
+to serve directly — precomputed, so the backend never recomputes any of
+this at request time (only the live single-patient prediction endpoint
+does real work, per the "no live training" rule above). Needs only
+pandas, so it runs fine locally despite the Smart App Control block.
+
+| File | Contents |
+|---|---|
+| `dashboard_summary.json` | Top-level overview: dataset size, model architecture, training config, global accuracy per experiment, privacy statement |
+| `hospitals.json` | Per-hospital demographics (Phase 2), train/test sizes, personalized model accuracy |
+| `experiment_comparison.json` | Local/FedAvg/FedProx/Personalized/Centralized — all same NN architecture, global + per-hospital accuracy |
+| `training_curves.json` | Round-by-round accuracy, FedAvg and FedProx, global and per-hospital |
+| `equity_analysis.json` | Phase 5's headline finding: per-seed worst-hospital before/after personalization, plus multi-seed summaries |
+| `explainability.json` | Phase 6 SHAP: RF global importance, hospital_1 NN importance, one example patient |
+
+Run: `venv\Scripts\python experiments\export_dashboard_data.py`. Re-run
+whenever any upstream CSV changes, before starting/restarting the backend.
 
 ## Setup
 

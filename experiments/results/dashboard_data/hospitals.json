@@ -1,0 +1,65 @@
+{
+  "hospitals": [
+    {
+      "hospital": "hospital_1",
+      "n_patients": 60,
+      "disease_rate": 0.717,
+      "mean_age": 56.2,
+      "pct_female": 0.283,
+      "dominant_cp_type": 4,
+      "n_train": 45,
+      "n_test": 15,
+      "personalized_accuracy": 0.8667,
+      "checkpoint": "hospital_1_personalized.pt"
+    },
+    {
+      "hospital": "hospital_2",
+      "n_patients": 29,
+      "disease_rate": 0.69,
+      "mean_age": 54.4,
+      "pct_female": 0.31,
+      "dominant_cp_type": 4,
+      "n_train": 21,
+      "n_test": 8,
+      "personalized_accuracy": 0.75,
+      "checkpoint": "hospital_2_personalized.pt"
+    },
+    {
+      "hospital": "hospital_3",
+      "n_patients": 54,
+      "disease_rate": 0.148,
+      "mean_age": 53.6,
+      "pct_female": 0.278,
+      "dominant_cp_type": 3,
+      "n_train": 40,
+      "n_test": 14,
+      "personalized_accuracy": 0.7857,
+      "checkpoint": "hospital_3_personalized.pt"
+    },
+    {
+      "hospital": "hospital_4",
+      "n_patients": 82,
+      "disease_rate": 0.341,
+      "mean_age": 54.7,
+      "pct_female": 0.378,
+      "dominant_cp_type": 3,
+      "n_train": 61,
+      "n_test": 21,
+      "personalized_accuracy": 0.8571,
+      "checkpoint": "hospital_4_personalized.pt"
+    },
+    {
+      "hospital": "hospital_5",
+      "n_patients": 72,
+      "disease_rate": 0.528,
+      "mean_age": 53.7,
+      "pct_female": 0.333,
+      "dominant_cp_type": 4,
+      "n_train": 54,
+      "n_test": 18,
+      "personalized_accuracy": 0.8889,
+      "checkpoint": "hospital_5_personalized.pt"
+    }
+  ],
+  "n_hospitals": 5
+}
