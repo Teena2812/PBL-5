@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Overview from "./pages/Overview";
+import Hospitals from "./pages/Hospitals";
 import ComingSoon from "./pages/ComingSoon";
 
 export default function App() {
@@ -10,7 +11,7 @@ export default function App() {
       <main className="app-main">
         <Routes>
           <Route path="/" element={<Overview />} />
-          <Route path="/hospitals" element={<ComingSoon title="Hospitals" />} />
+          <Route path="/hospitals" element={<Hospitals />} />
           <Route path="/experiments" element={<ComingSoon title="Experiment Comparison" />} />
           <Route path="/training" element={<ComingSoon title="Training Curves" />} />
           <Route path="/equity" element={<ComingSoon title="Equity Analysis" />} />
