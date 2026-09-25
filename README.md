@@ -650,6 +650,7 @@ prediction lives inside Explainability.
 | [`pages/ExperimentComparison.jsx`](src/frontend/src/pages/ExperimentComparison.jsx) | Tabs: worst-served hospital equity view (default), training replay (the real FedAvg/FedProx runs round by round, with a weights-not-records network diagram), 5-seed mean ± std, per-hospital single run |
 | [`pages/Explainability.jsx`](src/frontend/src/pages/Explainability.jsx) | Tabs: sample patients (prediction + SHAP), live "Try a prediction" form, global SHAP importance |
 | [`pages/Roadmap.jsx`](src/frontend/src/pages/Roadmap.jsx) | 8-phase timeline with a result per completed phase |
+| [`pages/Present.jsx`](src/frontend/src/pages/Present.jsx) | Story mode (sidebar "Present" button, `/present`): 6 full-screen slides — problem, non-IID, auto-playing training replay, equity finding, the borderline-patient limitation, roadmap — each with one key number; Next/Back (or arrow / PageUp / PageDown keys) only, no links out |
 
 **Environment note:** Vite 8's default bundler (`rolldown-vite`, a Rust
 binary) hit the exact same Smart App Control block as `sklearn`/`shap`/

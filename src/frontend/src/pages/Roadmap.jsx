@@ -13,7 +13,7 @@ import "./Roadmap.css";
 
 // The 8-phase plan from docs/proposal/ and the README's "Project status"
 // checklist. Keep `done` in sync with that checklist.
-const PHASES = [
+export const PHASES = [
   { n: 1, title: "Literature survey, dataset & gap statement", done: true },
   { n: 2, title: "Dataset preprocessing; non-IID hospital splits", done: true },
   { n: 3, title: "Baselines: Local ML + Centralized ML", done: true },

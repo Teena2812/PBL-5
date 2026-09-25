@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./Sidebar.css";
 
 const NAV_ITEMS = [
@@ -20,6 +20,9 @@ export default function Sidebar() {
           <div className="sidebar-brand-subtitle">Personalized FL Dashboard</div>
         </div>
       </div>
+      <Link to="/present" className="sidebar-present">
+        ▶ Present
+      </Link>
       <ul className="sidebar-nav">
         {NAV_ITEMS.map((item) => (
           <li key={item.to}>

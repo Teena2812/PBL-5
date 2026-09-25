@@ -29,10 +29,10 @@ function countParameters(nFeatures, hiddenSizes) {
  * model's accuracy on each hospital's own local test set after that
  * round's aggregation; "global" weights them by test-set size.
  */
-export default function TrainingReplay({ curves, hospitals, summary }) {
+export default function TrainingReplay({ curves, hospitals, summary, autoPlay = false, compact = false }) {
   const [algorithm, setAlgorithm] = useState("fedavg");
   const [round, setRound] = useState(1);
-  const [playing, setPlaying] = useState(false);
+  const [playing, setPlaying] = useState(autoPlay);
   const [focus, setFocus] = useState(null);
 
   const hospitalIds = hospitals.map((h) => h.hospital).sort();
@@ -92,22 +92,24 @@ export default function TrainingReplay({ curves, hospitals, summary }) {
   const weightsExchanged = round * hospitalIds.length * 2 * nParams;
 
   return (
-    <div className="replay">
+    <div className={"replay" + (compact ? " replay-compact" : "")}>
       <div className="replay-controls">
-        <div className="segmented replay-algos" role="radiogroup" aria-label="Training algorithm">
-          {ALGORITHMS.map((a) => (
-            <button
-              key={a.id}
-              type="button"
-              role="radio"
-              aria-checked={a.id === algorithm}
-              className={"segmented-option" + (a.id === algorithm ? " active" : "")}
-              onClick={() => setAlgorithm(a.id)}
-            >
-              {a.label}
-            </button>
-          ))}
-        </div>
+        {!compact && (
+          <div className="segmented replay-algos" role="radiogroup" aria-label="Training algorithm">
+            {ALGORITHMS.map((a) => (
+              <button
+                key={a.id}
+                type="button"
+                role="radio"
+                aria-checked={a.id === algorithm}
+                className={"segmented-option" + (a.id === algorithm ? " active" : "")}
+                onClick={() => setAlgorithm(a.id)}
+              >
+                {a.label}
+              </button>
+            ))}
+          </div>
+        )}
         <button type="button" className="button-primary replay-play" onClick={togglePlay} aria-pressed={playing}>
           {playing ? "❚❚ Pause" : round >= nRounds ? "↻ Replay" : "▶ Play"}
         </button>
@@ -130,29 +132,37 @@ export default function TrainingReplay({ curves, hospitals, summary }) {
         </label>
       </div>
 
-      <div className="grid grid-stats replay-stats">
-        <div className="replay-stat">
-          <span className="replay-stat-label">Shared model accuracy</span>
-          <span className="replay-stat-value">{fmtPct(current.global)}</span>
-          <span className="replay-stat-sub">
-            {round === 1
-              ? "after the first round"
-              : `${current.global >= first.global ? "+" : "−"}${Math.abs((current.global - first.global) * 100).toFixed(1)} pts since round 1`}
-          </span>
+      {compact ? (
+        <p className="replay-inline-stats">
+          Shared model <strong>{fmtPct(current.global)}</strong> &middot;{" "}
+          <strong>{weightsExchanged.toLocaleString("en-US")}</strong> weights exchanged ({round} × {hospitalIds.length}{" "}
+          hospitals × {nParams}, each way)
+        </p>
+      ) : (
+        <div className="grid grid-stats replay-stats">
+          <div className="replay-stat">
+            <span className="replay-stat-label">Shared model accuracy</span>
+            <span className="replay-stat-value">{fmtPct(current.global)}</span>
+            <span className="replay-stat-sub">
+              {round === 1
+                ? "after the first round"
+                : `${current.global >= first.global ? "+" : "−"}${Math.abs((current.global - first.global) * 100).toFixed(1)} pts since round 1`}
+            </span>
+          </div>
+          <div className="replay-stat">
+            <span className="replay-stat-label">Model weights exchanged</span>
+            <span className="replay-stat-value">{weightsExchanged.toLocaleString("en-US")}</span>
+            <span className="replay-stat-sub">
+              {round} round{round === 1 ? "" : "s"} × {hospitalIds.length} hospitals × {nParams} weights, each way
+            </span>
+          </div>
+          <div className="replay-stat">
+            <span className="replay-stat-label">Patient records shared</span>
+            <span className="replay-stat-value">0</span>
+            <span className="replay-stat-sub">every record stays at its hospital</span>
+          </div>
         </div>
-        <div className="replay-stat">
-          <span className="replay-stat-label">Model weights exchanged</span>
-          <span className="replay-stat-value">{weightsExchanged.toLocaleString("en-US")}</span>
-          <span className="replay-stat-sub">
-            {round} round{round === 1 ? "" : "s"} × {hospitalIds.length} hospitals × {nParams} weights, each way
-          </span>
-        </div>
-        <div className="replay-stat">
-          <span className="replay-stat-label">Patient records shared</span>
-          <span className="replay-stat-value">0</span>
-          <span className="replay-stat-sub">every record stays at its hospital</span>
-        </div>
-      </div>
+      )}
 
       <div className="replay-layout">
         <div className="card">
@@ -164,21 +174,23 @@ export default function TrainingReplay({ curves, hospitals, summary }) {
             focus={focus}
             animate={round > 0}
           />
-          <ol className="replay-steps">
-            <li>
-              <span className="replay-dot replay-dot-down" /> Server sends the shared model: <strong>{nParams} weights</strong>{" "}
-              to each hospital
-            </li>
-            <li>
-              Each hospital trains {summary.training.local_epochs} epochs on its own patients &mdash; the records never
-              leave
-            </li>
-            <li>
-              <span className="replay-dot replay-dot-up" /> Each sends back <strong>{nParams} updated weights</strong>{" "}
-              and one number, its training-set size
-            </li>
-            <li>Server averages the weights, weighted by those sizes &rarr; next round&apos;s shared model</li>
-          </ol>
+          {!compact && (
+            <ol className="replay-steps">
+              <li>
+                <span className="replay-dot replay-dot-down" /> Server sends the shared model: <strong>{nParams} weights</strong>{" "}
+                to each hospital
+              </li>
+              <li>
+                Each hospital trains {summary.training.local_epochs} epochs on its own patients &mdash; the records never
+                leave
+              </li>
+              <li>
+                <span className="replay-dot replay-dot-up" /> Each sends back <strong>{nParams} updated weights</strong>{" "}
+                and one number, its training-set size
+              </li>
+              <li>Server averages the weights, weighted by those sizes &rarr; next round&apos;s shared model</li>
+            </ol>
+          )}
         </div>
 
         <div className="card">
@@ -187,7 +199,7 @@ export default function TrainingReplay({ curves, hospitals, summary }) {
             The shared model, scored on each hospital&apos;s own held-out patients after every round &middot; axis
             starts at {fmtPct(yMin, 0)}
           </p>
-          <ResponsiveContainer width="100%" height={280}>
+          <ResponsiveContainer width="100%" height={compact ? 190 : 280}>
             <LineChart data={visible} margin={{ top: 8, right: 12, left: -12, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
               <XAxis
@@ -232,37 +244,51 @@ export default function TrainingReplay({ curves, hospitals, summary }) {
             </LineChart>
           </ResponsiveContainer>
 
-          <table className="replay-legend">
-            <thead>
-              <tr>
-                <th>Line</th>
-                <th>Round {round}</th>
-                <th>Trains on</th>
-              </tr>
-            </thead>
-            <tbody>
+          {compact ? (
+            <div className="replay-chips">
               {[...hospitalIds, "global"].map((id) => (
-                <tr
-                  key={id}
-                  onMouseEnter={() => setFocus(id)}
-                  onMouseLeave={() => setFocus(null)}
-                  className={focus === id ? "focused" : undefined}
-                >
-                  <td>
-                    <span
-                      className={"replay-swatch" + (id === "global" ? " dashed" : "")}
-                      style={{ background: id === "global" ? undefined : HOSPITAL_COLORS[id] }}
-                    />
-                    {id === "global" ? "Overall (test-size weighted)" : hospitalLabel(id)}
-                  </td>
-                  <td>
-                    <strong>{fmtPct(current[id])}</strong>
-                  </td>
-                  <td>{id === "global" ? "—" : `${nTrain[id]} patients`}</td>
-                </tr>
+                <span key={id} className="replay-chip">
+                  <span
+                    className={"replay-swatch" + (id === "global" ? " dashed" : "")}
+                    style={{ background: id === "global" ? undefined : HOSPITAL_COLORS[id] }}
+                  />
+                  {id === "global" ? "Overall" : `H${hospitalIds.indexOf(id) + 1}`} <strong>{fmtPct(current[id], 0)}</strong>
+                </span>
               ))}
-            </tbody>
-          </table>
+            </div>
+          ) : (
+            <table className="replay-legend">
+              <thead>
+                <tr>
+                  <th>Line</th>
+                  <th>Round {round}</th>
+                  <th>Trains on</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[...hospitalIds, "global"].map((id) => (
+                  <tr
+                    key={id}
+                    onMouseEnter={() => setFocus(id)}
+                    onMouseLeave={() => setFocus(null)}
+                    className={focus === id ? "focused" : undefined}
+                  >
+                    <td>
+                      <span
+                        className={"replay-swatch" + (id === "global" ? " dashed" : "")}
+                        style={{ background: id === "global" ? undefined : HOSPITAL_COLORS[id] }}
+                      />
+                      {id === "global" ? "Overall (test-size weighted)" : hospitalLabel(id)}
+                    </td>
+                    <td>
+                      <strong>{fmtPct(current[id])}</strong>
+                    </td>
+                    <td>{id === "global" ? "—" : `${nTrain[id]} patients`}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
           <p className="muted-note" style={{ marginTop: 10, marginBottom: 0 }}>
             Each hospital&apos;s test set is small (as few as {minTest} patients), so its line moves in steps of up to{" "}
             {(100 / minTest).toFixed(1)} points. {algorithm === "fedprox" && "FedProx's personalized models are then fine-tuned locally after round 20 — that step isn't shown here (see the Worst-served hospital tab)."}

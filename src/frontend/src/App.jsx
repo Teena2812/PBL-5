@@ -6,8 +6,9 @@ import ExperimentComparison from "./pages/ExperimentComparison";
 import Explainability from "./pages/Explainability";
 import Problem from "./pages/Problem";
 import Roadmap from "./pages/Roadmap";
+import Present from "./pages/Present";
 
-export default function App() {
+function DashboardShell() {
   return (
     <div className="app-shell">
       <Sidebar />
@@ -23,5 +24,15 @@ export default function App() {
         </Routes>
       </main>
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <Routes>
+      {/* Story mode takes the whole screen, without the sidebar. */}
+      <Route path="/present" element={<Present />} />
+      <Route path="*" element={<DashboardShell />} />
+    </Routes>
   );
 }
