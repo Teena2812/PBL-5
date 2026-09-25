@@ -647,7 +647,7 @@ prediction lives inside Explainability.
 | [`pages/Overview.jsx`](src/frontend/src/pages/Overview.jsx) | Privacy banner, stat cards, global-accuracy chart, per-hospital accuracy table |
 | [`pages/Problem.jsx`](src/frontend/src/pages/Problem.jsx) | Barrier flowchart (privacy laws → data silos → non-IID → clinician mistrust), each with live evidence and the layer that answers it |
 | [`pages/Hospitals.jsx`](src/frontend/src/pages/Hospitals.jsx) | Hospital sizes + disease-split stacked bars, disease rate vs pooled rate, profile table |
-| [`pages/ExperimentComparison.jsx`](src/frontend/src/pages/ExperimentComparison.jsx) | Tabs: worst-served hospital equity view (default), 5-seed mean ± std, per-hospital single run |
+| [`pages/ExperimentComparison.jsx`](src/frontend/src/pages/ExperimentComparison.jsx) | Tabs: worst-served hospital equity view (default), training replay (the real FedAvg/FedProx runs round by round, with a weights-not-records network diagram), 5-seed mean ± std, per-hospital single run |
 | [`pages/Explainability.jsx`](src/frontend/src/pages/Explainability.jsx) | Tabs: sample patients (prediction + SHAP), live "Try a prediction" form, global SHAP importance |
 | [`pages/Roadmap.jsx`](src/frontend/src/pages/Roadmap.jsx) | 8-phase timeline with a result per completed phase |
 

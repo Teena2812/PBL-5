@@ -318,3 +318,44 @@ tr.table-total td {
   font-size: 0.78rem;
   margin-top: 24px;
 }
+
+/* Segmented control (model / algorithm pickers). */
+.segmented {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+  padding: 4px;
+  margin-bottom: 16px;
+}
+
+.segmented-option {
+  flex: 1;
+  min-width: 90px;
+  border: none;
+  background: none;
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  padding: 7px 10px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.segmented-option:hover {
+  color: var(--color-text);
+}
+
+.segmented-option.active {
+  background: var(--color-surface);
+  color: var(--color-primary-dark);
+  box-shadow: var(--shadow-sm);
+  font-weight: 600;
+}
+
+.segmented-option:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}

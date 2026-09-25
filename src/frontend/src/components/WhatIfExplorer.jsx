@@ -120,14 +120,14 @@ export default function WhatIfExplorer({ weights, hospitals, samples, verificati
 
         <div className="whatif-results">
           <div className="card">
-            <div className="whatif-model-picker" role="radiogroup" aria-label="Hospital model">
+            <div className="segmented" role="radiogroup" aria-label="Hospital model">
               {hospitalIds.map((id) => (
                 <button
                   key={id}
                   type="button"
                   role="radio"
                   aria-checked={id === hospitalId}
-                  className={"whatif-model" + (id === hospitalId ? " active" : "")}
+                  className={"segmented-option" + (id === hospitalId ? " active" : "")}
                   onClick={() => setHospitalId(id)}
                 >
                   {hospitalLabel(id)}

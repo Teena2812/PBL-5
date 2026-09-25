@@ -25,6 +25,17 @@ export const EXPERIMENT_COLORS = {
   personalized: "#eb6834",
 };
 
+// One color per simulated hospital (training replay). Validated in this
+// order: adjacent pairs clear CVD dE >= 9.2; lines cross, so charts using
+// these must also direct-label each line (aqua/magenta are closer).
+export const HOSPITAL_COLORS = {
+  hospital_1: "#2a78d6",
+  hospital_2: "#eb6834",
+  hospital_3: "#1baf7a",
+  hospital_4: "#4a3aa7",
+  hospital_5: "#e87ba4",
+};
+
 // Experiment names as written by the Phase 4/5 multi-seed CSVs.
 export const MULTISEED_NAME_TO_KEY = {
   "Local NN": "local",

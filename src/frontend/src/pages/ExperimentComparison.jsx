@@ -14,11 +14,18 @@ import {
   LabelList,
   Cell,
 } from "recharts";
-import { getEquityAnalysis, getExperimentComparison } from "../api/client";
+import {
+  getDashboardSummary,
+  getEquityAnalysis,
+  getExperimentComparison,
+  getHospitals,
+  getTrainingCurves,
+} from "../api/client";
 import { useApiData } from "../hooks/useApiData";
 import { Loading, ErrorState } from "../components/LoadingAndError";
 import StatCard from "../components/StatCard";
 import Tabs from "../components/Tabs";
+import TrainingReplay from "../components/TrainingReplay";
 import {
   EXPERIMENT_ORDER,
   EXPERIMENT_LABELS,
@@ -30,6 +37,7 @@ import {
 
 const TABS = [
   { id: "equity", label: "Worst-served hospital", badge: "Headline" },
+  { id: "replay", label: "Training replay" },
   { id: "multiseed", label: "5-seed mean ± std" },
   { id: "per-hospital", label: "Per hospital (single run)" },
 ];
@@ -70,6 +78,7 @@ export default function ExperimentComparison() {
 
       <div role="tabpanel" id={`panel-${active}`} aria-labelledby={`tab-${active}`}>
         {active === "equity" && <EquityView data={equity.data} />}
+        {active === "replay" && <ReplayView />}
         {active === "multiseed" && <MultiSeedView data={equity.data} />}
         {active === "per-hospital" && <PerHospitalView data={comparison.data} />}
       </div>
@@ -234,6 +243,22 @@ function SeedTick({ x, y, payload, rows }) {
       </text>
     </g>
   );
+}
+
+/* ------------------------------------------------------------------ */
+/* Training replay: the real FedAvg / FedProx runs, round by round     */
+/* ------------------------------------------------------------------ */
+
+async function getReplayData() {
+  const [curves, hospitals, summary] = await Promise.all([getTrainingCurves(), getHospitals(), getDashboardSummary()]);
+  return { curves, hospitals: hospitals.hospitals, summary };
+}
+
+function ReplayView() {
+  const { data, loading, error } = useApiData(getReplayData, []);
+  if (loading) return <Loading />;
+  if (error) return <ErrorState error={error} />;
+  return <TrainingReplay curves={data.curves} hospitals={data.hospitals} summary={data.summary} />;
 }
 
 /* ------------------------------------------------------------------ */

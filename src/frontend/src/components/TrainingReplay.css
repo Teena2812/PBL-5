@@ -1,0 +1,250 @@
+.replay-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+  margin-bottom: 20px;
+}
+
+.replay-algos.segmented {
+  margin-bottom: 0;
+  flex: 0 1 auto;
+}
+
+.replay-algos .segmented-option {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.replay-play {
+  min-width: 112px;
+}
+
+.replay-scrubber {
+  flex: 1 1 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.replay-scrubber strong {
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.replay-scrubber input[type="range"] {
+  width: 100%;
+  accent-color: var(--color-primary);
+}
+
+.replay-stats {
+  margin-bottom: 20px;
+}
+
+.replay-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 14px 18px;
+  box-shadow: var(--shadow-sm);
+}
+
+.replay-stat-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--color-text-muted);
+}
+
+.replay-stat-value {
+  font-size: 1.6rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.replay-stat-sub {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.replay-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.replay-layout > .card + .card {
+  margin-top: 0;
+}
+
+.replay-diagram {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.replay-link {
+  stroke: var(--color-border);
+  stroke-width: 2;
+}
+
+.replay-server {
+  fill: #eff6ff;
+  stroke: var(--color-primary);
+  stroke-width: 2;
+}
+
+.replay-hospital {
+  fill: var(--color-surface);
+  stroke-width: 2.5;
+}
+
+.replay-node-title {
+  font-size: 15px;
+  font-weight: 700;
+  fill: var(--color-text);
+}
+
+.replay-node-value {
+  font-size: 17px;
+  font-weight: 700;
+  fill: var(--color-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.replay-node-sub {
+  font-size: 12px;
+  fill: var(--color-text-muted);
+}
+
+/* One round = model travels down, then updates travel back up. Restarted
+   per round by re-keying the diagram. */
+.replay-packet {
+  opacity: 0;
+  transform-box: view-box;
+}
+
+.replay-packet-down {
+  fill: var(--color-primary);
+  animation: replay-travel 0.55s ease-in-out 0s 1 forwards;
+}
+
+.replay-packet-up {
+  animation: replay-travel 0.55s ease-in-out 0.6s 1 forwards;
+}
+
+@keyframes replay-travel {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx), var(--dy));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .replay-packet {
+    animation: none;
+  }
+}
+
+.replay-steps {
+  margin: 12px 0 0 0;
+  padding-left: 20px;
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+
+.replay-steps li + li {
+  margin-top: 4px;
+}
+
+.replay-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  margin-right: 4px;
+  vertical-align: baseline;
+}
+
+.replay-dot-down {
+  background: var(--color-primary);
+}
+
+.replay-dot-up {
+  background: linear-gradient(90deg, #2a78d6, #eb6834, #1baf7a, #4a3aa7, #e87ba4);
+}
+
+.replay-legend {
+  margin-top: 8px;
+  font-size: 0.85rem;
+}
+
+.replay-legend th,
+.replay-legend td {
+  padding: 6px 10px;
+}
+
+.replay-legend tbody tr {
+  cursor: default;
+}
+
+.replay-legend tbody tr.focused {
+  background: var(--color-bg);
+}
+
+.replay-legend td strong {
+  font-variant-numeric: tabular-nums;
+}
+
+.replay-swatch {
+  display: inline-block;
+  width: 14px;
+  height: 4px;
+  border-radius: 2px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.replay-swatch.dashed {
+  background: repeating-linear-gradient(90deg, var(--color-text) 0 5px, transparent 5px 8px);
+}
+
+@media (max-width: 1000px) {
+  .replay-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* The diagram scales to ~60% on phones; enlarge its text in SVG units so
+   it still renders at a readable size. */
+@media (max-width: 600px) {
+  .replay-node-title {
+    font-size: 22px;
+  }
+
+  .replay-node-value {
+    font-size: 24px;
+  }
+
+  .replay-node-sub {
+    font-size: 18px;
+  }
+
+  .replay-hospital + text + text + text {
+    display: none;
+  }
+}
