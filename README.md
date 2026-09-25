@@ -644,7 +644,7 @@ prediction lives inside Explainability.
 | [`hooks/useApiData.js`](src/frontend/src/hooks/useApiData.js) | Shared fetch-on-mount hook (`{data, loading, error}`) every screen uses |
 | [`components/Sidebar.jsx`](src/frontend/src/components/Sidebar.jsx) | Nav — all routes, active-link highlighting |
 | [`constants/experiments.js`](src/frontend/src/constants/experiments.js) | One name + colorblind-validated color per training setting, shared by every screen |
-| [`pages/Overview.jsx`](src/frontend/src/pages/Overview.jsx) | Privacy banner, stat cards, global-accuracy chart, per-hospital accuracy table |
+| [`pages/Overview.jsx`](src/frontend/src/pages/Overview.jsx) | Leads with the equity finding (worst-served hospital, before/after per seed), a single-patient "known limitation" callout, then the setup, the close overall-accuracy race, and per-hospital accuracy |
 | [`pages/Problem.jsx`](src/frontend/src/pages/Problem.jsx) | Barrier flowchart (privacy laws → data silos → non-IID → clinician mistrust), each with live evidence and the layer that answers it |
 | [`pages/Hospitals.jsx`](src/frontend/src/pages/Hospitals.jsx) | Hospital sizes + disease-split stacked bars, disease rate vs pooled rate, profile table |
 | [`pages/ExperimentComparison.jsx`](src/frontend/src/pages/ExperimentComparison.jsx) | Tabs: worst-served hospital equity view (default), training replay (the real FedAvg/FedProx runs round by round, with a weights-not-records network diagram), 5-seed mean ± std, per-hospital single run |
