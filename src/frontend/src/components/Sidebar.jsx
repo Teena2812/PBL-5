@@ -6,7 +6,6 @@ const NAV_ITEMS = [
   { to: "/hospitals", label: "Hospitals", icon: "\u{1F3E5}" },
   { to: "/experiments", label: "Experiment Comparison", icon: "\u{1F4CA}" },
   { to: "/training", label: "Training Curves", icon: "\u{1F4C8}" },
-  { to: "/equity", label: "Equity Analysis", icon: "⚖" },
   { to: "/explainability", label: "Explainability", icon: "\u{1F50D}" },
   { to: "/predict", label: "Predict Risk", icon: "\u{1FA7A}" },
 ];

@@ -630,16 +630,17 @@ change from the default 8000). Interactive docs at `/docs`.
 
 ## Phase 7, step 3: React frontend (Screen 1 — Overview)
 
-`src/frontend/` — a Vite + React app, one screen built so far (of 7
+`src/frontend/` — a Vite + React app, one screen built so far (of 6
 planned: Overview, Hospitals, Experiment Comparison, Training Curves,
-Equity Analysis, Explainability, Predict Risk — the other 6 are routed
-placeholders for now, built one at a time).
+Explainability, Predict Risk — the others are routed placeholders for now,
+built one at a time). A separate Equity Analysis screen was dropped: the
+equity headline is the default tab of Experiment Comparison instead.
 
 | File | Role |
 |---|---|
 | [`api/client.js`](src/frontend/src/api/client.js) | Axios client, one function per backend endpoint |
 | [`hooks/useApiData.js`](src/frontend/src/hooks/useApiData.js) | Shared fetch-on-mount hook (`{data, loading, error}`) every screen uses |
-| [`components/Sidebar.jsx`](src/frontend/src/components/Sidebar.jsx) | Nav — all 7 routes, active-link highlighting |
+| [`components/Sidebar.jsx`](src/frontend/src/components/Sidebar.jsx) | Nav — all routes, active-link highlighting |
 | [`pages/Overview.jsx`](src/frontend/src/pages/Overview.jsx) | Screen 1: privacy banner, stat cards, global-accuracy bar chart (Recharts), per-hospital accuracy table |
 
 **Environment note:** Vite 8's default bundler (`rolldown-vite`, a Rust

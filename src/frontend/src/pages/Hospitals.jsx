@@ -14,6 +14,7 @@ import { getHospitals, getDashboardSummary } from "../api/client";
 import { useApiData } from "../hooks/useApiData";
 import { Loading, ErrorState } from "../components/LoadingAndError";
 import StatCard from "../components/StatCard";
+import { fmtPct, hospitalLabel } from "../constants/experiments";
 
 // Disease vs. no-disease pair, validated for colorblind separation
 // (deutan dE 13.1) against the light card surface.
@@ -26,14 +27,6 @@ const CP_TYPE_LABELS = {
   3: "Non-anginal pain",
   4: "Asymptomatic",
 };
-
-function fmtPct(x) {
-  return `${(x * 100).toFixed(1)}%`;
-}
-
-function hospitalLabel(id) {
-  return id.replace("hospital_", "Hospital ");
-}
 
 const mutedNote = { color: "var(--color-text-muted)", fontSize: "0.85rem", marginTop: -4 };
 
@@ -122,6 +115,7 @@ export default function Hospitals() {
               <Tooltip content={<SizeTooltip />} cursor={{ fill: "rgba(148, 163, 184, 0.12)" }} />
               <Legend
                 wrapperStyle={{ fontSize: 12 }}
+              itemSorter={null}
                 formatter={(value) => <span style={{ color: "var(--color-text)" }}>{value}</span>}
               />
               <Bar
@@ -171,7 +165,7 @@ export default function Hospitals() {
                 <LabelList
                   dataKey="disease_rate"
                   position="top"
-                  formatter={fmtPct}
+                  formatter={(v) => fmtPct(v)}
                   style={{ fontSize: 12, fill: "var(--color-text)" }}
                 />
               </Bar>

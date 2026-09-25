@@ -1,29 +1,10 @@
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, LabelList } from "recharts";
 import { getDashboardSummary, getHospitals } from "../api/client";
 import { useApiData } from "../hooks/useApiData";
 import { Loading, ErrorState } from "../components/LoadingAndError";
 import StatCard from "../components/StatCard";
 import PrivacyBanner from "../components/PrivacyBanner";
-
-const EXPERIMENT_LABELS = {
-  local: "Local ML",
-  fedavg: "FedAvg",
-  fedprox: "FedProx",
-  personalized: "Personalized",
-  centralized: "Centralized",
-};
-
-const EXPERIMENT_COLORS = {
-  local: "#dc2626",
-  fedavg: "#2563eb",
-  fedprox: "#8172B2",
-  personalized: "#CCB974",
-  centralized: "#16a34a",
-};
-
-function fmtPct(x) {
-  return `${(x * 100).toFixed(1)}%`;
-}
+import { EXPERIMENT_ORDER, EXPERIMENT_LABELS, EXPERIMENT_COLORS, fmtPct } from "../constants/experiments";
 
 export default function Overview() {
   const summary = useApiData(getDashboardSummary, []);
@@ -34,10 +15,10 @@ export default function Overview() {
   if (hospitals.error) return <ErrorState error={hospitals.error} />;
 
   const s = summary.data;
-  const chartData = Object.entries(s.global_accuracy).map(([key, value]) => ({
+  const chartData = EXPERIMENT_ORDER.filter((key) => key in s.global_accuracy).map((key) => ({
     key,
-    label: EXPERIMENT_LABELS[key] || key,
-    accuracy: value,
+    label: EXPERIMENT_LABELS[key],
+    accuracy: s.global_accuracy[key],
   }));
 
   const bestPersonalized = Math.max(...hospitals.data.hospitals.map((h) => h.personalized_accuracy));
@@ -82,15 +63,21 @@ export default function Overview() {
             All settings use the identical model architecture (apples-to-apples comparison)
           </p>
           <ResponsiveContainer width="100%" height={260}>
-            <BarChart data={chartData} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
+            <BarChart data={chartData} margin={{ top: 20, right: 10, left: -10, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
               <XAxis dataKey="label" tick={{ fontSize: 12 }} />
-              <YAxis domain={[0, 1]} tickFormatter={fmtPct} tick={{ fontSize: 12 }} />
+              <YAxis domain={[0, 1]} tickFormatter={(v) => fmtPct(v)} tick={{ fontSize: 12 }} />
               <Tooltip formatter={(v) => fmtPct(v)} />
               <Bar dataKey="accuracy" radius={[4, 4, 0, 0]}>
                 {chartData.map((entry) => (
-                  <Cell key={entry.key} fill={EXPERIMENT_COLORS[entry.key] || "#94a3b8"} />
+                  <Cell key={entry.key} fill={EXPERIMENT_COLORS[entry.key]} />
                 ))}
+                <LabelList
+                  dataKey="accuracy"
+                  position="top"
+                  formatter={(v) => fmtPct(v)}
+                  style={{ fontSize: 12, fill: "var(--color-text)" }}
+                />
               </Bar>
             </BarChart>
           </ResponsiveContainer>
