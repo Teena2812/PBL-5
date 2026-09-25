@@ -61,6 +61,7 @@ a:hover {
 
 .app-main {
   flex: 1;
+  min-width: 0;
   padding: 32px 40px;
   max-width: 1200px;
   margin: 0 auto;
@@ -99,6 +100,11 @@ a:hover {
   gap: 20px;
 }
 
+/* Let grid cells shrink below their content (wide tables scroll inside). */
+.grid > * {
+  min-width: 0;
+}
+
 .grid-stats {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
@@ -113,6 +119,25 @@ a:hover {
   }
   .app-main {
     padding: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-shell {
+    flex-direction: column;
+  }
+  .app-main {
+    padding: 16px;
+    min-width: 0;
+  }
+  .card {
+    padding: 16px;
+  }
+  /* Wide tables scroll inside their card instead of widening the page. */
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
   }
 }
 

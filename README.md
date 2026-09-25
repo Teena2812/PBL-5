@@ -35,11 +35,11 @@ Following the 8-phase roadmap in `docs/proposal/`:
 - [x] Phase 1 — Literature survey, dataset & gap statement
 - [x] Phase 2 — Dataset preprocessing; non-IID hospital splits
 - [x] Phase 3 — Baseline: Local ML + Centralized ML
-- [x] **Phase 4 — Federated Learning (FedAvg via Flower)** (this commit)
-- [x] **Phase 5 — Personalization (FedProx) vs FedAvg comparison** (this commit)
-- [x] **Phase 6 — SHAP explainability integration** (this commit; run on Colab)
-- [ ] Phase 7 — FastAPI backend + React dashboard
-- [ ] Phase 8 — Results compilation, research paper draft
+- [x] Phase 4 — Federated Learning (FedAvg via Flower)
+- [x] Phase 5 — Personalization (FedProx) vs FedAvg comparison
+- [x] Phase 6 — SHAP explainability integration (run on Colab)
+- [x] Phase 7 — FastAPI backend + React dashboard
+- [ ] Phase 8 — Results compilation, research paper draft & presentation
 
 ## Dataset
 
@@ -567,6 +567,7 @@ pandas, so it runs fine locally despite the Smart App Control block.
 | `training_curves.json` | Round-by-round accuracy, FedAvg and FedProx, global and per-hospital |
 | `equity_analysis.json` | Phase 5's headline finding: per-seed worst-hospital before/after personalization, plus multi-seed summaries |
 | `explainability.json` | Phase 6 SHAP: RF global importance, hospital_1 NN importance, one example patient |
+| `sample_patients.json` | One held-out test patient per hospital scored by its saved personalized model (prediction + SHAP). Needs torch, so generated on Colab by [`export_sample_patients.py`](experiments/export_sample_patients.py) (notebook section 11) |
 
 Run: `venv\Scripts\python experiments\export_dashboard_data.py`. Re-run
 whenever any upstream CSV changes, before starting/restarting the backend.
@@ -628,21 +629,27 @@ training (no gradients, no `local_train()` call anywhere in this module).
 Run: `venv\Scripts\uvicorn src.backend.main:app --reload` (add `--port` to
 change from the default 8000). Interactive docs at `/docs`.
 
-## Phase 7, step 3: React frontend (Screen 1 — Overview)
+## Phase 7, steps 3-7: React frontend (6 screens)
 
-`src/frontend/` — a Vite + React app, one screen built so far (of 6
-planned: Overview, Problem, Hospitals, Experiment Comparison,
-Explainability, Roadmap — the others are routed placeholders for now,
-built one at a time). The earlier Equity Analysis, Training Curves and
-Predict Risk screens were dropped: the equity headline is the default tab
-of Experiment Comparison, and live prediction lives inside Explainability.
+`src/frontend/` — a Vite + React app with 6 screens, every number read
+from the backend's dashboard JSON (nothing hardcoded): Overview, Problem,
+Hospitals, Experiment Comparison, Explainability, Roadmap. The earlier
+Equity Analysis, Training Curves and Predict Risk screens were dropped: the
+equity headline is the default tab of Experiment Comparison, and live
+prediction lives inside Explainability.
 
 | File | Role |
 |---|---|
 | [`api/client.js`](src/frontend/src/api/client.js) | Axios client, one function per backend endpoint |
 | [`hooks/useApiData.js`](src/frontend/src/hooks/useApiData.js) | Shared fetch-on-mount hook (`{data, loading, error}`) every screen uses |
 | [`components/Sidebar.jsx`](src/frontend/src/components/Sidebar.jsx) | Nav — all routes, active-link highlighting |
-| [`pages/Overview.jsx`](src/frontend/src/pages/Overview.jsx) | Screen 1: privacy banner, stat cards, global-accuracy bar chart (Recharts), per-hospital accuracy table |
+| [`constants/experiments.js`](src/frontend/src/constants/experiments.js) | One name + colorblind-validated color per training setting, shared by every screen |
+| [`pages/Overview.jsx`](src/frontend/src/pages/Overview.jsx) | Privacy banner, stat cards, global-accuracy chart, per-hospital accuracy table |
+| [`pages/Problem.jsx`](src/frontend/src/pages/Problem.jsx) | Barrier flowchart (privacy laws → data silos → non-IID → clinician mistrust), each with live evidence and the layer that answers it |
+| [`pages/Hospitals.jsx`](src/frontend/src/pages/Hospitals.jsx) | Hospital sizes + disease-split stacked bars, disease rate vs pooled rate, profile table |
+| [`pages/ExperimentComparison.jsx`](src/frontend/src/pages/ExperimentComparison.jsx) | Tabs: worst-served hospital equity view (default), 5-seed mean ± std, per-hospital single run |
+| [`pages/Explainability.jsx`](src/frontend/src/pages/Explainability.jsx) | Tabs: sample patients (prediction + SHAP), live "Try a prediction" form, global SHAP importance |
+| [`pages/Roadmap.jsx`](src/frontend/src/pages/Roadmap.jsx) | 8-phase timeline with a result per completed phase |
 
 **Environment note:** Vite 8's default bundler (`rolldown-vite`, a Rust
 binary) hit the exact same Smart App Control block as `sklearn`/`shap`/

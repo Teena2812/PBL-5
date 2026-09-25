@@ -83,3 +83,32 @@
   border-top: 1px solid var(--color-border);
   margin-top: 10px;
 }
+
+/* Narrow screens: the sidebar becomes a top bar with wrapping nav links. */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+    padding: 12px 16px;
+  }
+
+  .sidebar-brand {
+    padding: 0 0 10px 0;
+  }
+
+  .sidebar-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .sidebar-link {
+    padding: 6px 10px;
+    font-size: 0.82rem;
+  }
+
+  .sidebar-footer {
+    display: none;
+  }
+}

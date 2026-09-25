@@ -114,9 +114,14 @@
   width: 100%;
 }
 
+.samples-layout > *,
+.try-layout > * {
+  min-width: 0;
+}
+
 @media (max-width: 1000px) {
   .samples-layout,
   .try-layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }

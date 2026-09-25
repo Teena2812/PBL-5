@@ -1,0 +1,166 @@
+/* Four barrier nodes in a row with arrows between them; the response row
+   below uses the same 4-column grid so each answer sits under its barrier. */
+.flow {
+  list-style: none;
+  margin: 8px 0 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px;
+}
+
+.flow-step {
+  position: relative;
+  display: flex;
+}
+
+.flow-node {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-top: 4px solid var(--color-danger);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+}
+
+.flow-node h4 {
+  margin: 8px 0 6px 0;
+  font-size: 1rem;
+}
+
+.flow-node p {
+  margin: 0 0 12px 0;
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: var(--color-text);
+}
+
+.flow-index {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #fee2e2;
+  color: #991b1b;
+  font-size: 0.78rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flow-evidence {
+  margin-top: auto;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  background: var(--color-bg);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+}
+
+.flow-evidence-label,
+.flow-response-label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+  margin-bottom: 2px;
+}
+
+/* Arrow centred in the gap to the next node. */
+.flow-arrow {
+  position: absolute;
+  top: 50%;
+  right: -24px;
+  width: 20px;
+  height: 2px;
+  background: var(--color-text-muted);
+}
+
+.flow-arrow::after {
+  content: "";
+  position: absolute;
+  right: -1px;
+  top: -4px;
+  border-left: 7px solid var(--color-text-muted);
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+}
+
+.flow-responses {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px;
+  margin-top: 20px;
+}
+
+.flow-response {
+  position: relative;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+
+/* Connector up to the barrier(s) it answers. */
+.flow-response::before {
+  content: "";
+  position: absolute;
+  top: -21px;
+  left: 50%;
+  width: 2px;
+  height: 20px;
+  background: #86efac;
+}
+
+.flow-response .flow-response-label {
+  color: #166534;
+}
+
+.flow-response p {
+  margin: 0 0 6px 0;
+}
+
+.flow-response a {
+  font-weight: 600;
+  font-size: 0.82rem;
+}
+
+@media (max-width: 1000px) {
+  .flow,
+  .flow-responses {
+    grid-template-columns: 1fr;
+  }
+
+  .flow-arrow {
+    top: auto;
+    bottom: -22px;
+    right: auto;
+    left: 50%;
+    width: 2px;
+    height: 16px;
+  }
+
+  .flow-arrow::after {
+    right: -4px;
+    top: auto;
+    bottom: -6px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 7px solid var(--color-text-muted);
+    border-bottom: none;
+  }
+
+  .flow-response {
+    grid-column: auto !important;
+  }
+
+  .flow-response::before {
+    display: none;
+  }
+}

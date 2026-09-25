@@ -7,7 +7,7 @@ import { Loading, ErrorState } from "../components/LoadingAndError";
 import Tabs from "../components/Tabs";
 import PredictionResult from "../components/PredictionResult";
 import ShapChart from "../components/ShapChart";
-import { hospitalLabel, fmtPct } from "../constants/experiments";
+import { hospitalLabel, fmtPct, fmtProb } from "../constants/experiments";
 import {
   PATIENT_FIELDS,
   DEFAULT_PATIENT,
@@ -15,6 +15,7 @@ import {
   normalizeFeature,
   patientFieldText,
 } from "../constants/features";
+import { useMediaQuery } from "../hooks/useMediaQuery";
 import "./Explainability.css";
 
 const TABS = [
@@ -82,7 +83,7 @@ function SamplesView() {
             <span className="sample-item-title">{hospitalLabel(s.hospital_id)} patient</span>
             <span className="sample-item-meta">
               {s.patient.age} yrs &middot; {s.patient.sex === 1 ? "male" : "female"} &middot;{" "}
-              {fmtPct(s.predicted_probability, 0)} risk
+              {fmtProb(s.predicted_probability, 0)} risk
             </span>
           </button>
         ))}
@@ -367,13 +368,14 @@ function GlobalView() {
 }
 
 function ImportanceChart({ rows }) {
+  const narrow = useMediaQuery("(max-width: 768px)");
   const data = rows.map((r) => ({ label: featureLabel(r.feature), value: r.mean_abs_shap }));
   return (
     <ResponsiveContainer width="100%" height={rows.length * 30 + 30}>
       <BarChart data={data} layout="vertical" margin={{ top: 0, right: 44, left: 4, bottom: 0 }}>
         <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" horizontal={false} />
         <XAxis type="number" tickFormatter={(v) => (v * 100).toFixed(0)} tick={{ fontSize: 11 }} />
-        <YAxis type="category" dataKey="label" width={220} tick={{ fontSize: 12 }} interval={0} />
+        <YAxis type="category" dataKey="label" width={narrow ? 130 : 220} tick={{ fontSize: narrow ? 10 : 12 }} interval={0} />
         <Tooltip
           cursor={{ fill: "rgba(148, 163, 184, 0.12)" }}
           formatter={(v) => [`${(v * 100).toFixed(1)} pts`, "Mean |SHAP|"]}

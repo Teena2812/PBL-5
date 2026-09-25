@@ -1,0 +1,116 @@
+.roadmap-progress {
+  padding: 16px 24px;
+}
+
+.roadmap-progress-bar {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 4px;
+}
+
+.roadmap-progress-seg {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--color-border);
+}
+
+.roadmap-progress-seg.done {
+  background: var(--color-success);
+}
+
+.roadmap-progress-text {
+  margin-top: 10px;
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+}
+
+.roadmap-progress-text strong {
+  color: var(--color-text);
+}
+
+/* Vertical timeline: markers on a connecting rail. */
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.timeline-item {
+  position: relative;
+  display: flex;
+  gap: 16px;
+  padding-bottom: 18px;
+}
+
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+.timeline-item:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 13px;
+  top: 28px;
+  bottom: 0;
+  width: 2px;
+  background: var(--color-border);
+}
+
+.timeline-item.done:not(:last-child)::before {
+  background: #86efac;
+}
+
+.timeline-marker {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.timeline-item.done .timeline-marker {
+  background: var(--color-success);
+  color: white;
+}
+
+.timeline-item.pending .timeline-marker {
+  background: var(--color-surface);
+  border: 2px dashed var(--color-text-muted);
+  color: var(--color-text-muted);
+}
+
+.timeline-body {
+  padding-top: 3px;
+  min-width: 0;
+}
+
+.timeline-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.timeline-phase {
+  color: var(--color-text-muted);
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.timeline-item.pending .timeline-title {
+  color: var(--color-text-muted);
+}
+
+.timeline-result {
+  margin-top: 3px;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
