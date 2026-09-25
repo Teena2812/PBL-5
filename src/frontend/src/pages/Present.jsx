@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   getDashboardSummary,
@@ -14,7 +14,7 @@ import TrainingReplay from "../components/TrainingReplay";
 import WorstServedChart from "../components/WorstServedChart";
 import { fmtPct, fmtProb, hospitalLabel } from "../constants/experiments";
 import { predict, verifyAgainstBackend } from "../lib/inference";
-import { PHASES } from "./Roadmap";
+import { PHASES } from "../constants/roadmap";
 import "./Present.css";
 
 async function getPresentData() {
@@ -54,7 +54,9 @@ export default function Present() {
   // Track the latest slide in a ref so several clicks/keys within one render
   // each count, instead of all reading the same stale index.
   const indexRef = useRef(index);
-  indexRef.current = index;
+  useLayoutEffect(() => {
+    indexRef.current = index;
+  }, [index]);
   const step = useCallback(
     (delta) => {
       const clamped = Math.min(Math.max(indexRef.current + delta, 0), SLIDES.length - 1);
