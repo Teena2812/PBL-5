@@ -711,6 +711,25 @@ each bar is the change in risk if only that one field were replaced by the
 hospital's average, and it is labelled as such in the UI. Real SHAP values
 remain on the Sample patients tab (computed on Colab).
 
+## Live dashboard (GitHub Pages)
+
+**https://teena2812.github.io/PBL-5/** -- deployed automatically by
+[`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml)
+on every push to `master`.
+
+The deployed site is fully static -- no FastAPI backend:
+- every screen reads the same committed `experiments/results/dashboard_data/*.json`
+  the backend serves (copied into the build by
+  `src/frontend/scripts/copy-dashboard-data.mjs`)
+- predictions run in the browser (Phase 7 step 9), still self-checked on
+  every load against the 5 real backend outputs
+- hash-based URLs (e.g. `.../PBL-5/#/present`), since GitHub Pages can't
+  route deep links to `index.html`
+
+Only the standalone `POST /api/predict` API needs the backend; the dashboard
+doesn't use it. Local static build:
+`cd src/frontend && VITE_STATIC_DATA=true VITE_ROUTER=hash VITE_BASE=/PBL-5/ npm run build:static`
+
 ## Setup
 
 ```bash

@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:static": "node scripts/copy-dashboard-data.mjs && vite build"
   },
   "dependencies": {
     "axios": "^1.20.0",
