@@ -674,6 +674,42 @@ Run: `cd src/frontend && npm install && npm run dev` (needs the backend
 running separately for data to load — see Phase 7 step 2 above). Set
 `VITE_API_BASE_URL` to point at a non-default backend URL.
 
+## Phase 7, step 9: in-browser inference (what-if explorer)
+
+The Explainability screen's "Try a prediction" tab runs the 5 saved
+personalized models **directly in the browser** -- no torch, no backend
+inference, no Colab -- so live prediction works on this machine and in any
+static deployment.
+
+- [`experiments/export_model_weights.py`](experiments/export_model_weights.py)
+  reads the `.pt` checkpoints **without torch** (a checkpoint is a zip of a
+  pickled state_dict pointing at raw float32 buffers; a small custom
+  unpickler rebuilds them with numpy) and writes
+  `dashboard_data/model_weights.json`: the weights (5 models x 513
+  parameters), the preprocessing constants, each hospital's average encoded
+  patient (aggregate means over its real 29-82 patients, no individual
+  records), and the observed min/max of each numeric input across the 297
+  patients (bounds for the sliders). Runs locally:
+  `venv\Scripts\python experiments\export_model_weights.py`
+- [`src/frontend/src/lib/inference.js`](src/frontend/src/lib/inference.js)
+  re-implements `transform_new_patient` + `HeartDiseaseNet`'s forward pass
+  (Linear 22->16, ReLU, Linear 16->8, ReLU, Linear 8->1, sigmoid).
+
+**Verified against the real model:**
+- The export script fails unless its numpy forward pass reproduces all 5
+  real `predict_and_explain()` outputs in `sample_patients.json` (the
+  function behind `POST /api/predict`) within their 4-dp rounding: max
+  difference 3.6e-5, every value rounds to the stored one.
+- The JavaScript forward pass matches numpy to 6.7e-16 over 1,000
+  predictions (200 random in-range patients x 5 models).
+- The dashboard re-runs the 5-patient check on every load and **switches
+  the feature off** if any in-browser prediction drifts past 5e-5.
+
+The explorer's per-feature breakdown is an **approximation, not SHAP**:
+each bar is the change in risk if only that one field were replaced by the
+hospital's average, and it is labelled as such in the UI. Real SHAP values
+remain on the Sample patients tab (computed on Colab).
+
 ## Setup
 
 ```bash

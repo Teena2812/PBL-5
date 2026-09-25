@@ -79,7 +79,10 @@ export default function PredictionResult({ result, rawPatient, actualLabel }) {
         </div>
       )}
 
-      <h4 style={{ margin: "20px 0 4px 0" }}>Why: top {result.explanation.length} feature contributions (SHAP)</h4>
+      <div className="shap-heading">
+        <h4>Why: top {result.explanation.length} feature contributions</h4>
+        <span className="badge badge-low">Real SHAP &middot; KernelExplainer</span>
+      </div>
       <p className="muted-note">
         Starts from the model&apos;s average output over this hospital&apos;s training patients (
         {fmtPct(result.base_value)}); these features together move it by {shapTotal >= 0 ? "+" : "−"}

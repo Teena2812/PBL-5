@@ -1,20 +1,16 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LabelList } from "recharts";
-import { getExplainability, getHealth, getHospitals, getSamplePatients, predict } from "../api/client";
+import { getExplainability, getHospitals, getModelWeights, getSamplePatients } from "../api/client";
 import { useApiData } from "../hooks/useApiData";
 import { Loading, ErrorState } from "../components/LoadingAndError";
 import Tabs from "../components/Tabs";
 import PredictionResult from "../components/PredictionResult";
 import ShapChart from "../components/ShapChart";
-import { hospitalLabel, fmtPct, fmtProb } from "../constants/experiments";
-import {
-  PATIENT_FIELDS,
-  DEFAULT_PATIENT,
-  featureLabel,
-  normalizeFeature,
-  patientFieldText,
-} from "../constants/features";
+import WhatIfExplorer from "../components/WhatIfExplorer";
+import { verifyAgainstBackend } from "../lib/inference";
+import { hospitalLabel, fmtProb } from "../constants/experiments";
+import { PATIENT_FIELDS, featureLabel, normalizeFeature, patientFieldText } from "../constants/features";
 import { useMediaQuery } from "../hooks/useMediaQuery";
 import "./Explainability.css";
 
@@ -29,6 +25,7 @@ export default function Explainability() {
   const requested = searchParams.get("view");
   const active = TABS.some((t) => t.id === requested) ? requested : "samples";
   const setActive = (id) => setSearchParams(id === "samples" ? {} : { view: id }, { replace: true });
+  const openInExplorer = (sampleId) => setSearchParams({ view: "try", sample: sampleId });
 
   return (
     <div>
@@ -40,8 +37,10 @@ export default function Explainability() {
       <Tabs tabs={TABS} active={active} onChange={setActive} label="Explainability views" />
 
       <div role="tabpanel" id={`panel-${active}`} aria-labelledby={`tab-${active}`}>
-        {active === "samples" && <SamplesView />}
-        {active === "try" && <TryPredictionView />}
+        {active === "samples" && <SamplesView onExplore={openInExplorer} />}
+        {active === "try" && (
+          <TryPredictionView key={searchParams.get("sample") ?? "default"} initialSampleId={searchParams.get("sample")} />
+        )}
         {active === "global" && <GlobalView />}
       </div>
 
@@ -57,7 +56,7 @@ export default function Explainability() {
 /* Sample patients: precomputed predictions + SHAP (Colab export)      */
 /* ------------------------------------------------------------------ */
 
-function SamplesView() {
+function SamplesView({ onExplore }) {
   const samples = useApiData(getSamplePatients, []);
   const [selectedId, setSelectedId] = useState(null);
 
@@ -95,6 +94,14 @@ function SamplesView() {
       <div>
         <div className="card">
           <PredictionResult result={selected} rawPatient={selected.patient} actualLabel={selected.actual_label} />
+          <div className="explore-link">
+            <button type="button" className="button-secondary" onClick={() => onExplore(selected.id)}>
+              Explore this patient in the what-if explorer →
+            </button>
+            <span className="muted-note" style={{ margin: 0 }}>
+              Change their values and watch the risk update live, for all 5 hospital models.
+            </span>
+          </div>
         </div>
         <div className="card">
           <h3>Patient record</h3>
@@ -140,178 +147,45 @@ function PatientTable({ patient }) {
 /* Try a prediction: live POST /api/predict                            */
 /* ------------------------------------------------------------------ */
 
-async function getTryPredictionContext() {
-  const [health, hospitals, samples] = await Promise.all([
-    getHealth(),
-    getHospitals(),
-    // Samples are optional here (only used to prefill the form).
-    getSamplePatients().catch(() => ({ samples: [] })),
-  ]);
-  return { health, hospitals: hospitals.hospitals, samples: samples.samples };
+async function getWhatIfContext() {
+  const [weights, hospitals, samples] = await Promise.all([getModelWeights(), getHospitals(), getSamplePatients()]);
+  return {
+    weights,
+    hospitals: hospitals.hospitals,
+    samples: samples.samples,
+    // Guard against the in-browser models drifting from the real ones.
+    verification: verifyAgainstBackend(weights),
+  };
 }
 
-function TryPredictionView() {
-  const context = useApiData(getTryPredictionContext, []);
-  const [form, setForm] = useState({ ...DEFAULT_PATIENT, hospital_id: "hospital_1" });
-  const [submitting, setSubmitting] = useState(false);
-  const [result, setResult] = useState(null);
-  const [submitError, setSubmitError] = useState(null);
-
+function TryPredictionView({ initialSampleId }) {
+  const context = useApiData(getWhatIfContext, []);
   if (context.loading) return <Loading />;
   if (context.error) return <ErrorState error={context.error} />;
 
-  const { health, hospitals, samples } = context.data;
-  const available = health.live_prediction_available;
-
-  const setField = (key, value) => setForm((f) => ({ ...f, [key]: value }));
-
-  const loadPreset = (value) => {
-    if (value === "default") {
-      setForm((f) => ({ ...DEFAULT_PATIENT, hospital_id: f.hospital_id }));
-      return;
-    }
-    const sample = samples.find((s) => s.id === value);
-    if (sample) setForm({ ...sample.patient, hospital_id: sample.hospital_id });
-  };
-
-  const onSubmit = async (event) => {
-    event.preventDefault();
-    setSubmitting(true);
-    setSubmitError(null);
-    try {
-      const payload = Object.fromEntries(Object.entries(form).map(([k, v]) => [k, k === "hospital_id" ? v : Number(v)]));
-      setResult({ response: await predict(payload), patient: payload });
-    } catch (err) {
-      setResult(null);
-      setSubmitError(err);
-    } finally {
-      setSubmitting(false);
-    }
-  };
+  const { weights, hospitals, samples, verification } = context.data;
+  if (!verification.ok) {
+    return (
+      <div className="error-box">
+        <strong>In-browser predictions are switched off.</strong>
+        <div style={{ marginTop: 6 }}>
+          The exported model weights no longer reproduce the real backend&apos;s outputs (largest difference{" "}
+          {verification.maxDiff.toExponential(2)}, allowed 5e-5). Re-run{" "}
+          <code>experiments/export_model_weights.py</code> rather than trusting drifted predictions.
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <>
-      {!available && (
-        <div className="warning-box" style={{ marginBottom: 20 }}>
-          <strong>Live prediction isn&apos;t available on this backend.</strong>
-          <div style={{ marginTop: 6 }}>
-            {health.live_prediction_note} Run the backend where torch and SHAP are installed (e.g. Colab, section 10
-            of the notebook) to use this form. The <em>Sample patients</em> tab shows predictions made with the same
-            code.
-          </div>
-        </div>
-      )}
-
-      <div className="try-layout">
-        <form className="card try-form" onSubmit={onSubmit}>
-          <h3>Patient</h3>
-          <div className="form-row">
-            <label htmlFor="preset">Start from</label>
-            <select id="preset" defaultValue="default" onChange={(e) => loadPreset(e.target.value)}>
-              <option value="default">Example patient (API docs)</option>
-              {samples.map((s) => (
-                <option key={s.id} value={s.id}>
-                  {hospitalLabel(s.hospital_id)} sample patient
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="form-grid">
-            {PATIENT_FIELDS.map((field) => (
-              <div className="form-row" key={field.key}>
-                <label htmlFor={`f-${field.key}`}>
-                  {field.label}
-                  {field.unit && <span className="form-unit"> ({field.unit})</span>}
-                </label>
-                {field.type === "select" ? (
-                  <select
-                    id={`f-${field.key}`}
-                    value={form[field.key]}
-                    onChange={(e) => setField(field.key, Number(e.target.value))}
-                  >
-                    {Object.entries(field.options).map(([value, text]) => (
-                      <option key={value} value={value}>
-                        {text}
-                      </option>
-                    ))}
-                  </select>
-                ) : (
-                  <input
-                    id={`f-${field.key}`}
-                    type="number"
-                    required
-                    min={field.min}
-                    max={field.max}
-                    step={field.step}
-                    value={form[field.key]}
-                    onChange={(e) => setField(field.key, e.target.value)}
-                  />
-                )}
-              </div>
-            ))}
-          </div>
-
-          <div className="form-row" style={{ marginTop: 8 }}>
-            <label htmlFor="f-hospital">Hospital model</label>
-            <select id="f-hospital" value={form.hospital_id} onChange={(e) => setField("hospital_id", e.target.value)}>
-              {hospitals.map((h) => (
-                <option key={h.hospital} value={h.hospital}>
-                  {hospitalLabel(h.hospital)} personalized ({fmtPct(h.personalized_accuracy)} test accuracy)
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <button type="submit" className="button-primary" disabled={!available || submitting}>
-            {submitting ? "Predicting…" : "Predict risk"}
-          </button>
-        </form>
-
-        <div className="card">
-          {submitError ? (
-            <PredictErrorState error={submitError} />
-          ) : result ? (
-            <PredictionResult result={result.response} rawPatient={result.patient} />
-          ) : (
-            <p className="muted-note" style={{ margin: 0 }}>
-              {available
-                ? "Fill in the patient record and pick a hospital's model, then press Predict risk. The model only runs inference — nothing is retrained."
-                : "The prediction and its SHAP explanation will appear here once a backend with torch is running."}
-            </p>
-          )}
-        </div>
-      </div>
-    </>
+    <WhatIfExplorer
+      weights={weights}
+      hospitals={hospitals}
+      samples={samples}
+      verification={verification}
+      initialSampleId={initialSampleId}
+    />
   );
-}
-
-function PredictErrorState({ error }) {
-  const detail = error?.response?.data?.detail;
-  // FastAPI validation errors (422) come back as a list of field errors.
-  if (Array.isArray(detail)) {
-    return (
-      <div className="error-box">
-        <strong>Some inputs are out of range.</strong>
-        <ul style={{ margin: "6px 0 0", paddingLeft: 18 }}>
-          {detail.map((d, i) => (
-            <li key={i}>
-              {d.loc?.slice(1).join(".")}: {d.msg}
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
-  }
-  if (typeof detail === "string") {
-    return (
-      <div className="error-box">
-        <strong>Prediction failed.</strong>
-        <div style={{ marginTop: 6 }}>{detail}</div>
-      </div>
-    );
-  }
-  return <ErrorState error={error} />;
 }
 
 /* ------------------------------------------------------------------ */

@@ -125,3 +125,13 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+.explore-link {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border);
+}

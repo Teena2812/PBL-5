@@ -25,6 +25,7 @@ _FILES = {
     "equity": "equity_analysis.json",
     "explainability": "explainability.json",
     "explainability/samples": "sample_patients.json",
+    "models/weights": "model_weights.json",
 }
 
 
@@ -69,6 +70,14 @@ def get_equity_analysis() -> dict:
 @router.get("/explainability")
 def get_explainability() -> dict:
     return _load(_FILES["explainability"])
+
+
+@router.get("/models/weights")
+def get_model_weights() -> dict:
+    # The 5 personalized models' weights + preprocessing, for in-browser
+    # inference (experiments/export_model_weights.py). Aggregate hospital
+    # means only; no individual patient records.
+    return _load(_FILES["models/weights"])
 
 
 @router.get("/explainability/samples")

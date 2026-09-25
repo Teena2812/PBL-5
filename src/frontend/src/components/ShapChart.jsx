@@ -29,7 +29,11 @@ function fmtPts(v) {
  * already ranked by |shap_value|. rawPatient (optional) lets feature values
  * show in clinical units instead of the model's encoded values.
  */
-export default function ShapChart({ contributions, rawPatient }) {
+export default function ShapChart({
+  contributions,
+  rawPatient,
+  legend = ["Pushes toward no disease", "Pushes toward disease"],
+}) {
   const narrow = useMediaQuery("(max-width: 768px)");
   const data = contributions.map((c) => ({
     ...c,
@@ -44,11 +48,11 @@ export default function ShapChart({ contributions, rawPatient }) {
       <div className="shap-legend">
         <span>
           <span className="shap-swatch" style={{ background: TOWARD_HEALTHY }} />
-          Pushes toward no disease
+          {legend[0]}
         </span>
         <span>
           <span className="shap-swatch" style={{ background: TOWARD_DISEASE }} />
-          Pushes toward disease
+          {legend[1]}
         </span>
       </div>
       <ResponsiveContainer width="100%" height={Math.max(160, data.length * 38 + 40)}>

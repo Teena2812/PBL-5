@@ -44,6 +44,12 @@ export async function getExplainability() {
   return data;
 }
 
+/** The 5 personalized models' weights + preprocessing, for in-browser inference. */
+export async function getModelWeights() {
+  const { data } = await api.get("/models/weights");
+  return data;
+}
+
 /** Precomputed sample-patient predictions (empty list until generated on Colab). */
 export async function getSamplePatients() {
   const { data } = await api.get("/explainability/samples");

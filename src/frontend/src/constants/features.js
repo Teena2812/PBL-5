@@ -27,6 +27,11 @@ const BASE_LABELS = {
   exang: "Exercise-induced angina",
   oldpeak: "ST depression (oldpeak)",
   ca: "Major vessels (fluoroscopy)",
+  // Whole categorical fields (used by the in-browser per-field breakdown).
+  cp: "Chest pain type",
+  restecg: "Resting ECG",
+  slope: "ST slope",
+  thal: "Thallium test",
 };
 
 const UNITS = { age: "yrs", trestbps: "mm Hg", chol: "mg/dl", thalach: "bpm" };
@@ -69,6 +74,10 @@ export function featureValueText(name, encodedValue, rawPatient) {
   if (oneHot) {
     const isSet = rawPatient ? rawPatient[oneHot.base] === oneHot.code : encodedValue === 1;
     return isSet ? "yes" : "no";
+  }
+  if (CATEGORY_LABELS[feature] && rawPatient) {
+    const code = rawPatient[feature];
+    return SHORT_CATEGORY_LABELS[feature]?.[code] ?? CATEGORY_LABELS[feature][code] ?? String(code);
   }
   if (["sex", "fbs", "exang"].includes(feature)) {
     const value = rawPatient ? rawPatient[feature] : encodedValue;
