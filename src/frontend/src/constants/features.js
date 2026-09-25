@@ -42,11 +42,17 @@ function splitOneHot(feature) {
   return match ? { base: match[1], code: Number(match[2]) } : null;
 }
 
+// Shorter category names for chart axis labels, where space is tight.
+const SHORT_CATEGORY_LABELS = { restecg: { 1: "ST-T abnormality", 2: "LV hypertrophy" } };
+
 export function featureLabel(name) {
   const feature = normalizeFeature(name);
   const oneHot = splitOneHot(feature);
   if (oneHot) {
-    const category = CATEGORY_LABELS[oneHot.base]?.[oneHot.code] ?? `type ${oneHot.code}`;
+    const category =
+      SHORT_CATEGORY_LABELS[oneHot.base]?.[oneHot.code] ??
+      CATEGORY_LABELS[oneHot.base]?.[oneHot.code] ??
+      `type ${oneHot.code}`;
     return `${CATEGORY_PREFIX[oneHot.base]}: ${category}`;
   }
   return BASE_LABELS[feature] ?? feature;
@@ -70,7 +76,8 @@ export function featureValueText(name, encodedValue, rawPatient) {
     return value === 1 ? "yes" : "no";
   }
   if (rawPatient) {
-    return UNITS[feature] ? `${rawPatient[feature]} ${UNITS[feature]}` : String(rawPatient[feature]);
+    const value = feature === "oldpeak" ? Number(rawPatient[feature]).toFixed(1) : String(rawPatient[feature]);
+    return UNITS[feature] ? `${value} ${UNITS[feature]}` : value;
   }
   const sign = encodedValue >= 0 ? "+" : "−";
   return `${sign}${Math.abs(encodedValue).toFixed(2)} SD`;
@@ -102,5 +109,7 @@ export const DEFAULT_PATIENT = {
 
 export function patientFieldText(field, value) {
   if (field.type === "select") return field.options[value] ?? String(value);
-  return field.unit ? `${value} ${field.unit}` : String(value);
+  // Show fractional fields (oldpeak) at their input precision, e.g. 4.0.
+  const text = field.step < 1 ? Number(value).toFixed(1) : String(value);
+  return field.unit ? `${text} ${field.unit}` : text;
 }

@@ -12,6 +12,7 @@ import {
 } from "recharts";
 import { featureLabel, featureValueText } from "../constants/features";
 import "./PredictionResult.css";
+import { useMediaQuery } from "../hooks/useMediaQuery";
 
 // Same validated disease / no-disease pair as the Hospitals screen.
 export const TOWARD_DISEASE = "#dc2626";
@@ -29,12 +30,14 @@ function fmtPts(v) {
  * show in clinical units instead of the model's encoded values.
  */
 export default function ShapChart({ contributions, rawPatient }) {
+  const narrow = useMediaQuery("(max-width: 768px)");
   const data = contributions.map((c) => ({
     ...c,
     label: `${featureLabel(c.feature)} = ${featureValueText(c.feature, c.feature_value, rawPatient)}`,
   }));
   const maxAbs = Math.max(...data.map((d) => Math.abs(d.shap_value)), 0.01);
-  const bound = Math.ceil(maxAbs * 1.25 * 100) / 100;
+  // Multiple of 2 pts so the half-way ticks land on whole points.
+  const bound = Math.ceil(maxAbs * 1.25 * 50) / 50;
 
   return (
     <>
@@ -54,10 +57,11 @@ export default function ShapChart({ contributions, rawPatient }) {
           <XAxis
             type="number"
             domain={[-bound, bound]}
+            ticks={[-bound, -bound / 2, 0, bound / 2, bound]}
             tickFormatter={(v) => `${fmtPts(v)} pts`}
             tick={{ fontSize: 11 }}
           />
-          <YAxis type="category" dataKey="label" width={320} tick={{ fontSize: 12 }} interval={0} />
+          <YAxis type="category" dataKey="label" width={narrow ? 150 : 320} tick={{ fontSize: narrow ? 10 : 12 }} interval={0} />
           <Tooltip content={<ShapTooltip />} cursor={{ fill: "rgba(148, 163, 184, 0.12)" }} />
           <ReferenceLine x={0} stroke="var(--color-text-muted)" />
           <Bar dataKey="shap_value" radius={4} barSize={20}>

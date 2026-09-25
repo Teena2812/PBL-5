@@ -38,6 +38,15 @@ export function fmtPct(x, digits = 1) {
   return `${(x * 100).toFixed(digits)}%`;
 }
 
+// A model probability as a percentage, without rounding a near-certain
+// output (e.g. 0.9998) up to a misleading "100%" or down to "0%".
+export function fmtProb(p, digits = 1) {
+  const floor = 10 ** -(digits + 2);
+  if (p > 1 - floor) return `>${fmtPct(1 - floor, digits)}`;
+  if (p < floor) return `<${fmtPct(floor, digits)}`;
+  return fmtPct(p, digits);
+}
+
 export function hospitalLabel(id) {
   return id.replace("hospital_", "Hospital ");
 }
