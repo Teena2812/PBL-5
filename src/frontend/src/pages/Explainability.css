@@ -1,0 +1,122 @@
+.samples-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.sample-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sample-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: left;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid transparent;
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.sample-item:hover {
+  border-color: #bfdbfe;
+}
+
+.sample-item.active {
+  border-color: #bfdbfe;
+  border-left-color: var(--color-primary);
+  background: #eff6ff;
+}
+
+.sample-item:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.sample-item-title {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.sample-item-meta {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.patient-table th {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.88rem;
+  width: 50%;
+}
+
+.try-layout {
+  display: grid;
+  grid-template-columns: minmax(320px, 2fr) 3fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.try-layout > .card + .card {
+  margin-top: 0;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 14px;
+  margin: 12px 0;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.form-row label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.form-unit {
+  font-weight: 400;
+  color: var(--color-text-muted);
+}
+
+.form-row input,
+.form-row select {
+  font: inherit;
+  font-size: 0.88rem;
+  padding: 7px 9px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.form-row input:focus,
+.form-row select:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -1px;
+}
+
+.try-form .button-primary {
+  margin-top: 14px;
+  width: 100%;
+}
+
+@media (max-width: 1000px) {
+  .samples-layout,
+  .try-layout {
+    grid-template-columns: 1fr;
+  }
+}

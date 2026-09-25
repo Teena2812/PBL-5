@@ -1,0 +1,81 @@
+.prediction-summary {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) 2fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.prediction-probability {
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.prediction-meter {
+  position: relative;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--color-border);
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+.prediction-meter-fill {
+  height: 100%;
+  background: var(--color-danger);
+  border-radius: 999px;
+}
+
+.prediction-meter-threshold {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: var(--color-surface);
+}
+
+.prediction-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 20px;
+  margin: 0;
+}
+
+.prediction-facts dt {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.prediction-facts dd {
+  margin: 0;
+  font-size: 0.92rem;
+}
+
+.shap-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 0.8rem;
+  color: var(--color-text);
+  margin-bottom: 4px;
+}
+
+.shap-swatch {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  margin-right: 6px;
+}
+
+@media (max-width: 700px) {
+  .prediction-summary,
+  .prediction-facts {
+    grid-template-columns: 1fr;
+  }
+}

@@ -631,10 +631,11 @@ change from the default 8000). Interactive docs at `/docs`.
 ## Phase 7, step 3: React frontend (Screen 1 — Overview)
 
 `src/frontend/` — a Vite + React app, one screen built so far (of 6
-planned: Overview, Hospitals, Experiment Comparison, Training Curves,
-Explainability, Predict Risk — the others are routed placeholders for now,
-built one at a time). A separate Equity Analysis screen was dropped: the
-equity headline is the default tab of Experiment Comparison instead.
+planned: Overview, Problem, Hospitals, Experiment Comparison,
+Explainability, Roadmap — the others are routed placeholders for now,
+built one at a time). The earlier Equity Analysis, Training Curves and
+Predict Risk screens were dropped: the equity headline is the default tab
+of Experiment Comparison, and live prediction lives inside Explainability.
 
 | File | Role |
 |---|---|

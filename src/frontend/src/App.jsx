@@ -1,8 +1,9 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Overview from "./pages/Overview";
 import Hospitals from "./pages/Hospitals";
 import ExperimentComparison from "./pages/ExperimentComparison";
+import Explainability from "./pages/Explainability";
 import ComingSoon from "./pages/ComingSoon";
 
 export default function App() {
@@ -12,11 +13,12 @@ export default function App() {
       <main className="app-main">
         <Routes>
           <Route path="/" element={<Overview />} />
+          <Route path="/problem" element={<ComingSoon title="Problem" />} />
           <Route path="/hospitals" element={<Hospitals />} />
           <Route path="/experiments" element={<ExperimentComparison />} />
-          <Route path="/training" element={<ComingSoon title="Training Curves" />} />
-          <Route path="/explainability" element={<ComingSoon title="Explainability" />} />
-          <Route path="/predict" element={<ComingSoon title="Predict Risk" />} />
+          <Route path="/explainability" element={<Explainability />} />
+          <Route path="/roadmap" element={<ComingSoon title="Roadmap" />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
     </div>

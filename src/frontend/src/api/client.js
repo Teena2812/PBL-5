@@ -44,6 +44,12 @@ export async function getExplainability() {
   return data;
 }
 
+/** Precomputed sample-patient predictions (empty list until generated on Colab). */
+export async function getSamplePatients() {
+  const { data } = await api.get("/explainability/samples");
+  return data;
+}
+
 /**
  * POST /api/predict. Live inference + single-instance SHAP explanation
  * only -- the backend never retrains anything here.

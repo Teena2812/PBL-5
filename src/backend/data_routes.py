@@ -24,6 +24,7 @@ _FILES = {
     "experiments/training-curves": "training_curves.json",
     "equity": "equity_analysis.json",
     "explainability": "explainability.json",
+    "explainability/samples": "sample_patients.json",
 }
 
 
@@ -68,3 +69,18 @@ def get_equity_analysis() -> dict:
 @router.get("/explainability")
 def get_explainability() -> dict:
     return _load(_FILES["explainability"])
+
+
+@router.get("/explainability/samples")
+def get_sample_patients() -> dict:
+    # Needs torch/shap to generate, so it comes from a separate Colab-run
+    # script rather than export_dashboard_data.py. Not having run it yet is
+    # an expected state (e.g. a fresh local checkout), so it's an empty list
+    # rather than an error.
+    if not (DASHBOARD_DATA_DIR / _FILES["explainability/samples"]).exists():
+        return {
+            "samples": [],
+            "generated": False,
+            "detail": "Run experiments/export_sample_patients.py on Colab to generate sample patients.",
+        }
+    return {"generated": True, **_load(_FILES["explainability/samples"])}

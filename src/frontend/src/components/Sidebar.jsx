@@ -3,11 +3,11 @@ import "./Sidebar.css";
 
 const NAV_ITEMS = [
   { to: "/", label: "Overview", icon: "⌂", end: true },
+  { to: "/problem", label: "Problem", icon: "\u{1F3AF}" },
   { to: "/hospitals", label: "Hospitals", icon: "\u{1F3E5}" },
   { to: "/experiments", label: "Experiment Comparison", icon: "\u{1F4CA}" },
-  { to: "/training", label: "Training Curves", icon: "\u{1F4C8}" },
   { to: "/explainability", label: "Explainability", icon: "\u{1F50D}" },
-  { to: "/predict", label: "Predict Risk", icon: "\u{1FA7A}" },
+  { to: "/roadmap", label: "Roadmap", icon: "\u{1F5FA}" },
 ];
 
 export default function Sidebar() {
