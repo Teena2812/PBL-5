@@ -129,10 +129,17 @@ def main():
     fedavg_vs_flower = compare("fedavg vs Flower", streamed, load_flower_rounds(f"{flower_dir}/phase4_fedavg_per_round_per_hospital.csv"), problems)
     ref = {(e["round"], h["hospital"]): {m: h[m] for m in METRICS} for e in reference["fedavg"] for h in e["hospitals"]}
     fedavg_vs_direct = compare("fedavg vs direct Ray-free", streamed, ref, problems)
+    # Streaming check: each round must reach the client when the server
+    # produced it, not all at once at the end. Compare client arrival times
+    # with the server's own elapsed_seconds stamps, relative to round 1.
     arrival = [e[3] for e in rounds]
-    streamed_live = arrival == sorted(arrival) and arrival[0] < events[-1][3] - 5
+    produced = [e[2]["elapsed_seconds"] for e in rounds]
+    lag_drift = max(abs((a - arrival[0]) - (p - produced[0])) for a, p in zip(arrival, produced))
+    spread = produced[-1] - produced[0]
+    streamed_live = arrival == sorted(arrival) and spread >= 1.0 and lag_drift <= 1.0
     if not streamed_live:
-        problems.append(f"round events did not arrive incrementally: {arrival}")
+        problems.append(f"round events not delivered as produced: arrival={arrival} produced={produced} "
+                        f"drift={lag_drift:.2f}s spread={spread:.2f}s")
 
     # Resume after the fact: Last-Event-ID 5 -> ids 6..end, identical payloads.
     resumed = stream_events(base, run["events_url"], headers={"Last-Event-ID": "5"})
@@ -159,6 +166,8 @@ def main():
             "run_seconds": events[-1][2]["elapsed_seconds"],
             "first_round_arrived_after_s": arrival[0],
             "last_round_arrived_after_s": arrival[-1],
+            "training_seconds_round1_to_20": round(spread, 2),
+            "max_delivery_drift_s": round(lag_drift, 2),
             "final_global_accuracy": events[-1][2]["final_global_accuracy"],
             "matches_flower": f"{fedavg_vs_flower[0]}/{fedavg_vs_flower[1]}",
             "matches_direct_rayfree": f"{fedavg_vs_direct[0]}/{fedavg_vs_direct[1]}",
