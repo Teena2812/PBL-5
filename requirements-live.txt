@@ -1,0 +1,14 @@
+# Hosted live-training backend (Render/Railway): the FastAPI app + the Ray-free
+# training loop only. No Ray (flwr without the [simulation] extra), no shap,
+# no plotting -- keeps the image small and memory under the free tier's 512 MB.
+# Install torch from the CPU-only index first:
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+torch>=2.2
+flwr==1.38.0          # core only: the client class and aggregate(), same version as the experiments
+numpy>=1.26
+pandas==2.2.3
+scikit-learn>=1.4     # local train/test split + metrics, same as the experiments
+requests>=2.31        # downloads the four UCI site files on first start
+fastapi>=0.110
+uvicorn[standard]>=0.29
+pydantic>=2.6

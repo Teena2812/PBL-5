@@ -6,7 +6,17 @@ name: Preflight - real-data Phases 2-6
 on:
   push:
     branches: [multisite-data]
-    paths-ignore: ["preflight_results/**"]
+    # Only rerun the experiments when experiment code or data code changes.
+    paths:
+      - "experiments/**"
+      - "src/data/**"
+      - "src/models/**"
+      - "src/federated/client.py"
+      - "src/federated/fedavg_runner.py"
+      - "src/federated/fedprox_runner.py"
+      - "src/federated/personalize.py"
+      - "src/federated/strategy_utils.py"
+      - "requirements.txt"
 
 permissions:
   contents: write

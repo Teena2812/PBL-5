@@ -16,6 +16,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from src.backend import inference
 from src.backend.data_routes import router as data_router
+from src.backend.live_training import router as live_training_router
 from src.backend.schemas import PatientInput, PredictionResponse
 
 app = FastAPI(
@@ -38,6 +39,7 @@ app.add_middleware(
 )
 
 app.include_router(data_router)
+app.include_router(live_training_router)
 
 
 @app.get("/api/health")

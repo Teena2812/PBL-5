@@ -92,6 +92,18 @@ accuracy is not meaningful on its own (a model that always predicts
 numeric features are standardized with statistics pooled across all 849
 patients, as in the earlier phases (a per-site alternative is possible).
 
+> **Reproducibility caveat -- read before comparing numbers.** Runs that use
+> Flower's simulation engine (Ray) are **not bit-for-bit reproducible**:
+> Ray returns client results in a varying order, which changes the
+> floating-point summation order when the server averages the weights, and
+> that can flip a borderline test prediction. Measured on this data: two
+> identical FedAvg runs (model-init seed 7) differed by **2 test patients
+> (0.94 pp)** across the Phase 4 and Phase 5 scripts. Treat differences of
+> about **±1-2 patients / ±0.5-1 pp** between identical runs as run-to-run
+> noise, not an effect. The Ray-free loop used for live training
+> (`src/federated/rayfree_runner.py`) visits clients in a fixed order and
+> is deterministic.
+
 **Not used, and why.**
 - *Statlog (Heart)* ([doi:10.24432/C57303](https://doi.org/10.24432/C57303))
   is not a fifth site: all 270 of its rows exactly match Cleveland rows.
@@ -133,6 +145,32 @@ The Ray-free loop reproduced the Flower runs' per-round, per-hospital
 accuracies **80/80 identically** for both FedAvg and FedProx. Flower 1.38
 logs that `run_simulation` is deprecated, so `flwr` is now pinned in
 `requirements.txt`.
+
+### Live-training backend (in progress)
+
+[`src/backend/live_training.py`](src/backend/live_training.py) runs one real
+federated training on the 4 sites and streams it to the browser with
+**Server-Sent Events** (progress only flows server -> browser, and
+`EventSource` reconnects on its own):
+
+| Endpoint | Purpose |
+|---|---|
+| `POST /api/train` | start a run (`algorithm`: fedavg / fedprox, `rounds` <= 20, `personalize`, `seed`) -> `202 {run_id, events_url}`; `409` if one is already running |
+| `GET /api/train/{run_id}/events` | SSE stream: `start` (config, per-site sizes), one `round` per round (per-hospital metrics + test-size-weighted accuracy), optional `personalized`, then `done` or `error` |
+| `GET /api/train/{run_id}` | JSON snapshot of all events so far |
+| `GET /api/train/status` | whether a run is in progress |
+
+It uses the Ray-free loop ([`src/federated/rayfree_runner.py`](src/federated/rayfree_runner.py))
+because Flower's Ray engine does not fit a 512 MB free instance (see the
+measurements above). One run at a time; events are numbered so a
+reconnecting browser resumes with `Last-Event-ID` instead of restarting
+training. Deploy dependencies: [`requirements-live.txt`](requirements-live.txt)
+(no Ray, no shap). Tests: [`tests/test_live_training.py`](tests/test_live_training.py)
+(streaming contract, runs without torch) and
+[`tests/live_training_e2e.py`](tests/live_training_e2e.py) (real server,
+run by [`.github/workflows/live-training-check.yml`](.github/workflows/live-training-check.yml)
+inside a 512 MB / 0.1 CPU container, comparing every streamed number with
+the Flower experiment outputs).
 
 ## Dataset (earlier Cleveland-only setup)
 
