@@ -1,0 +1,4 @@
+experiment,accuracy
+"Local NN (per-hospital, isolated)",0.784
+"FedAvg NN (collaborative, no personalization)",0.831
+"Centralized NN (pooled, not privacy-preserving)",0.8216

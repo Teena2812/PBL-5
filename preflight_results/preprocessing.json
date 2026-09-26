@@ -1,0 +1,57 @@
+{
+  "dataset": "uci_heart_disease_4_sites_option_a",
+  "numeric_features": [
+    "age",
+    "trestbps",
+    "thalach",
+    "oldpeak"
+  ],
+  "binary_features": [
+    "sex",
+    "exang"
+  ],
+  "categorical_features": [
+    "cp",
+    "restecg"
+  ],
+  "categorical_categories": {
+    "cp": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "restecg": [
+      0,
+      1,
+      2
+    ]
+  },
+  "means": {
+    "age": 53.12603062426384,
+    "trestbps": 132.301531213192,
+    "thalach": 137.7020023557126,
+    "oldpeak": 0.8760895170789164
+  },
+  "stds": {
+    "age": 9.386707452362135,
+    "trestbps": 18.490079186228453,
+    "thalach": 25.814231270370676,
+    "oldpeak": 1.0913060253814448
+  },
+  "feature_order": [
+    "age",
+    "trestbps",
+    "thalach",
+    "oldpeak",
+    "sex",
+    "exang",
+    "cp_1",
+    "cp_2",
+    "cp_3",
+    "cp_4",
+    "restecg_0",
+    "restecg_1",
+    "restecg_2"
+  ]
+}

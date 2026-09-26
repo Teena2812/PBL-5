@@ -1,0 +1,55 @@
+{
+  "model_class": "HeartDiseaseNet",
+  "n_features": 13,
+  "hidden_sizes": [
+    16,
+    8
+  ],
+  "feature_order": [
+    "age",
+    "trestbps",
+    "thalach",
+    "oldpeak",
+    "sex",
+    "exang",
+    "cp_1",
+    "cp_2",
+    "cp_3",
+    "cp_4",
+    "restecg_0",
+    "restecg_1",
+    "restecg_2"
+  ],
+  "hospitals": {
+    "cleveland": {
+      "checkpoint": "cleveland_personalized.pt",
+      "test_accuracy": 0.8158,
+      "n_train": 227
+    },
+    "hungary": {
+      "checkpoint": "hungary_personalized.pt",
+      "test_accuracy": 0.8493,
+      "n_train": 218
+    },
+    "switzerland": {
+      "checkpoint": "switzerland_personalized.pt",
+      "test_accuracy": 0.931,
+      "n_train": 87
+    },
+    "va_long_beach": {
+      "checkpoint": "va_long_beach_personalized.pt",
+      "test_accuracy": 0.8286,
+      "n_train": 104
+    }
+  },
+  "source": {
+    "partition": "uci_4_real_sites_option_a",
+    "split_seed": 42,
+    "model_init_seed": 42,
+    "proximal_mu": 0.1,
+    "n_rounds": 20,
+    "local_epochs": 5,
+    "fine_tune_epochs": 10,
+    "lr": 0.01
+  }
+}

@@ -1,0 +1,6 @@
+seed,worst_hospital,fedavg_accuracy,personalized_accuracy,delta,improved
+42,va_long_beach,0.8,0.8286,0.0286,True
+1,va_long_beach,0.7429,0.7714,0.0285,True
+7,va_long_beach,0.7429,0.7429,0.0,False
+123,va_long_beach,0.7714,0.7429,-0.0285,False
+2024,va_long_beach,0.7714,0.7143,-0.0571,False

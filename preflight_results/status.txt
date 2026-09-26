@@ -1,0 +1,10 @@
+phase2_site_report exit=0 seconds=4
+phase3_baselines exit=0 seconds=3
+phase4_fedavg exit=0 seconds=24
+phase4_nn_baselines exit=0 seconds=4
+phase4_multiseed_comparison exit=0 seconds=100
+phase5_fedprox exit=0 seconds=24
+phase5_multiseed_comparison exit=0 seconds=193
+phase5_equity_analysis exit=0 seconds=192
+phase6_shap_analysis exit=0 seconds=25
+save_personalized_models exit=0 seconds=24

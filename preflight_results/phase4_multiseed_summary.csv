@@ -1,0 +1,4 @@
+experiment,mean_accuracy,std_accuracy,min_accuracy,max_accuracy,n_seeds
+Local NN,0.7878,0.0122,0.7746,0.8028,5
+FedAvg NN,0.8263,0.0074,0.8169,0.8357,5
+Centralized NN,0.8178,0.0061,0.8075,0.8216,5

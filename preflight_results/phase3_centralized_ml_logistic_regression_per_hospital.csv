@@ -1,0 +1,5 @@
+hospital,n_test,accuracy,precision,recall,f1,auc
+cleveland,76,0.8816,0.825,0.9429,0.88,0.938
+hungary,73,0.8356,0.75,0.8077,0.7778,0.9272
+switzerland,29,0.8276,0.9231,0.8889,0.9057,0.5185
+va_long_beach,35,0.7429,0.7812,0.9259,0.8475,0.7731

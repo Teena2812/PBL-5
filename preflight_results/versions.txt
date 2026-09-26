@@ -1,0 +1,7 @@
+flwr==1.38.0
+numpy==2.5.3
+pandas==2.2.3
+ray==2.55.1
+scikit-learn==1.9.1
+shap==0.52.0
+torch==2.14.0+cpu

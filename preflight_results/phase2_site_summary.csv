@@ -1,0 +1,5 @@
+hospital,institution,n_patients,n_disease,n_no_disease,disease_rate,mean_age,pct_female,dominant_cp_type
+cleveland,Cleveland Clinic,303,139,164,0.459,54.4,0.32,4
+hungary,Hungarian Institute of Cardiology,291,105,186,0.361,47.8,0.271,4
+switzerland,University Hospitals Zurich & Basel,116,108,8,0.931,55.6,0.086,4
+va_long_beach,VA Long Beach,139,109,30,0.784,59.4,0.036,4

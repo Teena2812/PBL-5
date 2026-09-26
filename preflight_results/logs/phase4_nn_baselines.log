@@ -1,0 +1,26 @@
+Training Local NN and Centralized NN for 100 epochs each (= 20 rounds x 5 local epochs, matching FedAvg's per-client compute)
+
+[Local NN] per-hospital results:
+     hospital  n_train  n_test  accuracy  precision  recall     f1    auc
+    cleveland      227      76    0.7368     0.7586  0.6286 0.6875 0.8397
+      hungary      218      73    0.7945     0.7037  0.7308 0.7170 0.8470
+  switzerland       87      29    0.8966     0.9286  0.9630 0.9455 0.4444
+va_long_beach      104      35    0.7714     0.7879  0.9630 0.8667 0.4630
+Saved to /home/runner/work/PBL-5/PBL-5/experiments/results/phase4_local_nn.csv
+
+[Centralized NN] overall (pooled test set): {'n_test': 213, 'accuracy': 0.8216, 'precision': 0.8031, 'recall': 0.887, 'f1': 0.843, 'auc': 0.8977, 'n_train': 636}
+[Centralized NN] per-hospital breakdown:
+     hospital  n_test  accuracy  precision  recall     f1    auc
+    cleveland      76    0.8026     0.7632  0.8286 0.7945 0.8948
+      hungary      73    0.8356     0.7188  0.8846 0.7931 0.9092
+  switzerland      29    0.8621     0.9259  0.9259 0.9259 0.5741
+va_long_beach      35    0.8000     0.8333  0.9259 0.8772 0.7870
+Saved to /home/runner/work/PBL-5/PBL-5/experiments/results/phase4_centralized_nn_per_hospital.csv
+
+Apples-to-apples NN-only comparison (same HeartDiseaseNet architecture throughout):
+                                     experiment  accuracy
+              Local NN (per-hospital, isolated)    0.7840
+  FedAvg NN (collaborative, no personalization)    0.8310
+Centralized NN (pooled, not privacy-preserving)    0.8216
+Saved to /home/runner/work/PBL-5/PBL-5/experiments/results/phase4_nn_comparison_summary.csv
+Saved chart to /home/runner/work/PBL-5/PBL-5/experiments/results/phase4_nn_comparison.png

@@ -1,0 +1,5 @@
+model,experiment,accuracy
+random_forest,Local ML (mean across hospitals),0.8228
+random_forest,Centralized ML (pooled test set),0.8122
+logistic_regression,Local ML (mean across hospitals),0.8412
+logistic_regression,Centralized ML (pooled test set),0.8357

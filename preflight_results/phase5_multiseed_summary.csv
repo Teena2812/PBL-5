@@ -1,0 +1,6 @@
+experiment,mean_accuracy,std_accuracy,min_accuracy,max_accuracy,n_seeds
+Local NN,0.7878,0.0122,0.7746,0.8028,5
+FedAvg NN,0.8282,0.0071,0.8169,0.8357,5
+FedProx NN,0.8254,0.0077,0.8169,0.831,5
+Personalized (FedProx+FT),0.8375,0.0054,0.831,0.8451,5
+Centralized NN,0.8178,0.0061,0.8075,0.8216,5

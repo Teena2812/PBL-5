@@ -1,0 +1,5 @@
+hospital,accuracy_fedprox,accuracy_personalized
+va_long_beach,0.8,0.8286
+cleveland,0.8421,0.8158
+switzerland,0.8276,0.931
+hungary,0.8356,0.8493
