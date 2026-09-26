@@ -9,12 +9,12 @@ sklearn baseline, KernelExplainer for the PyTorch model):
    Forest (Phase 3's RF baseline, retrained here identically) over the
    full pooled test set -- global feature importance ranking + one example
    patient's ranked contributions ("Cholesterol +23%, Age +17%"-style).
-2. Personalized explainability: SHAP KernelExplainer on hospital_1's
-   Phase 5 personalized NN model (the hospital whose accuracy personalization
-   most reliably improved -- see the Phase 5 equity analysis) over a small
-   sample of its own local test patients.
+2. Personalized explainability: SHAP KernelExplainer on the Phase 5
+   personalized NN of the hospital FedAvg most often served worst (read from
+   Phase 5's equity analysis output, not hard-coded) over a small sample of
+   its own local test patients.
 
-Both use the SAME seed=117 partition / seed=42 local split as every prior
+Both use the SAME 4 real UCI sites / seed=42 local split as every prior
 phase. Clinical-plausibility commentary (do the top features make medical
 sense?) is written in the README after inspecting this script's actual
 output -- not assumed in advance.
@@ -32,8 +32,8 @@ sys.path.insert(0, str(PROJECT_ROOT))
 import matplotlib.pyplot as plt
 import pandas as pd
 
-from src.data.load_dataset import load_and_preprocess
-from src.data.partition import add_local_train_test_split, create_hospital_partitions
+from src.data.multisite import create_site_partitions, load_multisite
+from src.data.partition import add_local_train_test_split
 from src.explainability.shap_utils import (
     compute_kernel_shap_nn,
     compute_tree_shap,
@@ -46,9 +46,8 @@ from src.models.baseline import train_random_forest
 
 RESULTS_DIR = PROJECT_ROOT / "experiments" / "results"
 
-N_CLIENTS = 5
-ALPHA = 0.5
-PARTITION_SEED = 117
+# Clients are the 4 real UCI sites (src/data/multisite.py) -- no synthetic partition.
+N_CLIENTS = 4
 SPLIT_SEED = 42
 MODEL_SEED = 42
 
@@ -58,7 +57,18 @@ LEARNING_RATE = 0.01
 PROXIMAL_MU = 0.1
 FINE_TUNE_EPOCHS = 10
 
-TARGET_HOSPITAL = "hospital_1"  # most reliably helped by personalization, per Phase 5's equity analysis
+EQUITY_CSV = RESULTS_DIR / "phase5_equity_analysis.csv"  # written by experiments/phase5_equity_analysis.py
+
+
+def worst_served_hospital() -> str:
+    """The hospital FedAvg served worst in the most seeds (Phase 5 equity
+    analysis) -- run phase5_equity_analysis.py first."""
+    if not EQUITY_CSV.exists():
+        raise FileNotFoundError(f"{EQUITY_CSV} not found -- run experiments/phase5_equity_analysis.py first.")
+    return str(pd.read_csv(EQUITY_CSV)["worst_hospital"].mode().iloc[0])
+
+
+TARGET_HOSPITAL = worst_served_hospital()
 EXAMPLE_PATIENT_INDEX = 0        # first patient in the pooled test set / target hospital's test set
 
 
@@ -158,8 +168,8 @@ def run_personalized_nn_explainability(partitions, n_features: int) -> None:
 def main() -> None:
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
-    x, y, df_clean = load_and_preprocess()
-    partitions = create_hospital_partitions(x, y, df_clean, n_clients=N_CLIENTS, alpha=ALPHA, seed=PARTITION_SEED)
+    x, y, df_clean = load_multisite()
+    partitions = create_site_partitions(x, y, df_clean)
     partitions = add_local_train_test_split(partitions, test_size=0.25, seed=SPLIT_SEED)
     n_features = x.shape[1]
 

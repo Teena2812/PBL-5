@@ -12,9 +12,8 @@ Phase 3 deliverable: Local ML and Centralized ML baseline experiments.
   only for comparison purposes.
 
 Both experiments use the SAME hospital partition and local train/test
-split (seed=117 for the Dirichlet partition, chosen in Phase 2 for balanced
-hospital sizes with no single-class hospitals; seed=42 for the local
-train/test split) so that later FedAvg and Personalized FL experiments
+split (the 4 real UCI sites as hospitals -- src/data/multisite.py -- and
+seed=42 for the local train/test split) so that later FedAvg and Personalized FL experiments
 (Phase 4-5) can reuse this exact protocol and produce directly comparable
 numbers.
 
@@ -31,16 +30,14 @@ sys.path.insert(0, str(PROJECT_ROOT))
 import matplotlib.pyplot as plt
 import pandas as pd
 
-from src.data.load_dataset import load_and_preprocess
-from src.data.partition import add_local_train_test_split, create_hospital_partitions
+from src.data.multisite import create_site_partitions, load_multisite
+from src.data.partition import add_local_train_test_split
 from src.models.baseline import MODEL_FACTORIES, evaluate_model
 
 RESULTS_DIR = PROJECT_ROOT / "experiments" / "results"
 
-N_CLIENTS = 5
-ALPHA = 0.5
-PARTITION_SEED = 117     # selected in Phase 2: balanced sizes AND every hospital
-                          # has >= 5 samples of both classes (no single-class hospitals)
+# Clients are the 4 real UCI sites (src/data/multisite.py) -- no synthetic partition.
+N_CLIENTS = 4
 SPLIT_SEED = 42          # local train/test split seed
 LOCAL_TEST_SIZE = 0.25
 MODEL_SEED = 42
@@ -91,10 +88,8 @@ def run_centralized_ml(partitions, model_name: str) -> tuple[dict, pd.DataFrame]
 def main() -> None:
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
-    x, y, df_clean = load_and_preprocess()
-    partitions = create_hospital_partitions(
-        x, y, df_clean, n_clients=N_CLIENTS, alpha=ALPHA, seed=PARTITION_SEED
-    )
+    x, y, df_clean = load_multisite()
+    partitions = create_site_partitions(x, y, df_clean)
     partitions = add_local_train_test_split(
         partitions, test_size=LOCAL_TEST_SIZE, seed=SPLIT_SEED
     )

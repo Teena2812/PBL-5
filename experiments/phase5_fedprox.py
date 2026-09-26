@@ -5,7 +5,7 @@ adaptation), compared against Phase 4's plain FedAvg.
 
 Uses the SAME hospital partition, local train/test split, model
 architecture, round count, and local epoch count as Phase 4
-(seed=117 / seed=42 / HeartDiseaseNet / 20 rounds / 5 local epochs), so
+(4 real sites / seed=42 / HeartDiseaseNet / 20 rounds / 5 local epochs), so
 FedAvg vs FedProx vs Personalized are directly comparable -- proximal_mu
 is the only new variable, plus the fine-tuning step afterward.
 
@@ -24,17 +24,16 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-from src.data.load_dataset import load_and_preprocess
-from src.data.partition import add_local_train_test_split, create_hospital_partitions
+from src.data.multisite import create_site_partitions, load_multisite
+from src.data.partition import add_local_train_test_split
 from src.federated.fedavg_runner import weighted_accuracy
 from src.federated.fedprox_runner import run_fedprox_simulation
 from src.federated.personalize import personalize_per_hospital
 
 RESULTS_DIR = PROJECT_ROOT / "experiments" / "results"
 
-N_CLIENTS = 5
-ALPHA = 0.5
-PARTITION_SEED = 117
+# Clients are the 4 real UCI sites (src/data/multisite.py) -- no synthetic partition.
+N_CLIENTS = 4
 SPLIT_SEED = 42
 MODEL_INIT_SEED = 42
 
@@ -50,8 +49,8 @@ FINE_TUNE_LR = 0.01
 def main() -> None:
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
-    x, y, df_clean = load_and_preprocess()
-    partitions = create_hospital_partitions(x, y, df_clean, n_clients=N_CLIENTS, alpha=ALPHA, seed=PARTITION_SEED)
+    x, y, df_clean = load_multisite()
+    partitions = create_site_partitions(x, y, df_clean)
     partitions = add_local_train_test_split(partitions, test_size=0.25, seed=SPLIT_SEED)
     n_features = x.shape[1]
 

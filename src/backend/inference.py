@@ -28,8 +28,9 @@ except ImportError as e:  # pragma: no cover - exercised only where torch is mis
     TORCH_AVAILABLE = False
     _import_error = e
 
-from src.data.load_dataset import load_and_preprocess, load_preprocessing_artifact, transform_new_patient
-from src.data.partition import add_local_train_test_split, create_hospital_partitions
+from src.data.load_dataset import load_preprocessing_artifact, transform_new_patient
+from src.data.multisite import create_site_partitions, load_multisite
+from src.data.partition import add_local_train_test_split
 
 MODELS_DIR = Path(__file__).resolve().parents[2] / "experiments" / "results" / "models"
 
@@ -37,9 +38,8 @@ MODELS_DIR = Path(__file__).resolve().parents[2] / "experiments" / "results" / "
 # deterministic data loading/partitioning, NOT model training, so
 # recomputing it at backend startup does not violate the "no live
 # training" rule.
-N_CLIENTS = 5
-ALPHA = 0.5
-PARTITION_SEED = 117
+# Clients are the 4 real UCI sites (src/data/multisite.py) -- no synthetic partition.
+N_CLIENTS = 4
 SPLIT_SEED = 42
 
 _cache: dict = {}
@@ -60,10 +60,8 @@ def get_partitions() -> tuple[dict, int]:
     only to supply each hospital's own x_train as the SHAP background
     sample -- no model training happens here."""
     if "partitions" not in _cache:
-        x, y, df_clean = load_and_preprocess()
-        partitions = create_hospital_partitions(
-            x, y, df_clean, n_clients=N_CLIENTS, alpha=ALPHA, seed=PARTITION_SEED
-        )
+        x, y, df_clean = load_multisite()
+        partitions = create_site_partitions(x, y, df_clean)
         partitions = add_local_train_test_split(partitions, test_size=0.25, seed=SPLIT_SEED)
         _cache["partitions"] = {p.name: p for p in partitions}
         _cache["n_features"] = x.shape[1]

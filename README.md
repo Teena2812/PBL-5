@@ -41,7 +41,100 @@ Following the 8-phase roadmap in `docs/proposal/`:
 - [x] Phase 7 — FastAPI backend + React dashboard
 - [ ] Phase 8 — Results compilation, research paper draft & presentation
 
-## Dataset
+## Real multi-site data (upgrade in progress -- replaces the Cleveland-only setup below)
+
+> **Status (2026-09-26):** the project is moving from a synthetic Dirichlet
+> split of Cleveland alone to the **four real UCI Heart Disease sites used
+> directly as federated clients**. Phases 3-6 are being rerun on this data;
+> every Phase 3-6 number further down this README (and on the live
+> dashboard) still comes from the earlier Cleveland-only, 5-simulated-hospital
+> setup until that rerun is verified and the sections are rewritten.
+
+**Source.** UCI Machine Learning Repository, *Heart Disease* (Janosi,
+Steinbrunn, Pfisterer & Detrano, 1988), CC BY 4.0,
+[doi:10.24432/C52P4X](https://doi.org/10.24432/C52P4X). As the data's
+authors request, the principal investigators are: Andras Janosi, M.D.
+(Hungarian Institute of Cardiology, Budapest); William Steinbrunn, M.D.
+(University Hospital, Zurich); Matthias Pfisterer, M.D. (University
+Hospital, Basel); Robert Detrano, M.D., Ph.D. (V.A. Medical Center, Long
+Beach, and Cleveland Clinic Foundation).
+
+**Cleaning ("Option A") -- [`src/data/multisite.py`](src/data/multisite.py),
+report: [`experiments/phase2_site_report.py`](experiments/phase2_site_report.py).**
+Every figure below was counted from the raw UCI files, not recalled.
+
+- Binary target (0 = no disease, 1-4 = disease).
+- Physiologically impossible zeros are treated as missing values recorded
+  as 0: cholesterol = 0 for **all 123** Swiss rows and 49 VA rows;
+  resting BP = 0 for 1 VA row.
+- One exact duplicate row dropped in each of Hungary and VA.
+- Only the **8 features every site actually recorded** are used: age, sex,
+  chest-pain type, resting BP, resting ECG, max heart rate, exercise
+  angina, ST depression. Excluded because they are largely missing:
+  `ca` (96-99% missing in Hungary, Switzerland, VA), `thal` (42-90%),
+  `slope` (51-65% in Hungary and VA), cholesterol (100% in Switzerland),
+  fasting blood sugar (61% in Switzerland).
+- Complete cases on those 8 features; **no imputation**.
+
+| Site (client) | Patients | Disease | No disease | Disease rate |
+|---|---|---|---|---|
+| Cleveland Clinic | 303 | 139 | 164 | 45.9% |
+| Hungarian Institute of Cardiology | 291 | 105 | 186 | 36.1% |
+| University Hospitals Zurich & Basel | 116 | 108 | 8 | 93.1% |
+| VA Long Beach | 139 | 109 | 30 | 78.4% |
+| **Total** | **849** | 461 | 388 | 54.3% |
+
+Honest caveats: dropping `ca` and `thal` removes the two strongest
+predictors in the Cleveland-only SHAP analysis, so accuracy is expected to
+fall; Switzerland has only 8 patients without disease, so its per-site
+accuracy is not meaningful on its own (a model that always predicts
+"disease" scores 93% there) and is reported with sensitivity/specificity;
+numeric features are standardized with statistics pooled across all 849
+patients, as in the earlier phases (a per-site alternative is possible).
+
+**Not used, and why.**
+- *Statlog (Heart)* ([doi:10.24432/C57303](https://doi.org/10.24432/C57303))
+  is not a fifth site: all 270 of its rows exactly match Cleveland rows.
+- The widely shared Kaggle "Heart Failure Prediction" file (918 rows) is
+  the same four sites plus Statlog minus 272 duplicates, but it has no
+  site column (so it cannot define federated clients), keeps the 172
+  cholesterol zeros as real values, and fills missing `slope` and
+  Hungarian cholesterol values from no documented source.
+
+**Relation to FLamby.** The FLamby benchmark's Fed-Heart-Disease dataset
+(Ogier du Terrail et al., "FLamby: Datasets and Benchmarks for Cross-Silo
+Federated Learning in Realistic Healthcare Settings", *Advances in Neural
+Information Processing Systems 35*, NeurIPS 2022 Datasets and Benchmarks
+Track, [arXiv:2210.04620](https://arxiv.org/abs/2210.04620)) uses the same
+four sites as clients. Applying its preprocessing rule to the UCI files
+reproduces its published 740 patients exactly (303 / 261 / 46 / 130). That
+rule keeps 79 cholesterol = 0 values as real measurements (all 46 of its
+Swiss patients and 33 VA patients), concentrated in the two sites with the
+highest disease rates, which lets a model partly identify those sites from
+a recording artifact. This project deliberately avoids that artifact by
+treating those zeros as missing and not using cholesterol, which is why
+its counts (849) differ from FLamby's.
+
+### Live-training feasibility (measured 2026-09-26)
+
+A throwaway GitHub Actions spike ran one real 20-round federated training on
+this 4-site data inside a container limited to **512 MB RAM (no swap) and
+0.1 CPU** -- the same as Render's free web-service instance -- and without
+limits for reference (torch 2.14.0+cpu, flwr 1.38.0, ray 2.55.1, Python 3.11):
+
+| Run (20 rounds, 4 clients) | Limits | Outcome | Wall time | Peak memory |
+|---|---|---|---|---|
+| Flower `run_simulation` (Ray) -- the project's runners | 512 MB / 0.1 CPU | **OOM-killed in round 1** | died at ~52 s | > 512 MB |
+| Flower `run_simulation` (Ray) | none | completed | 21 s | 2,447 MB |
+| Same client code + Flower's `aggregate()`, no Ray | 512 MB / 0.1 CPU | **completed** | ~61 s (training 25-28 s) | ~320 MB |
+| Same, no Ray | none | completed | 4 s | ~318 MB |
+
+The Ray-free loop reproduced the Flower runs' per-round, per-hospital
+accuracies **80/80 identically** for both FedAvg and FedProx. Flower 1.38
+logs that `run_simulation` is deprecated, so `flwr` is now pinned in
+`requirements.txt`.
+
+## Dataset (earlier Cleveland-only setup)
 
 UCI Heart Disease dataset, Cleveland processed subset (auto-downloaded to
 `data/raw/` on first run). 303 patients, 14 clinical features

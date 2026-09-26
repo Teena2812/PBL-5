@@ -1,0 +1,51 @@
+# TEMPORARY (branch multisite-data only; removed before merging): dry-runs the
+# real-data Phase 2-6 scripts on Linux to catch crashes before the
+# authoritative Colab run, and commits the raw logs back for cross-checking.
+name: Preflight - real-data Phases 2-6
+
+on:
+  push:
+    branches: [multisite-data]
+    paths-ignore: ["preflight_results/**"]
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    if: "!contains(github.event.head_commit.message, '[preflight-results]')"
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: |
+          pip install -q torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -q -r requirements.txt
+          pip freeze | grep -iE "^(torch|flwr|ray|numpy|pandas|scikit-learn|shap)==" | tee versions.txt
+      - name: Run Phases 2-6
+        run: |
+          set +e
+          mkdir -p preflight_results/logs
+          for s in phase2_site_report phase3_baselines phase4_fedavg phase4_nn_baselines \
+                   phase4_multiseed_comparison phase5_fedprox phase5_multiseed_comparison \
+                   phase5_equity_analysis phase6_shap_analysis save_personalized_models; do
+            start=$(date +%s)
+            python experiments/$s.py > preflight_results/logs/$s.log 2>&1
+            code=$?
+            echo "$s exit=$code seconds=$(( $(date +%s) - start ))" | tee -a preflight_results/status.txt
+          done
+          cp versions.txt preflight_results/
+          cp experiments/results/*.csv preflight_results/ 2>/dev/null
+          cp experiments/results/models/manifest.json experiments/results/models/preprocessing.json preflight_results/ 2>/dev/null
+      - name: Commit logs back
+        if: always()
+        run: |
+          git config user.name "preflight-bot"
+          git config user.email "preflight-bot@users.noreply.github.com"
+          git add -f preflight_results
+          git commit -m "[preflight-results] run ${{ github.run_id }}" || echo "nothing to commit"
+          git push origin HEAD:multisite-data

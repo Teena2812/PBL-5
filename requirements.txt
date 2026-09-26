@@ -11,7 +11,7 @@ requests>=2.31
 # on a machine with no GPU:
 #   pip install torch --index-url https://download.pytorch.org/whl/cpu
 torch>=2.2
-flwr[simulation]>=1.8
+flwr[simulation]==1.38.0  # pinned: verified with our runners (2026-09-26 spike); run_simulation is deprecated in 1.38, may be removed later
 
 # Explainability (Phase 6+)
 shap>=0.45

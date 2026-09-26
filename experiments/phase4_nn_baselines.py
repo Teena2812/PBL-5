@@ -20,7 +20,7 @@ Centralized NN are trained for TOTAL_EPOCHS epochs (== N_ROUNDS *
 LOCAL_EPOCHS_PER_ROUND from experiments/phase4_fedavg.py), the same total
 number of local gradient-update epochs any single FedAvg client
 experiences over the full run, with the same learning rate and the same
-seed=117 partition / seed=42 local split as Phase 3-4.
+4 real UCI sites / seed=42 local split as Phase 3-4.
 
 Run from the project root, after experiments/phase4_fedavg.py:
     venv\\Scripts\\python.exe experiments\\phase4_nn_baselines.py
@@ -35,15 +35,14 @@ sys.path.insert(0, str(PROJECT_ROOT))
 import matplotlib.pyplot as plt
 import pandas as pd
 
-from src.data.load_dataset import load_and_preprocess
-from src.data.partition import add_local_train_test_split, create_hospital_partitions
+from src.data.multisite import create_site_partitions, load_multisite
+from src.data.partition import add_local_train_test_split
 from src.models.nn_baseline_runner import run_centralized_nn, run_local_nn
 
 RESULTS_DIR = PROJECT_ROOT / "experiments" / "results"
 
-N_CLIENTS = 5
-ALPHA = 0.5
-PARTITION_SEED = 117
+# Clients are the 4 real UCI sites (src/data/multisite.py) -- no synthetic partition.
+N_CLIENTS = 4
 SPLIT_SEED = 42
 MODEL_SEED = 42
 
@@ -56,8 +55,8 @@ LEARNING_RATE = 0.01
 def main() -> None:
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
-    x, y, df_clean = load_and_preprocess()
-    partitions = create_hospital_partitions(x, y, df_clean, n_clients=N_CLIENTS, alpha=ALPHA, seed=PARTITION_SEED)
+    x, y, df_clean = load_multisite()
+    partitions = create_site_partitions(x, y, df_clean)
     partitions = add_local_train_test_split(partitions, test_size=0.25, seed=SPLIT_SEED)
     n_features = x.shape[1]
 

@@ -5,7 +5,7 @@ preprocessing artifact needed to transform a new raw patient record into
 the model's expected input vector.
 
 Nothing computed here is new -- it's the exact same FedProx + personalize
-pipeline as experiments/phase5_fedprox.py (same seed=117 partition,
+pipeline as experiments/phase5_fedprox.py (same 4 real UCI sites,
 seed=42 local split, seed=42 model init, mu=0.1, 20 rounds, 10 fine-tune
 epochs), just also saving the trained model objects instead of discarding
 them after computing metrics. The printed personalized metrics below
@@ -32,20 +32,18 @@ import json
 import torch
 
 from src.data.load_dataset import (
-    compute_preprocessing_artifact,
-    load_and_preprocess,
     save_preprocessing_artifact,
 )
-from src.data.partition import add_local_train_test_split, create_hospital_partitions
+from src.data.multisite import compute_preprocessing_artifact, create_site_partitions, load_multisite
+from src.data.partition import add_local_train_test_split
 from src.federated.fedprox_runner import run_fedprox_simulation
 from src.federated.personalize import personalize_per_hospital_with_models
 from src.models.nn_model import HeartDiseaseNet
 
 MODELS_DIR = PROJECT_ROOT / "experiments" / "results" / "models"
 
-N_CLIENTS = 5
-ALPHA = 0.5
-PARTITION_SEED = 117
+# Clients are the 4 real UCI sites (src/data/multisite.py) -- no synthetic partition.
+N_CLIENTS = 4
 SPLIT_SEED = 42
 MODEL_INIT_SEED = 42
 
@@ -61,14 +59,14 @@ HIDDEN_SIZES = (16, 8)  # must match src/models/nn_model.py's HeartDiseaseNet de
 def main() -> None:
     MODELS_DIR.mkdir(parents=True, exist_ok=True)
 
-    x, y, df_clean = load_and_preprocess()
+    x, y, df_clean = load_multisite()
     n_features = x.shape[1]
 
     artifact = compute_preprocessing_artifact(df_clean, x)
     artifact_path = save_preprocessing_artifact(artifact)
     print(f"Saved preprocessing artifact to {artifact_path}")
 
-    partitions = create_hospital_partitions(x, y, df_clean, n_clients=N_CLIENTS, alpha=ALPHA, seed=PARTITION_SEED)
+    partitions = create_site_partitions(x, y, df_clean)
     partitions = add_local_train_test_split(partitions, test_size=0.25, seed=SPLIT_SEED)
 
     print(f"\nRunning FedProx (mu={PROXIMAL_MU}, {N_ROUNDS} rounds) then personalizing each hospital "
@@ -93,7 +91,7 @@ def main() -> None:
         "feature_order": artifact["feature_order"],
         "hospitals": {},
         "source": {
-            "partition_seed": PARTITION_SEED, "split_seed": SPLIT_SEED,
+            "partition": "uci_4_real_sites_option_a", "split_seed": SPLIT_SEED,
             "model_init_seed": MODEL_INIT_SEED, "proximal_mu": PROXIMAL_MU,
             "n_rounds": N_ROUNDS, "local_epochs": LOCAL_EPOCHS,
             "fine_tune_epochs": FINE_TUNE_EPOCHS, "lr": LEARNING_RATE,

@@ -11,7 +11,7 @@ average.
 Note: experiments/phase5_multiseed_comparison.py only saved each seed's
 GLOBAL weighted accuracy, not the per-hospital breakdown, so that data
 isn't available to re-derive without rerunning -- this script captures the
-per-hospital numbers this time. Same partition (seed=117), same local
+per-hospital numbers this time. Same 4 real sites, same local
 split (seed=42), same 5 MODEL_INIT_SEEDs (42, 1, 7, 123, 2024) as every
 other Phase 4-5 script.
 
@@ -27,17 +27,16 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 import pandas as pd
 
-from src.data.load_dataset import load_and_preprocess
-from src.data.partition import add_local_train_test_split, create_hospital_partitions
+from src.data.multisite import create_site_partitions, load_multisite
+from src.data.partition import add_local_train_test_split
 from src.federated.fedavg_runner import run_fedavg_simulation
 from src.federated.fedprox_runner import run_fedprox_simulation
 from src.federated.personalize import personalize_per_hospital
 
 RESULTS_DIR = PROJECT_ROOT / "experiments" / "results"
 
-N_CLIENTS = 5
-ALPHA = 0.5
-PARTITION_SEED = 117
+# Clients are the 4 real UCI sites (src/data/multisite.py) -- no synthetic partition.
+N_CLIENTS = 4
 SPLIT_SEED = 42
 
 N_ROUNDS = 20
@@ -52,8 +51,8 @@ MODEL_INIT_SEEDS = [42, 1, 7, 123, 2024]  # same seeds as phase4/phase5_multisee
 def main() -> None:
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
-    x, y, df_clean = load_and_preprocess()
-    partitions = create_hospital_partitions(x, y, df_clean, n_clients=N_CLIENTS, alpha=ALPHA, seed=PARTITION_SEED)
+    x, y, df_clean = load_multisite()
+    partitions = create_site_partitions(x, y, df_clean)
     partitions = add_local_train_test_split(partitions, test_size=0.25, seed=SPLIT_SEED)
     n_features = x.shape[1]
 
