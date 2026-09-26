@@ -180,4 +180,11 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except SystemExit:
+        raise
+    except Exception as e:  # record crashes so the workflow can report them
+        json.dump({"summary": {"crashed": f"{type(e).__name__}: {e}", "problems": [f"crashed: {type(e).__name__}: {e}"]}},
+                  open(sys.argv[4], "w"))
+        raise

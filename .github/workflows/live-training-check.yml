@@ -42,7 +42,7 @@ jobs:
 
       - name: Direct Ray-free reference run (in-process, no server)
         run: |
-          docker run --rm -v "$PWD:/w" -w /w python:3.11-slim /w/.venv/bin/python - <<'PY'
+          docker run --rm -i -v "$PWD:/w" -w /w python:3.11-slim /w/.venv/bin/python - <<'PY'
           import json, sys
           sys.path.insert(0, ".")
           from src.data.multisite import create_site_partitions, load_multisite
@@ -57,6 +57,8 @@ jobs:
           json.dump(ref, open("reference.json", "w"))
           print("reference final fedavg global:", ref["fedavg"][-1]["global_accuracy"])
           PY
+          test -s reference.json || { echo "::error title=Reference::reference.json was not produced"; exit 1; }
+          python3 -c "import json; r=json.load(open('reference.json')); print('::notice title=Direct Ray-free reference::fedavg rounds', len(r['fedavg']), 'final global', r['fedavg'][-1]['global_accuracy'], '| fedprox rounds', len(r['fedprox']))"
 
       - name: Start server under 512 MB / 0.1 CPU
         run: |
@@ -90,8 +92,9 @@ jobs:
           s = json.load(open("e2e_result.json"))["summary"]
           print(f"::notice title=Cold start::{open('cold_start.txt').read().strip()} s from docker run to /api/health responding")
           for k in ("fedavg", "fedprox_personalized"):
-              print(f"::notice title={k}::" + ", ".join(f"{a}={b}" for a, b in s[k].items()))
-          print(f"::notice title=Streaming::incremental={s['streamed_incrementally']}, problems={len(s['problems'])}")
+              if k in s:
+                  print(f"::notice title={k}::" + ", ".join(f"{a}={b}" for a, b in s[k].items()))
+          print(f"::notice title=Streaming::incremental={s.get('streamed_incrementally')}, problems={len(s['problems'])}")
           for p in s["problems"][:20]:
               print(f"::error title=Mismatch::{p}")
           PY
