@@ -87,7 +87,11 @@ export default function WhatIfExplorer({ weights, hospitals, samples, verificati
                   {hospitalLabel(s.hospital_id)} sample patient
                 </option>
               ))}
-              {preset === "handoff" && initialPatient && <option value="handoff">Test patient {initialPatient.id}</option>}
+              {preset === "handoff" && initialPatient && (
+                <option value="handoff">
+                  {hospitalLabel(initialPatient.site)} test patient #{initialPatient.test_row + 1}
+                </option>
+              )}
               {preset === "custom" && <option value="custom">Edited patient</option>}
             </select>
           </div>
