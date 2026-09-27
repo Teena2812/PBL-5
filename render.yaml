@@ -1,0 +1,21 @@
+# Render Blueprint for the live-training backend (FastAPI + Ray-free
+# federated loop). Free instance: 512 MB RAM, 0.1 CPU -- measured to fit
+# (~320 MB peak, ~61 s per 20-round run; see README "Live-training
+# feasibility"). Sleeps after 15 min idle; the dashboard shows a wake-up
+# countdown on the first request.
+services:
+  - type: web
+    name: pbl5-live-training
+    runtime: python
+    plan: free
+    buildCommand: >-
+      pip install torch --index-url https://download.pytorch.org/whl/cpu &&
+      pip install -r requirements-live.txt &&
+      python -c "from src.data.multisite import download_site_files; download_site_files()"
+    startCommand: uvicorn src.backend.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: ALLOWED_ORIGINS
+        value: https://teena2812.github.io

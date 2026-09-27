@@ -315,6 +315,19 @@ For seed 42 the dashboard compares the live run with the recorded one
 should match exactly). Without a server configured, those panels say so and
 the recorded runs remain available.
 
+**Deploying the live server** (free Render instance, measured to fit -- see
+the feasibility table below):
+
+1. Render → New → Blueprint → this repository. [`render.yaml`](render.yaml)
+   installs CPU-only torch + [`requirements-live.txt`](requirements-live.txt),
+   downloads the four UCI site files at build time, and allows CORS from
+   `https://teena2812.github.io` (`ALLOWED_ORIGINS`).
+2. Check `https://<service>.onrender.com/api/health`.
+3. GitHub → Settings → Secrets and variables → Actions → Variables: add
+   `LIVE_API_URL` = `https://<service>.onrender.com/api`, then re-run the
+   Pages deploy. The free instance sleeps after 15 minutes idle; the first
+   request shows a wake-up countdown (about a minute).
+
 ## Backend
 
 Single FastAPI app, `src/backend/`:

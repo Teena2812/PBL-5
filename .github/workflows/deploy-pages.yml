@@ -42,6 +42,10 @@ jobs:
           VITE_STATIC_DATA: "true"
           VITE_ROUTER: hash
           VITE_BASE: /${{ github.event.repository.name }}/
+          # Live-training server (e.g. https://<service>.onrender.com/api), set as
+          # the repository variable LIVE_API_URL. Unset -> the live panels say
+          # live training isn't connected and the recorded runs still work.
+          VITE_LIVE_API_URL: ${{ vars.LIVE_API_URL }}
 
       - uses: actions/configure-pages@v5
 

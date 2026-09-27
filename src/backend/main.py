@@ -11,6 +11,8 @@ Run:
 
 from __future__ import annotations
 
+import os
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -30,10 +32,14 @@ app = FastAPI(
     version="0.1.0",
 )
 
+# Local dev servers (Vite 5173, Create React App 3000) plus the GitHub Pages
+# dashboard. A deployment can override with ALLOWED_ORIGINS (comma-separated).
+DEFAULT_ORIGINS = "http://localhost:5173,http://localhost:3000,https://teena2812.github.io"
+ALLOWED_ORIGINS = [o.strip() for o in os.environ.get("ALLOWED_ORIGINS", DEFAULT_ORIGINS).split(",") if o.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    # Vite (5173) and Create React App (3000) dev server defaults.
-    allow_origins=["http://localhost:5173", "http://localhost:3000"],
+    allow_origins=ALLOWED_ORIGINS,
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
