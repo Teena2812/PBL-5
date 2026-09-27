@@ -432,7 +432,7 @@ cd src/frontend && npx vite preview --base /PBL-5/
 | [`deploy-pages.yml`](.github/workflows/deploy-pages.yml) | lint + static build + publish to GitHub Pages | pushes to `master` |
 | In-browser self-check | 856 reference predictions re-scored on every page load; predictions switch off on any mismatch | every dashboard load |
 
-Local, without torch: `venv\Scripts\python tests	est_live_training.py`
+Local, without torch: `venv\Scripts\python tests\test_live_training.py`
 (the streaming-contract tests).
 
 ## Setup
