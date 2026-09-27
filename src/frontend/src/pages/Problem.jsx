@@ -25,7 +25,8 @@ export default function Problem() {
   const sizes = hospitals.map((h) => h.n_patients);
   const rates = hospitals.map((h) => h.disease_rate);
   const smallest = hospitals.reduce((a, b) => (b.n_patients < a.n_patients ? b : a));
-  const improved = equity.per_seed.filter((r) => r.delta > 0).length;
+  const ws = equity.worst_served;
+  const nSeeds = ws.seeds_improved + ws.seeds_flat + ws.seeds_worse;
   const topDriver = featureLabel(explain.rf_global_importance[0].feature);
 
   // Each barrier follows from the one before it; the evidence line ties it
@@ -90,10 +91,11 @@ export default function Problem() {
           <div className="flow-response" style={{ gridColumn: "3" }}>
             <span className="flow-response-label">Answered by &middot; Personalization</span>
             <p>
-              FedProx + local fine-tuning adapts the shared model to each hospital. The worst-served hospital improved
-              in {improved}/{equity.per_seed.length} seeds.
+              FedProx + local fine-tuning adapts the shared model to each hospital. On this data the gain is mixed: the
+              worst-served hospital improved in {ws.seeds_improved}/{nSeeds} seeds, was unchanged in {ws.seeds_flat} and
+              worse in {ws.seeds_worse}.
             </p>
-            <Link to="/experiments">See the equity result →</Link>
+            <Link to="/experiments?view=worst-served">See the worst-served result →</Link>
           </div>
           <div className="flow-response" style={{ gridColumn: "4" }}>
             <span className="flow-response-label">Answered by &middot; Explainability</span>
