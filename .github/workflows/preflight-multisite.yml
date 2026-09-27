@@ -9,6 +9,8 @@ on:
     # Only rerun the experiments when experiment code or data code changes.
     paths:
       - "experiments/**"
+      - "!experiments/results/**"
+      - "!experiments/export_*.py"
       - "src/data/**"
       - "src/models/**"
       - "src/federated/client.py"

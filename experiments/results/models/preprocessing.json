@@ -1,22 +1,18 @@
 {
+  "dataset": "uci_heart_disease_4_sites_option_a",
   "numeric_features": [
     "age",
     "trestbps",
-    "chol",
     "thalach",
-    "oldpeak",
-    "ca"
+    "oldpeak"
   ],
   "binary_features": [
     "sex",
-    "fbs",
     "exang"
   ],
   "categorical_features": [
     "cp",
-    "restecg",
-    "slope",
-    "thal"
+    "restecg"
   ],
   "categorical_categories": {
     "cp": [
@@ -29,43 +25,26 @@
       0,
       1,
       2
-    ],
-    "slope": [
-      1,
-      2,
-      3
-    ],
-    "thal": [
-      3,
-      6,
-      7
     ]
   },
   "means": {
-    "age": 54.54208754208754,
-    "trestbps": 131.69360269360268,
-    "chol": 247.35016835016836,
-    "thalach": 149.5993265993266,
-    "oldpeak": 1.0555555555555556,
-    "ca": 0.6767676767676768
+    "age": 53.12603062426384,
+    "trestbps": 132.301531213192,
+    "thalach": 137.7020023557126,
+    "oldpeak": 0.8760895170789164
   },
   "stds": {
-    "age": 9.049735681096765,
-    "trestbps": 17.762806366598998,
-    "chol": 51.99758253513897,
-    "thalach": 22.941562061360813,
-    "oldpeak": 1.1661227818468953,
-    "ca": 0.93896452630245
+    "age": 9.386707452362119,
+    "trestbps": 18.490079186228407,
+    "thalach": 25.81423127037069,
+    "oldpeak": 1.0913060253814457
   },
   "feature_order": [
     "age",
     "trestbps",
-    "chol",
     "thalach",
     "oldpeak",
-    "ca",
     "sex",
-    "fbs",
     "exang",
     "cp_1",
     "cp_2",
@@ -73,12 +52,6 @@
     "cp_4",
     "restecg_0",
     "restecg_1",
-    "restecg_2",
-    "slope_1",
-    "slope_2",
-    "slope_3",
-    "thal_3",
-    "thal_6",
-    "thal_7"
+    "restecg_2"
   ]
 }

@@ -1,6 +1,6 @@
 {
   "model_class": "HeartDiseaseNet",
-  "n_features": 22,
+  "n_features": 13,
   "hidden_sizes": [
     16,
     8
@@ -8,12 +8,9 @@
   "feature_order": [
     "age",
     "trestbps",
-    "chol",
     "thalach",
     "oldpeak",
-    "ca",
     "sex",
-    "fbs",
     "exang",
     "cp_1",
     "cp_2",
@@ -21,43 +18,32 @@
     "cp_4",
     "restecg_0",
     "restecg_1",
-    "restecg_2",
-    "slope_1",
-    "slope_2",
-    "slope_3",
-    "thal_3",
-    "thal_6",
-    "thal_7"
+    "restecg_2"
   ],
   "hospitals": {
-    "hospital_1": {
-      "checkpoint": "hospital_1_personalized.pt",
-      "test_accuracy": 0.8667,
-      "n_train": 45
+    "cleveland": {
+      "checkpoint": "cleveland_personalized.pt",
+      "test_accuracy": 0.8158,
+      "n_train": 227
     },
-    "hospital_2": {
-      "checkpoint": "hospital_2_personalized.pt",
-      "test_accuracy": 0.75,
-      "n_train": 21
+    "hungary": {
+      "checkpoint": "hungary_personalized.pt",
+      "test_accuracy": 0.8493,
+      "n_train": 218
     },
-    "hospital_3": {
-      "checkpoint": "hospital_3_personalized.pt",
-      "test_accuracy": 0.7857,
-      "n_train": 40
+    "switzerland": {
+      "checkpoint": "switzerland_personalized.pt",
+      "test_accuracy": 0.931,
+      "n_train": 87
     },
-    "hospital_4": {
-      "checkpoint": "hospital_4_personalized.pt",
-      "test_accuracy": 0.8571,
-      "n_train": 61
-    },
-    "hospital_5": {
-      "checkpoint": "hospital_5_personalized.pt",
-      "test_accuracy": 0.8889,
-      "n_train": 54
+    "va_long_beach": {
+      "checkpoint": "va_long_beach_personalized.pt",
+      "test_accuracy": 0.8286,
+      "n_train": 104
     }
   },
   "source": {
-    "partition_seed": 117,
+    "partition": "uci_4_real_sites_option_a",
     "split_seed": 42,
     "model_init_seed": 42,
     "proximal_mu": 0.1,

@@ -1,0 +1,52 @@
+# Regenerates the dashboard artifacts that need torch/shap/sklearn from the
+# committed personalized checkpoints (inference only, no training):
+#   dashboard_data/sample_patients.json  (predict_and_explain + KernelSHAP)
+#   dashboard_data/test_patients.json    (every held-out test patient x 4 models)
+# and commits them back to this branch.
+name: Export model artifacts (torch/shap)
+
+on:
+  push:
+    branches: [multisite-data]
+    paths:
+      - "experiments/results/models/**"
+      - "experiments/export_sample_patients.py"
+      - "experiments/export_test_patients.py"
+      - ".github/workflows/export-model-artifacts.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  export:
+    if: "!contains(github.event.head_commit.message, '[artifacts]')"
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: |
+          pip install -q torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -q -r requirements.txt
+      - name: Export
+        run: |
+          mkdir -p experiments/results/dashboard_data
+          python experiments/export_sample_patients.py
+          python experiments/export_test_patients.py
+          python - <<'PY'
+          import json
+          s = json.load(open("experiments/results/dashboard_data/sample_patients.json"))["samples"]
+          t = json.load(open("experiments/results/dashboard_data/test_patients.json"))
+          print("::notice title=Sample patients::" + "; ".join(f"{x['id']} p={x['predicted_probability']} actual={x['actual_label']}" for x in s))
+          print(f"::notice title=Test patients::{t['n_patients']} {t['per_site']}")
+          PY
+      - name: Commit artifacts back
+        run: |
+          git config user.name "artifacts-bot"
+          git config user.email "artifacts-bot@users.noreply.github.com"
+          git add experiments/results/dashboard_data/sample_patients.json experiments/results/dashboard_data/test_patients.json
+          git commit -m "[artifacts] sample + test patients from run ${{ github.run_id }}" || echo "nothing to commit"
+          git push origin HEAD:multisite-data
