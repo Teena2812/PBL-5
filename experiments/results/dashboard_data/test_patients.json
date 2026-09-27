@@ -1,0 +1,4698 @@
+{
+ "patients": [
+  {
+   "id": "cleveland_test_0",
+   "site": "cleveland",
+   "test_row": 0,
+   "actual_label": 0,
+   "patient": {
+    "age": 67,
+    "trestbps": 106,
+    "thalach": 142,
+    "oldpeak": 0.3,
+    "sex": 0,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.206051,
+    "hungary": 0.120774,
+    "switzerland": 0.857308,
+    "va_long_beach": 0.472897
+   }
+  },
+  {
+   "id": "cleveland_test_1",
+   "site": "cleveland",
+   "test_row": 1,
+   "actual_label": 0,
+   "patient": {
+    "age": 41,
+    "trestbps": 135,
+    "thalach": 132,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 2,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.03145,
+    "hungary": 0.026185,
+    "switzerland": 0.799815,
+    "va_long_beach": 0.06639
+   }
+  },
+  {
+   "id": "cleveland_test_2",
+   "site": "cleveland",
+   "test_row": 2,
+   "actual_label": 0,
+   "patient": {
+    "age": 66,
+    "trestbps": 150,
+    "thalach": 114,
+    "oldpeak": 2.6,
+    "sex": 0,
+    "exang": 0,
+    "cp": 1,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.472077,
+    "hungary": 0.704519,
+    "switzerland": 0.937495,
+    "va_long_beach": 0.884095
+   }
+  },
+  {
+   "id": "cleveland_test_3",
+   "site": "cleveland",
+   "test_row": 3,
+   "actual_label": 1,
+   "patient": {
+    "age": 57,
+    "trestbps": 130,
+    "thalach": 115,
+    "oldpeak": 1.2,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.933477,
+    "hungary": 0.89371,
+    "switzerland": 0.997693,
+    "va_long_beach": 0.925536
+   }
+  },
+  {
+   "id": "cleveland_test_4",
+   "site": "cleveland",
+   "test_row": 4,
+   "actual_label": 0,
+   "patient": {
+    "age": 69,
+    "trestbps": 160,
+    "thalach": 131,
+    "oldpeak": 0.1,
+    "sex": 1,
+    "exang": 0,
+    "cp": 1,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.745798,
+    "hungary": 0.738709,
+    "switzerland": 0.95516,
+    "va_long_beach": 0.940528
+   }
+  },
+  {
+   "id": "cleveland_test_5",
+   "site": "cleveland",
+   "test_row": 5,
+   "actual_label": 0,
+   "patient": {
+    "age": 43,
+    "trestbps": 110,
+    "thalach": 161,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.489927,
+    "hungary": 0.57621,
+    "switzerland": 0.976081,
+    "va_long_beach": 0.778771
+   }
+  },
+  {
+   "id": "cleveland_test_6",
+   "site": "cleveland",
+   "test_row": 6,
+   "actual_label": 1,
+   "patient": {
+    "age": 57,
+    "trestbps": 152,
+    "thalach": 88,
+    "oldpeak": 1.2,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.960784,
+    "hungary": 0.953316,
+    "switzerland": 0.999105,
+    "va_long_beach": 0.942181
+   }
+  },
+  {
+   "id": "cleveland_test_7",
+   "site": "cleveland",
+   "test_row": 7,
+   "actual_label": 1,
+   "patient": {
+    "age": 45,
+    "trestbps": 142,
+    "thalach": 147,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.76962,
+    "hungary": 0.663306,
+    "switzerland": 0.98867,
+    "va_long_beach": 0.740539
+   }
+  },
+  {
+   "id": "cleveland_test_8",
+   "site": "cleveland",
+   "test_row": 8,
+   "actual_label": 0,
+   "patient": {
+    "age": 64,
+    "trestbps": 110,
+    "thalach": 144,
+    "oldpeak": 1.8,
+    "sex": 1,
+    "exang": 1,
+    "cp": 1,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.616348,
+    "hungary": 0.433836,
+    "switzerland": 0.980387,
+    "va_long_beach": 0.830168
+   }
+  },
+  {
+   "id": "cleveland_test_9",
+   "site": "cleveland",
+   "test_row": 9,
+   "actual_label": 0,
+   "patient": {
+    "age": 59,
+    "trestbps": 138,
+    "thalach": 182,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.555783,
+    "hungary": 0.448227,
+    "switzerland": 0.886091,
+    "va_long_beach": 0.662615
+   }
+  },
+  {
+   "id": "cleveland_test_10",
+   "site": "cleveland",
+   "test_row": 10,
+   "actual_label": 0,
+   "patient": {
+    "age": 42,
+    "trestbps": 130,
+    "thalach": 150,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.032908,
+    "hungary": 0.132512,
+    "switzerland": 0.822662,
+    "va_long_beach": 0.166413
+   }
+  },
+  {
+   "id": "cleveland_test_11",
+   "site": "cleveland",
+   "test_row": 11,
+   "actual_label": 1,
+   "patient": {
+    "age": 38,
+    "trestbps": 120,
+    "thalach": 182,
+    "oldpeak": 3.8,
+    "sex": 1,
+    "exang": 1,
+    "cp": 1,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.355709,
+    "hungary": 0.945062,
+    "switzerland": 0.987009,
+    "va_long_beach": 0.671072
+   }
+  },
+  {
+   "id": "cleveland_test_12",
+   "site": "cleveland",
+   "test_row": 12,
+   "actual_label": 1,
+   "patient": {
+    "age": 59,
+    "trestbps": 174,
+    "thalach": 143,
+    "oldpeak": -0.0,
+    "sex": 0,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.416193,
+    "hungary": 0.61673,
+    "switzerland": 0.942207,
+    "va_long_beach": 0.738518
+   }
+  },
+  {
+   "id": "cleveland_test_13",
+   "site": "cleveland",
+   "test_row": 13,
+   "actual_label": 1,
+   "patient": {
+    "age": 60,
+    "trestbps": 125,
+    "thalach": 141,
+    "oldpeak": 2.8,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.958807,
+    "hungary": 0.941322,
+    "switzerland": 0.996623,
+    "va_long_beach": 0.943226
+   }
+  },
+  {
+   "id": "cleveland_test_14",
+   "site": "cleveland",
+   "test_row": 14,
+   "actual_label": 0,
+   "patient": {
+    "age": 43,
+    "trestbps": 122,
+    "thalach": 165,
+    "oldpeak": 0.2,
+    "sex": 0,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.022215,
+    "hungary": 0.110343,
+    "switzerland": 0.348254,
+    "va_long_beach": 0.110798
+   }
+  },
+  {
+   "id": "cleveland_test_15",
+   "site": "cleveland",
+   "test_row": 15,
+   "actual_label": 1,
+   "patient": {
+    "age": 56,
+    "trestbps": 130,
+    "thalach": 103,
+    "oldpeak": 1.6,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.955742,
+    "hungary": 0.884916,
+    "switzerland": 0.998467,
+    "va_long_beach": 0.942846
+   }
+  },
+  {
+   "id": "cleveland_test_16",
+   "site": "cleveland",
+   "test_row": 16,
+   "actual_label": 1,
+   "patient": {
+    "age": 35,
+    "trestbps": 126,
+    "thalach": 156,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.503989,
+    "hungary": 0.602348,
+    "switzerland": 0.987347,
+    "va_long_beach": 0.632463
+   }
+  },
+  {
+   "id": "cleveland_test_17",
+   "site": "cleveland",
+   "test_row": 17,
+   "actual_label": 1,
+   "patient": {
+    "age": 56,
+    "trestbps": 200,
+    "thalach": 133,
+    "oldpeak": 4.0,
+    "sex": 0,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.738389,
+    "hungary": 0.991915,
+    "switzerland": 0.992117,
+    "va_long_beach": 0.677823
+   }
+  },
+  {
+   "id": "cleveland_test_18",
+   "site": "cleveland",
+   "test_row": 18,
+   "actual_label": 1,
+   "patient": {
+    "age": 55,
+    "trestbps": 180,
+    "thalach": 117,
+    "oldpeak": 3.4,
+    "sex": 0,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.849156,
+    "hungary": 0.974619,
+    "switzerland": 0.9905,
+    "va_long_beach": 0.71918
+   }
+  },
+  {
+   "id": "cleveland_test_19",
+   "site": "cleveland",
+   "test_row": 19,
+   "actual_label": 1,
+   "patient": {
+    "age": 58,
+    "trestbps": 125,
+    "thalach": 171,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.615925,
+    "hungary": 0.4403,
+    "switzerland": 0.926306,
+    "va_long_beach": 0.661784
+   }
+  },
+  {
+   "id": "cleveland_test_20",
+   "site": "cleveland",
+   "test_row": 20,
+   "actual_label": 1,
+   "patient": {
+    "age": 58,
+    "trestbps": 132,
+    "thalach": 173,
+    "oldpeak": 3.2,
+    "sex": 1,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.513102,
+    "hungary": 0.809109,
+    "switzerland": 0.859924,
+    "va_long_beach": 0.486463
+   }
+  },
+  {
+   "id": "cleveland_test_21",
+   "site": "cleveland",
+   "test_row": 21,
+   "actual_label": 0,
+   "patient": {
+    "age": 51,
+    "trestbps": 120,
+    "thalach": 157,
+    "oldpeak": 0.6,
+    "sex": 0,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.059464,
+    "hungary": 0.094354,
+    "switzerland": 0.349344,
+    "va_long_beach": 0.109362
+   }
+  },
+  {
+   "id": "cleveland_test_22",
+   "site": "cleveland",
+   "test_row": 22,
+   "actual_label": 1,
+   "patient": {
+    "age": 61,
+    "trestbps": 134,
+    "thalach": 145,
+    "oldpeak": 2.6,
+    "sex": 1,
+    "exang": 0,
+    "cp": 1,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.62763,
+    "hungary": 0.837013,
+    "switzerland": 0.967335,
+    "va_long_beach": 0.85837
+   }
+  },
+  {
+   "id": "cleveland_test_23",
+   "site": "cleveland",
+   "test_row": 23,
+   "actual_label": 1,
+   "patient": {
+    "age": 57,
+    "trestbps": 140,
+    "thalach": 123,
+    "oldpeak": 0.2,
+    "sex": 0,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.424809,
+    "hungary": 0.353686,
+    "switzerland": 0.973207,
+    "va_long_beach": 0.665747
+   }
+  },
+  {
+   "id": "cleveland_test_24",
+   "site": "cleveland",
+   "test_row": 24,
+   "actual_label": 1,
+   "patient": {
+    "age": 50,
+    "trestbps": 140,
+    "thalach": 163,
+    "oldpeak": 0.6,
+    "sex": 1,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.049792,
+    "hungary": 0.24092,
+    "switzerland": 0.675948,
+    "va_long_beach": 0.156498
+   }
+  },
+  {
+   "id": "cleveland_test_25",
+   "site": "cleveland",
+   "test_row": 25,
+   "actual_label": 1,
+   "patient": {
+    "age": 44,
+    "trestbps": 120,
+    "thalach": 144,
+    "oldpeak": 2.8,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.938062,
+    "hungary": 0.961806,
+    "switzerland": 0.99786,
+    "va_long_beach": 0.904828
+   }
+  },
+  {
+   "id": "cleveland_test_26",
+   "site": "cleveland",
+   "test_row": 26,
+   "actual_label": 0,
+   "patient": {
+    "age": 57,
+    "trestbps": 128,
+    "thalach": 159,
+    "oldpeak": -0.0,
+    "sex": 0,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.257276,
+    "hungary": 0.162773,
+    "switzerland": 0.759766,
+    "va_long_beach": 0.36825
+   }
+  },
+  {
+   "id": "cleveland_test_27",
+   "site": "cleveland",
+   "test_row": 27,
+   "actual_label": 0,
+   "patient": {
+    "age": 56,
+    "trestbps": 120,
+    "thalach": 178,
+    "oldpeak": 0.8,
+    "sex": 1,
+    "exang": 0,
+    "cp": 2,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.178052,
+    "hungary": 0.190317,
+    "switzerland": 0.634996,
+    "va_long_beach": 0.26562
+   }
+  },
+  {
+   "id": "cleveland_test_28",
+   "site": "cleveland",
+   "test_row": 28,
+   "actual_label": 1,
+   "patient": {
+    "age": 66,
+    "trestbps": 160,
+    "thalach": 120,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 2,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.730092,
+    "hungary": 0.589101,
+    "switzerland": 0.963032,
+    "va_long_beach": 0.885461
+   }
+  },
+  {
+   "id": "cleveland_test_29",
+   "site": "cleveland",
+   "test_row": 29,
+   "actual_label": 0,
+   "patient": {
+    "age": 34,
+    "trestbps": 118,
+    "thalach": 174,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 1,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.059651,
+    "hungary": 0.361704,
+    "switzerland": 0.915736,
+    "va_long_beach": 0.321264
+   }
+  },
+  {
+   "id": "cleveland_test_30",
+   "site": "cleveland",
+   "test_row": 30,
+   "actual_label": 0,
+   "patient": {
+    "age": 55,
+    "trestbps": 132,
+    "thalach": 166,
+    "oldpeak": 1.2,
+    "sex": 0,
+    "exang": 0,
+    "cp": 2,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.075969,
+    "hungary": 0.111067,
+    "switzerland": 0.239817,
+    "va_long_beach": 0.139382
+   }
+  },
+  {
+   "id": "cleveland_test_31",
+   "site": "cleveland",
+   "test_row": 31,
+   "actual_label": 0,
+   "patient": {
+    "age": 62,
+    "trestbps": 130,
+    "thalach": 146,
+    "oldpeak": 1.8,
+    "sex": 1,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.522662,
+    "hungary": 0.582262,
+    "switzerland": 0.914918,
+    "va_long_beach": 0.637258
+   }
+  },
+  {
+   "id": "cleveland_test_32",
+   "site": "cleveland",
+   "test_row": 32,
+   "actual_label": 0,
+   "patient": {
+    "age": 52,
+    "trestbps": 138,
+    "thalach": 169,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.055189,
+    "hungary": 0.190175,
+    "switzerland": 0.559236,
+    "va_long_beach": 0.212478
+   }
+  },
+  {
+   "id": "cleveland_test_33",
+   "site": "cleveland",
+   "test_row": 33,
+   "actual_label": 0,
+   "patient": {
+    "age": 41,
+    "trestbps": 130,
+    "thalach": 168,
+    "oldpeak": 2.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.106752,
+    "hungary": 0.650944,
+    "switzerland": 0.858463,
+    "va_long_beach": 0.163209
+   }
+  },
+  {
+   "id": "cleveland_test_34",
+   "site": "cleveland",
+   "test_row": 34,
+   "actual_label": 0,
+   "patient": {
+    "age": 51,
+    "trestbps": 130,
+    "thalach": 149,
+    "oldpeak": 0.5,
+    "sex": 0,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.052934,
+    "hungary": 0.087772,
+    "switzerland": 0.322557,
+    "va_long_beach": 0.087773
+   }
+  },
+  {
+   "id": "cleveland_test_35",
+   "site": "cleveland",
+   "test_row": 35,
+   "actual_label": 0,
+   "patient": {
+    "age": 54,
+    "trestbps": 160,
+    "thalach": 163,
+    "oldpeak": -0.0,
+    "sex": 0,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.03589,
+    "hungary": 0.141632,
+    "switzerland": 0.260824,
+    "va_long_beach": 0.113561
+   }
+  },
+  {
+   "id": "cleveland_test_36",
+   "site": "cleveland",
+   "test_row": 36,
+   "actual_label": 1,
+   "patient": {
+    "age": 59,
+    "trestbps": 164,
+    "thalach": 90,
+    "oldpeak": 1.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.943246,
+    "hungary": 0.919068,
+    "switzerland": 0.996293,
+    "va_long_beach": 0.96994
+   }
+  },
+  {
+   "id": "cleveland_test_37",
+   "site": "cleveland",
+   "test_row": 37,
+   "actual_label": 0,
+   "patient": {
+    "age": 60,
+    "trestbps": 120,
+    "thalach": 96,
+    "oldpeak": -0.0,
+    "sex": 0,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.071048,
+    "hungary": 0.041528,
+    "switzerland": 0.739518,
+    "va_long_beach": 0.117294
+   }
+  },
+  {
+   "id": "cleveland_test_38",
+   "site": "cleveland",
+   "test_row": 38,
+   "actual_label": 1,
+   "patient": {
+    "age": 66,
+    "trestbps": 178,
+    "thalach": 165,
+    "oldpeak": 1.0,
+    "sex": 0,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.427315,
+    "hungary": 0.7705,
+    "switzerland": 0.916525,
+    "va_long_beach": 0.707405
+   }
+  },
+  {
+   "id": "cleveland_test_39",
+   "site": "cleveland",
+   "test_row": 39,
+   "actual_label": 1,
+   "patient": {
+    "age": 46,
+    "trestbps": 150,
+    "thalach": 147,
+    "oldpeak": 3.6,
+    "sex": 1,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.256328,
+    "hungary": 0.92603,
+    "switzerland": 0.945948,
+    "va_long_beach": 0.229269
+   }
+  },
+  {
+   "id": "cleveland_test_40",
+   "site": "cleveland",
+   "test_row": 40,
+   "actual_label": 1,
+   "patient": {
+    "age": 70,
+    "trestbps": 130,
+    "thalach": 109,
+    "oldpeak": 2.4,
+    "sex": 1,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.944294,
+    "hungary": 0.844629,
+    "switzerland": 0.994119,
+    "va_long_beach": 0.949611
+   }
+  },
+  {
+   "id": "cleveland_test_41",
+   "site": "cleveland",
+   "test_row": 41,
+   "actual_label": 1,
+   "patient": {
+    "age": 61,
+    "trestbps": 140,
+    "thalach": 138,
+    "oldpeak": 1.9,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.944977,
+    "hungary": 0.924944,
+    "switzerland": 0.995209,
+    "va_long_beach": 0.922753
+   }
+  },
+  {
+   "id": "cleveland_test_42",
+   "site": "cleveland",
+   "test_row": 42,
+   "actual_label": 0,
+   "patient": {
+    "age": 44,
+    "trestbps": 130,
+    "thalach": 179,
+    "oldpeak": 0.4,
+    "sex": 1,
+    "exang": 1,
+    "cp": 3,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.049649,
+    "hungary": 0.354136,
+    "switzerland": 0.861155,
+    "va_long_beach": 0.189025
+   }
+  },
+  {
+   "id": "cleveland_test_43",
+   "site": "cleveland",
+   "test_row": 43,
+   "actual_label": 1,
+   "patient": {
+    "age": 61,
+    "trestbps": 148,
+    "thalach": 161,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.340712,
+    "hungary": 0.39848,
+    "switzerland": 0.922702,
+    "va_long_beach": 0.532601
+   }
+  },
+  {
+   "id": "cleveland_test_44",
+   "site": "cleveland",
+   "test_row": 44,
+   "actual_label": 0,
+   "patient": {
+    "age": 74,
+    "trestbps": 120,
+    "thalach": 121,
+    "oldpeak": 0.2,
+    "sex": 0,
+    "exang": 1,
+    "cp": 2,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.450523,
+    "hungary": 0.208414,
+    "switzerland": 0.789156,
+    "va_long_beach": 0.716531
+   }
+  },
+  {
+   "id": "cleveland_test_45",
+   "site": "cleveland",
+   "test_row": 45,
+   "actual_label": 1,
+   "patient": {
+    "age": 55,
+    "trestbps": 128,
+    "thalach": 130,
+    "oldpeak": 2.0,
+    "sex": 0,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.739337,
+    "hungary": 0.688227,
+    "switzerland": 0.97444,
+    "va_long_beach": 0.755054
+   }
+  },
+  {
+   "id": "cleveland_test_46",
+   "site": "cleveland",
+   "test_row": 46,
+   "actual_label": 0,
+   "patient": {
+    "age": 45,
+    "trestbps": 115,
+    "thalach": 185,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.572757,
+    "hungary": 0.599411,
+    "switzerland": 0.947186,
+    "va_long_beach": 0.686487
+   }
+  },
+  {
+   "id": "cleveland_test_47",
+   "site": "cleveland",
+   "test_row": 47,
+   "actual_label": 0,
+   "patient": {
+    "age": 53,
+    "trestbps": 128,
+    "thalach": 115,
+    "oldpeak": -0.0,
+    "sex": 0,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.053909,
+    "hungary": 0.038566,
+    "switzerland": 0.614605,
+    "va_long_beach": 0.12667
+   }
+  },
+  {
+   "id": "cleveland_test_48",
+   "site": "cleveland",
+   "test_row": 48,
+   "actual_label": 0,
+   "patient": {
+    "age": 53,
+    "trestbps": 130,
+    "thalach": 173,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.106959,
+    "hungary": 0.19833,
+    "switzerland": 0.634672,
+    "va_long_beach": 0.265749
+   }
+  },
+  {
+   "id": "cleveland_test_49",
+   "site": "cleveland",
+   "test_row": 49,
+   "actual_label": 0,
+   "patient": {
+    "age": 63,
+    "trestbps": 140,
+    "thalach": 179,
+    "oldpeak": -0.0,
+    "sex": 0,
+    "exang": 0,
+    "cp": 2,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.100301,
+    "hungary": 0.093551,
+    "switzerland": 0.23926,
+    "va_long_beach": 0.229513
+   }
+  },
+  {
+   "id": "cleveland_test_50",
+   "site": "cleveland",
+   "test_row": 50,
+   "actual_label": 0,
+   "patient": {
+    "age": 38,
+    "trestbps": 138,
+    "thalach": 173,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.011559,
+    "hungary": 0.089442,
+    "switzerland": 0.525299,
+    "va_long_beach": 0.069588
+   }
+  },
+  {
+   "id": "cleveland_test_51",
+   "site": "cleveland",
+   "test_row": 51,
+   "actual_label": 0,
+   "patient": {
+    "age": 37,
+    "trestbps": 130,
+    "thalach": 187,
+    "oldpeak": 3.5,
+    "sex": 1,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.06837,
+    "hungary": 0.869717,
+    "switzerland": 0.89232,
+    "va_long_beach": 0.161706
+   }
+  },
+  {
+   "id": "cleveland_test_52",
+   "site": "cleveland",
+   "test_row": 52,
+   "actual_label": 1,
+   "patient": {
+    "age": 54,
+    "trestbps": 122,
+    "thalach": 116,
+    "oldpeak": 3.2,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.978732,
+    "hungary": 0.965748,
+    "switzerland": 0.998946,
+    "va_long_beach": 0.970479
+   }
+  },
+  {
+   "id": "cleveland_test_53",
+   "site": "cleveland",
+   "test_row": 53,
+   "actual_label": 0,
+   "patient": {
+    "age": 45,
+    "trestbps": 138,
+    "thalach": 152,
+    "oldpeak": 0.2,
+    "sex": 0,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.366411,
+    "hungary": 0.31099,
+    "switzerland": 0.938396,
+    "va_long_beach": 0.447031
+   }
+  },
+  {
+   "id": "cleveland_test_54",
+   "site": "cleveland",
+   "test_row": 54,
+   "actual_label": 1,
+   "patient": {
+    "age": 62,
+    "trestbps": 120,
+    "thalach": 103,
+    "oldpeak": 1.4,
+    "sex": 1,
+    "exang": 0,
+    "cp": 2,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.734634,
+    "hungary": 0.136724,
+    "switzerland": 0.944672,
+    "va_long_beach": 0.718571
+   }
+  },
+  {
+   "id": "cleveland_test_55",
+   "site": "cleveland",
+   "test_row": 55,
+   "actual_label": 0,
+   "patient": {
+    "age": 63,
+    "trestbps": 135,
+    "thalach": 172,
+    "oldpeak": -0.0,
+    "sex": 0,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.141215,
+    "hungary": 0.148267,
+    "switzerland": 0.383905,
+    "va_long_beach": 0.289687
+   }
+  },
+  {
+   "id": "cleveland_test_56",
+   "site": "cleveland",
+   "test_row": 56,
+   "actual_label": 0,
+   "patient": {
+    "age": 51,
+    "trestbps": 94,
+    "thalach": 154,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 3,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.297406,
+    "hungary": 0.229606,
+    "switzerland": 0.962257,
+    "va_long_beach": 0.626367
+   }
+  },
+  {
+   "id": "cleveland_test_57",
+   "site": "cleveland",
+   "test_row": 57,
+   "actual_label": 1,
+   "patient": {
+    "age": 61,
+    "trestbps": 138,
+    "thalach": 125,
+    "oldpeak": 3.6,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.983585,
+    "hungary": 0.981928,
+    "switzerland": 0.998688,
+    "va_long_beach": 0.971298
+   }
+  },
+  {
+   "id": "cleveland_test_58",
+   "site": "cleveland",
+   "test_row": 58,
+   "actual_label": 0,
+   "patient": {
+    "age": 54,
+    "trestbps": 150,
+    "thalach": 165,
+    "oldpeak": 1.6,
+    "sex": 1,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.145649,
+    "hungary": 0.512023,
+    "switzerland": 0.736308,
+    "va_long_beach": 0.208527
+   }
+  },
+  {
+   "id": "cleveland_test_59",
+   "site": "cleveland",
+   "test_row": 59,
+   "actual_label": 1,
+   "patient": {
+    "age": 54,
+    "trestbps": 120,
+    "thalach": 113,
+    "oldpeak": 1.4,
+    "sex": 1,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.887671,
+    "hungary": 0.795425,
+    "switzerland": 0.994793,
+    "va_long_beach": 0.927176
+   }
+  },
+  {
+   "id": "cleveland_test_60",
+   "site": "cleveland",
+   "test_row": 60,
+   "actual_label": 0,
+   "patient": {
+    "age": 46,
+    "trestbps": 101,
+    "thalach": 156,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 2,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.118479,
+    "hungary": 0.055877,
+    "switzerland": 0.873852,
+    "va_long_beach": 0.213957
+   }
+  },
+  {
+   "id": "cleveland_test_61",
+   "site": "cleveland",
+   "test_row": 61,
+   "actual_label": 0,
+   "patient": {
+    "age": 58,
+    "trestbps": 150,
+    "thalach": 162,
+    "oldpeak": 1.0,
+    "sex": 0,
+    "exang": 0,
+    "cp": 1,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.223,
+    "hungary": 0.396798,
+    "switzerland": 0.670483,
+    "va_long_beach": 0.662107
+   }
+  },
+  {
+   "id": "cleveland_test_62",
+   "site": "cleveland",
+   "test_row": 62,
+   "actual_label": 1,
+   "patient": {
+    "age": 58,
+    "trestbps": 170,
+    "thalach": 146,
+    "oldpeak": 2.8,
+    "sex": 0,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.811061,
+    "hungary": 0.958916,
+    "switzerland": 0.980467,
+    "va_long_beach": 0.722781
+   }
+  },
+  {
+   "id": "cleveland_test_63",
+   "site": "cleveland",
+   "test_row": 63,
+   "actual_label": 0,
+   "patient": {
+    "age": 54,
+    "trestbps": 110,
+    "thalach": 158,
+    "oldpeak": 1.6,
+    "sex": 0,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.152603,
+    "hungary": 0.203877,
+    "switzerland": 0.663875,
+    "va_long_beach": 0.350752
+   }
+  },
+  {
+   "id": "cleveland_test_64",
+   "site": "cleveland",
+   "test_row": 64,
+   "actual_label": 1,
+   "patient": {
+    "age": 60,
+    "trestbps": 140,
+    "thalach": 155,
+    "oldpeak": 3.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.615536,
+    "hungary": 0.825702,
+    "switzerland": 0.905314,
+    "va_long_beach": 0.573743
+   }
+  },
+  {
+   "id": "cleveland_test_65",
+   "site": "cleveland",
+   "test_row": 65,
+   "actual_label": 1,
+   "patient": {
+    "age": 43,
+    "trestbps": 132,
+    "thalach": 136,
+    "oldpeak": 3.0,
+    "sex": 0,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.866259,
+    "hungary": 0.929119,
+    "switzerland": 0.988629,
+    "va_long_beach": 0.678235
+   }
+  },
+  {
+   "id": "cleveland_test_66",
+   "site": "cleveland",
+   "test_row": 66,
+   "actual_label": 1,
+   "patient": {
+    "age": 58,
+    "trestbps": 128,
+    "thalach": 131,
+    "oldpeak": 2.2,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.953304,
+    "hungary": 0.924782,
+    "switzerland": 0.996869,
+    "va_long_beach": 0.938883
+   }
+  },
+  {
+   "id": "cleveland_test_67",
+   "site": "cleveland",
+   "test_row": 67,
+   "actual_label": 0,
+   "patient": {
+    "age": 39,
+    "trestbps": 138,
+    "thalach": 152,
+    "oldpeak": -0.0,
+    "sex": 0,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.010142,
+    "hungary": 0.052029,
+    "switzerland": 0.236098,
+    "va_long_beach": 0.054184
+   }
+  },
+  {
+   "id": "cleveland_test_68",
+   "site": "cleveland",
+   "test_row": 68,
+   "actual_label": 0,
+   "patient": {
+    "age": 66,
+    "trestbps": 160,
+    "thalach": 138,
+    "oldpeak": 2.3,
+    "sex": 1,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.924414,
+    "hungary": 0.945004,
+    "switzerland": 0.985943,
+    "va_long_beach": 0.922749
+   }
+  },
+  {
+   "id": "cleveland_test_69",
+   "site": "cleveland",
+   "test_row": 69,
+   "actual_label": 1,
+   "patient": {
+    "age": 49,
+    "trestbps": 120,
+    "thalach": 139,
+    "oldpeak": 2.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.535815,
+    "hungary": 0.705178,
+    "switzerland": 0.960895,
+    "va_long_beach": 0.621464
+   }
+  },
+  {
+   "id": "cleveland_test_70",
+   "site": "cleveland",
+   "test_row": 70,
+   "actual_label": 0,
+   "patient": {
+    "age": 58,
+    "trestbps": 125,
+    "thalach": 144,
+    "oldpeak": 0.4,
+    "sex": 1,
+    "exang": 0,
+    "cp": 2,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.208258,
+    "hungary": 0.070198,
+    "switzerland": 0.75613,
+    "va_long_beach": 0.274233
+   }
+  },
+  {
+   "id": "cleveland_test_71",
+   "site": "cleveland",
+   "test_row": 71,
+   "actual_label": 0,
+   "patient": {
+    "age": 59,
+    "trestbps": 135,
+    "thalach": 161,
+    "oldpeak": 0.5,
+    "sex": 1,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.516054,
+    "hungary": 0.539253,
+    "switzerland": 0.945081,
+    "va_long_beach": 0.660086
+   }
+  },
+  {
+   "id": "cleveland_test_72",
+   "site": "cleveland",
+   "test_row": 72,
+   "actual_label": 0,
+   "patient": {
+    "age": 42,
+    "trestbps": 120,
+    "thalach": 194,
+    "oldpeak": 0.8,
+    "sex": 1,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.028382,
+    "hungary": 0.33321,
+    "switzerland": 0.704502,
+    "va_long_beach": 0.209533
+   }
+  },
+  {
+   "id": "cleveland_test_73",
+   "site": "cleveland",
+   "test_row": 73,
+   "actual_label": 1,
+   "patient": {
+    "age": 62,
+    "trestbps": 140,
+    "thalach": 160,
+    "oldpeak": 3.6,
+    "sex": 0,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.808443,
+    "hungary": 0.896927,
+    "switzerland": 0.919863,
+    "va_long_beach": 0.749554
+   }
+  },
+  {
+   "id": "cleveland_test_74",
+   "site": "cleveland",
+   "test_row": 74,
+   "actual_label": 1,
+   "patient": {
+    "age": 58,
+    "trestbps": 114,
+    "thalach": 140,
+    "oldpeak": 4.4,
+    "sex": 1,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.948021,
+    "hungary": 0.945392,
+    "switzerland": 0.993435,
+    "va_long_beach": 0.942874
+   }
+  },
+  {
+   "id": "cleveland_test_75",
+   "site": "cleveland",
+   "test_row": 75,
+   "actual_label": 0,
+   "patient": {
+    "age": 29,
+    "trestbps": 130,
+    "thalach": 202,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 2,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.003748,
+    "hungary": 0.027391,
+    "switzerland": 0.311998,
+    "va_long_beach": 0.042895
+   }
+  },
+  {
+   "id": "hungary_test_0",
+   "site": "hungary",
+   "test_row": 0,
+   "actual_label": 1,
+   "patient": {
+    "age": 53,
+    "trestbps": 180,
+    "thalach": 120,
+    "oldpeak": 1.5,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.844532,
+    "hungary": 0.890264,
+    "switzerland": 0.994411,
+    "va_long_beach": 0.802827
+   }
+  },
+  {
+   "id": "hungary_test_1",
+   "site": "hungary",
+   "test_row": 1,
+   "actual_label": 1,
+   "patient": {
+    "age": 33,
+    "trestbps": 100,
+    "thalach": 150,
+    "oldpeak": 1.0,
+    "sex": 0,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.314529,
+    "hungary": 0.597426,
+    "switzerland": 0.986227,
+    "va_long_beach": 0.660032
+   }
+  },
+  {
+   "id": "hungary_test_2",
+   "site": "hungary",
+   "test_row": 2,
+   "actual_label": 0,
+   "patient": {
+    "age": 53,
+    "trestbps": 120,
+    "thalach": 130,
+    "oldpeak": -0.0,
+    "sex": 0,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.042598,
+    "hungary": 0.06583,
+    "switzerland": 0.503091,
+    "va_long_beach": 0.11369
+   }
+  },
+  {
+   "id": "hungary_test_3",
+   "site": "hungary",
+   "test_row": 3,
+   "actual_label": 0,
+   "patient": {
+    "age": 49,
+    "trestbps": 140,
+    "thalach": 130,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.477428,
+    "hungary": 0.397857,
+    "switzerland": 0.978761,
+    "va_long_beach": 0.650049
+   }
+  },
+  {
+   "id": "hungary_test_4",
+   "site": "hungary",
+   "test_row": 4,
+   "actual_label": 1,
+   "patient": {
+    "age": 49,
+    "trestbps": 130,
+    "thalach": 170,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.31524,
+    "hungary": 0.459726,
+    "switzerland": 0.935237,
+    "va_long_beach": 0.603517
+   }
+  },
+  {
+   "id": "hungary_test_5",
+   "site": "hungary",
+   "test_row": 5,
+   "actual_label": 1,
+   "patient": {
+    "age": 57,
+    "trestbps": 140,
+    "thalach": 145,
+    "oldpeak": 1.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 2,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.358123,
+    "hungary": 0.17881,
+    "switzerland": 0.897033,
+    "va_long_beach": 0.624544
+   }
+  },
+  {
+   "id": "hungary_test_6",
+   "site": "hungary",
+   "test_row": 6,
+   "actual_label": 0,
+   "patient": {
+    "age": 47,
+    "trestbps": 140,
+    "thalach": 125,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.715074,
+    "hungary": 0.641809,
+    "switzerland": 0.994216,
+    "va_long_beach": 0.726262
+   }
+  },
+  {
+   "id": "hungary_test_7",
+   "site": "hungary",
+   "test_row": 7,
+   "actual_label": 0,
+   "patient": {
+    "age": 50,
+    "trestbps": 110,
+    "thalach": 145,
+    "oldpeak": -0.0,
+    "sex": 0,
+    "exang": 0,
+    "cp": 2,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.023653,
+    "hungary": 0.020884,
+    "switzerland": 0.322326,
+    "va_long_beach": 0.039579
+   }
+  },
+  {
+   "id": "hungary_test_8",
+   "site": "hungary",
+   "test_row": 8,
+   "actual_label": 1,
+   "patient": {
+    "age": 49,
+    "trestbps": 128,
+    "thalach": 96,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.85486,
+    "hungary": 0.50133,
+    "switzerland": 0.998334,
+    "va_long_beach": 0.828461
+   }
+  },
+  {
+   "id": "hungary_test_9",
+   "site": "hungary",
+   "test_row": 9,
+   "actual_label": 1,
+   "patient": {
+    "age": 38,
+    "trestbps": 110,
+    "thalach": 150,
+    "oldpeak": 1.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.804702,
+    "hungary": 0.851033,
+    "switzerland": 0.995829,
+    "va_long_beach": 0.856681
+   }
+  },
+  {
+   "id": "hungary_test_10",
+   "site": "hungary",
+   "test_row": 10,
+   "actual_label": 0,
+   "patient": {
+    "age": 55,
+    "trestbps": 140,
+    "thalach": 150,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 2,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.097262,
+    "hungary": 0.059991,
+    "switzerland": 0.550815,
+    "va_long_beach": 0.262748
+   }
+  },
+  {
+   "id": "hungary_test_11",
+   "site": "hungary",
+   "test_row": 11,
+   "actual_label": 1,
+   "patient": {
+    "age": 59,
+    "trestbps": 130,
+    "thalach": 125,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.654307,
+    "hungary": 0.38767,
+    "switzerland": 0.982994,
+    "va_long_beach": 0.811269
+   }
+  },
+  {
+   "id": "hungary_test_12",
+   "site": "hungary",
+   "test_row": 12,
+   "actual_label": 0,
+   "patient": {
+    "age": 35,
+    "trestbps": 140,
+    "thalach": 150,
+    "oldpeak": -0.0,
+    "sex": 0,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.019151,
+    "hungary": 0.08025,
+    "switzerland": 0.793999,
+    "va_long_beach": 0.08218
+   }
+  },
+  {
+   "id": "hungary_test_13",
+   "site": "hungary",
+   "test_row": 13,
+   "actual_label": 0,
+   "patient": {
+    "age": 62,
+    "trestbps": 140,
+    "thalach": 152,
+    "oldpeak": 1.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 2,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.240017,
+    "hungary": 0.231319,
+    "switzerland": 0.66491,
+    "va_long_beach": 0.342261
+   }
+  },
+  {
+   "id": "hungary_test_14",
+   "site": "hungary",
+   "test_row": 14,
+   "actual_label": 0,
+   "patient": {
+    "age": 42,
+    "trestbps": 120,
+    "thalach": 155,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 2,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.041879,
+    "hungary": 0.045536,
+    "switzerland": 0.782871,
+    "va_long_beach": 0.159426
+   }
+  },
+  {
+   "id": "hungary_test_15",
+   "site": "hungary",
+   "test_row": 15,
+   "actual_label": 0,
+   "patient": {
+    "age": 54,
+    "trestbps": 160,
+    "thalach": 130,
+    "oldpeak": 1.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 2,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.267578,
+    "hungary": 0.141728,
+    "switzerland": 0.777813,
+    "va_long_beach": 0.694651
+   }
+  },
+  {
+   "id": "hungary_test_16",
+   "site": "hungary",
+   "test_row": 16,
+   "actual_label": 1,
+   "patient": {
+    "age": 52,
+    "trestbps": 170,
+    "thalach": 126,
+    "oldpeak": 1.5,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.827958,
+    "hungary": 0.954537,
+    "switzerland": 0.995616,
+    "va_long_beach": 0.65577
+   }
+  },
+  {
+   "id": "hungary_test_17",
+   "site": "hungary",
+   "test_row": 17,
+   "actual_label": 1,
+   "patient": {
+    "age": 34,
+    "trestbps": 140,
+    "thalach": 180,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 1,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.011005,
+    "hungary": 0.222803,
+    "switzerland": 0.749384,
+    "va_long_beach": 0.114654
+   }
+  },
+  {
+   "id": "hungary_test_18",
+   "site": "hungary",
+   "test_row": 18,
+   "actual_label": 0,
+   "patient": {
+    "age": 55,
+    "trestbps": 120,
+    "thalach": 137,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 2,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.144337,
+    "hungary": 0.037309,
+    "switzerland": 0.802025,
+    "va_long_beach": 0.199113
+   }
+  },
+  {
+   "id": "hungary_test_19",
+   "site": "hungary",
+   "test_row": 19,
+   "actual_label": 0,
+   "patient": {
+    "age": 58,
+    "trestbps": 135,
+    "thalach": 100,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.797333,
+    "hungary": 0.36607,
+    "switzerland": 0.992701,
+    "va_long_beach": 0.837421
+   }
+  },
+  {
+   "id": "hungary_test_20",
+   "site": "hungary",
+   "test_row": 20,
+   "actual_label": 1,
+   "patient": {
+    "age": 31,
+    "trestbps": 120,
+    "thalach": 153,
+    "oldpeak": 1.5,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.544197,
+    "hungary": 0.904789,
+    "switzerland": 0.995945,
+    "va_long_beach": 0.667314
+   }
+  },
+  {
+   "id": "hungary_test_21",
+   "site": "hungary",
+   "test_row": 21,
+   "actual_label": 1,
+   "patient": {
+    "age": 41,
+    "trestbps": 120,
+    "thalach": 138,
+    "oldpeak": 1.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.83491,
+    "hungary": 0.866919,
+    "switzerland": 0.9961,
+    "va_long_beach": 0.845908
+   }
+  },
+  {
+   "id": "hungary_test_22",
+   "site": "hungary",
+   "test_row": 22,
+   "actual_label": 0,
+   "patient": {
+    "age": 43,
+    "trestbps": 100,
+    "thalach": 142,
+    "oldpeak": -0.0,
+    "sex": 0,
+    "exang": 0,
+    "cp": 1,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.046433,
+    "hungary": 0.10563,
+    "switzerland": 0.867894,
+    "va_long_beach": 0.302932
+   }
+  },
+  {
+   "id": "hungary_test_23",
+   "site": "hungary",
+   "test_row": 23,
+   "actual_label": 0,
+   "patient": {
+    "age": 37,
+    "trestbps": 120,
+    "thalach": 130,
+    "oldpeak": -0.0,
+    "sex": 0,
+    "exang": 0,
+    "cp": 2,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.008097,
+    "hungary": 0.009258,
+    "switzerland": 0.440304,
+    "va_long_beach": 0.015323
+   }
+  },
+  {
+   "id": "hungary_test_24",
+   "site": "hungary",
+   "test_row": 24,
+   "actual_label": 0,
+   "patient": {
+    "age": 41,
+    "trestbps": 120,
+    "thalach": 160,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 2,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.034196,
+    "hungary": 0.03207,
+    "switzerland": 0.690471,
+    "va_long_beach": 0.142223
+   }
+  },
+  {
+   "id": "hungary_test_25",
+   "site": "hungary",
+   "test_row": 25,
+   "actual_label": 0,
+   "patient": {
+    "age": 45,
+    "trestbps": 140,
+    "thalach": 122,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 2,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.063013,
+    "hungary": 0.030266,
+    "switzerland": 0.831754,
+    "va_long_beach": 0.103073
+   }
+  },
+  {
+   "id": "hungary_test_26",
+   "site": "hungary",
+   "test_row": 26,
+   "actual_label": 0,
+   "patient": {
+    "age": 42,
+    "trestbps": 160,
+    "thalach": 146,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.016642,
+    "hungary": 0.10065,
+    "switzerland": 0.639117,
+    "va_long_beach": 0.051773
+   }
+  },
+  {
+   "id": "hungary_test_27",
+   "site": "hungary",
+   "test_row": 27,
+   "actual_label": 0,
+   "patient": {
+    "age": 49,
+    "trestbps": 130,
+    "thalach": 135,
+    "oldpeak": -0.0,
+    "sex": 0,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.022372,
+    "hungary": 0.036829,
+    "switzerland": 0.316755,
+    "va_long_beach": 0.079688
+   }
+  },
+  {
+   "id": "hungary_test_28",
+   "site": "hungary",
+   "test_row": 28,
+   "actual_label": 0,
+   "patient": {
+    "age": 41,
+    "trestbps": 125,
+    "thalach": 144,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 2,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.037397,
+    "hungary": 0.033609,
+    "switzerland": 0.797504,
+    "va_long_beach": 0.108983
+   }
+  },
+  {
+   "id": "hungary_test_29",
+   "site": "hungary",
+   "test_row": 29,
+   "actual_label": 0,
+   "patient": {
+    "age": 47,
+    "trestbps": 160,
+    "thalach": 174,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 2,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.017839,
+    "hungary": 0.032424,
+    "switzerland": 0.204286,
+    "va_long_beach": 0.094348
+   }
+  },
+  {
+   "id": "hungary_test_30",
+   "site": "hungary",
+   "test_row": 30,
+   "actual_label": 1,
+   "patient": {
+    "age": 59,
+    "trestbps": 140,
+    "thalach": 119,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.900927,
+    "hungary": 0.743747,
+    "switzerland": 0.995172,
+    "va_long_beach": 0.940133
+   }
+  },
+  {
+   "id": "hungary_test_31",
+   "site": "hungary",
+   "test_row": 31,
+   "actual_label": 0,
+   "patient": {
+    "age": 54,
+    "trestbps": 120,
+    "thalach": 137,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.164692,
+    "hungary": 0.125012,
+    "switzerland": 0.893979,
+    "va_long_beach": 0.401578
+   }
+  },
+  {
+   "id": "hungary_test_32",
+   "site": "hungary",
+   "test_row": 32,
+   "actual_label": 0,
+   "patient": {
+    "age": 61,
+    "trestbps": 130,
+    "thalach": 120,
+    "oldpeak": 1.0,
+    "sex": 0,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.558357,
+    "hungary": 0.322928,
+    "switzerland": 0.967958,
+    "va_long_beach": 0.62221
+   }
+  },
+  {
+   "id": "hungary_test_33",
+   "site": "hungary",
+   "test_row": 33,
+   "actual_label": 0,
+   "patient": {
+    "age": 42,
+    "trestbps": 115,
+    "thalach": 137,
+    "oldpeak": -0.0,
+    "sex": 0,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.012739,
+    "hungary": 0.026969,
+    "switzerland": 0.494673,
+    "va_long_beach": 0.057768
+   }
+  },
+  {
+   "id": "hungary_test_34",
+   "site": "hungary",
+   "test_row": 34,
+   "actual_label": 1,
+   "patient": {
+    "age": 65,
+    "trestbps": 130,
+    "thalach": 115,
+    "oldpeak": 1.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.859198,
+    "hungary": 0.669683,
+    "switzerland": 0.99493,
+    "va_long_beach": 0.877416
+   }
+  },
+  {
+   "id": "hungary_test_35",
+   "site": "hungary",
+   "test_row": 35,
+   "actual_label": 1,
+   "patient": {
+    "age": 55,
+    "trestbps": 160,
+    "thalach": 143,
+    "oldpeak": 2.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 2,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.34331,
+    "hungary": 0.80561,
+    "switzerland": 0.949968,
+    "va_long_beach": 0.333337
+   }
+  },
+  {
+   "id": "hungary_test_36",
+   "site": "hungary",
+   "test_row": 36,
+   "actual_label": 0,
+   "patient": {
+    "age": 45,
+    "trestbps": 130,
+    "thalach": 170,
+    "oldpeak": -0.0,
+    "sex": 0,
+    "exang": 0,
+    "cp": 2,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.014667,
+    "hungary": 0.031991,
+    "switzerland": 0.148287,
+    "va_long_beach": 0.073127
+   }
+  },
+  {
+   "id": "hungary_test_37",
+   "site": "hungary",
+   "test_row": 37,
+   "actual_label": 0,
+   "patient": {
+    "age": 43,
+    "trestbps": 120,
+    "thalach": 118,
+    "oldpeak": -0.0,
+    "sex": 0,
+    "exang": 0,
+    "cp": 2,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.014046,
+    "hungary": 0.00951,
+    "switzerland": 0.443458,
+    "va_long_beach": 0.017102
+   }
+  },
+  {
+   "id": "hungary_test_38",
+   "site": "hungary",
+   "test_row": 38,
+   "actual_label": 1,
+   "patient": {
+    "age": 46,
+    "trestbps": 120,
+    "thalach": 115,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.766823,
+    "hungary": 0.52994,
+    "switzerland": 0.99708,
+    "va_long_beach": 0.830096
+   }
+  },
+  {
+   "id": "hungary_test_39",
+   "site": "hungary",
+   "test_row": 39,
+   "actual_label": 1,
+   "patient": {
+    "age": 54,
+    "trestbps": 200,
+    "thalach": 142,
+    "oldpeak": 2.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.512099,
+    "hungary": 0.966488,
+    "switzerland": 0.99208,
+    "va_long_beach": 0.463376
+   }
+  },
+  {
+   "id": "hungary_test_40",
+   "site": "hungary",
+   "test_row": 40,
+   "actual_label": 0,
+   "patient": {
+    "age": 35,
+    "trestbps": 120,
+    "thalach": 180,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 2,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.014872,
+    "hungary": 0.041932,
+    "switzerland": 0.595063,
+    "va_long_beach": 0.085313
+   }
+  },
+  {
+   "id": "hungary_test_41",
+   "site": "hungary",
+   "test_row": 41,
+   "actual_label": 0,
+   "patient": {
+    "age": 55,
+    "trestbps": 110,
+    "thalach": 160,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.14959,
+    "hungary": 0.169926,
+    "switzerland": 0.84452,
+    "va_long_beach": 0.447868
+   }
+  },
+  {
+   "id": "hungary_test_42",
+   "site": "hungary",
+   "test_row": 42,
+   "actual_label": 1,
+   "patient": {
+    "age": 48,
+    "trestbps": 106,
+    "thalach": 110,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.72277,
+    "hungary": 0.276363,
+    "switzerland": 0.993219,
+    "va_long_beach": 0.738008
+   }
+  },
+  {
+   "id": "hungary_test_43",
+   "site": "hungary",
+   "test_row": 43,
+   "actual_label": 0,
+   "patient": {
+    "age": 53,
+    "trestbps": 140,
+    "thalach": 142,
+    "oldpeak": 2.0,
+    "sex": 0,
+    "exang": 1,
+    "cp": 2,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.221769,
+    "hungary": 0.402003,
+    "switzerland": 0.792976,
+    "va_long_beach": 0.209905
+   }
+  },
+  {
+   "id": "hungary_test_44",
+   "site": "hungary",
+   "test_row": 44,
+   "actual_label": 0,
+   "patient": {
+    "age": 52,
+    "trestbps": 120,
+    "thalach": 148,
+    "oldpeak": -0.0,
+    "sex": 0,
+    "exang": 0,
+    "cp": 2,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.026205,
+    "hungary": 0.025373,
+    "switzerland": 0.213256,
+    "va_long_beach": 0.048929
+   }
+  },
+  {
+   "id": "hungary_test_45",
+   "site": "hungary",
+   "test_row": 45,
+   "actual_label": 0,
+   "patient": {
+    "age": 42,
+    "trestbps": 140,
+    "thalach": 170,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.142492,
+    "hungary": 0.347516,
+    "switzerland": 0.921036,
+    "va_long_beach": 0.381751
+   }
+  },
+  {
+   "id": "hungary_test_46",
+   "site": "hungary",
+   "test_row": 46,
+   "actual_label": 1,
+   "patient": {
+    "age": 43,
+    "trestbps": 140,
+    "thalach": 135,
+    "oldpeak": 2.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.864517,
+    "hungary": 0.946426,
+    "switzerland": 0.996647,
+    "va_long_beach": 0.687207
+   }
+  },
+  {
+   "id": "hungary_test_47",
+   "site": "hungary",
+   "test_row": 47,
+   "actual_label": 1,
+   "patient": {
+    "age": 50,
+    "trestbps": 140,
+    "thalach": 140,
+    "oldpeak": 5.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.971973,
+    "hungary": 0.989241,
+    "switzerland": 0.99819,
+    "va_long_beach": 0.940862
+   }
+  },
+  {
+   "id": "hungary_test_48",
+   "site": "hungary",
+   "test_row": 48,
+   "actual_label": 1,
+   "patient": {
+    "age": 53,
+    "trestbps": 120,
+    "thalach": 116,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.836924,
+    "hungary": 0.547267,
+    "switzerland": 0.996621,
+    "va_long_beach": 0.868873
+   }
+  },
+  {
+   "id": "hungary_test_49",
+   "site": "hungary",
+   "test_row": 49,
+   "actual_label": 1,
+   "patient": {
+    "age": 55,
+    "trestbps": 140,
+    "thalach": 128,
+    "oldpeak": 1.5,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.922893,
+    "hungary": 0.927457,
+    "switzerland": 0.996483,
+    "va_long_beach": 0.871523
+   }
+  },
+  {
+   "id": "hungary_test_50",
+   "site": "hungary",
+   "test_row": 50,
+   "actual_label": 0,
+   "patient": {
+    "age": 62,
+    "trestbps": 160,
+    "thalach": 116,
+    "oldpeak": -0.0,
+    "sex": 0,
+    "exang": 0,
+    "cp": 1,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.285545,
+    "hungary": 0.419604,
+    "switzerland": 0.895609,
+    "va_long_beach": 0.852951
+   }
+  },
+  {
+   "id": "hungary_test_51",
+   "site": "hungary",
+   "test_row": 51,
+   "actual_label": 0,
+   "patient": {
+    "age": 55,
+    "trestbps": 120,
+    "thalach": 140,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.621328,
+    "hungary": 0.444278,
+    "switzerland": 0.975755,
+    "va_long_beach": 0.788977
+   }
+  },
+  {
+   "id": "hungary_test_52",
+   "site": "hungary",
+   "test_row": 52,
+   "actual_label": 0,
+   "patient": {
+    "age": 47,
+    "trestbps": 110,
+    "thalach": 150,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 1,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.218072,
+    "hungary": 0.340721,
+    "switzerland": 0.951805,
+    "va_long_beach": 0.705059
+   }
+  },
+  {
+   "id": "hungary_test_53",
+   "site": "hungary",
+   "test_row": 53,
+   "actual_label": 0,
+   "patient": {
+    "age": 53,
+    "trestbps": 120,
+    "thalach": 140,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.154602,
+    "hungary": 0.132553,
+    "switzerland": 0.888441,
+    "va_long_beach": 0.398746
+   }
+  },
+  {
+   "id": "hungary_test_54",
+   "site": "hungary",
+   "test_row": 54,
+   "actual_label": 1,
+   "patient": {
+    "age": 58,
+    "trestbps": 160,
+    "thalach": 92,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.296911,
+    "hungary": 0.180989,
+    "switzerland": 0.956154,
+    "va_long_beach": 0.793371
+   }
+  },
+  {
+   "id": "hungary_test_55",
+   "site": "hungary",
+   "test_row": 55,
+   "actual_label": 0,
+   "patient": {
+    "age": 37,
+    "trestbps": 130,
+    "thalach": 142,
+    "oldpeak": -0.0,
+    "sex": 0,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.008821,
+    "hungary": 0.041222,
+    "switzerland": 0.397877,
+    "va_long_beach": 0.038311
+   }
+  },
+  {
+   "id": "hungary_test_56",
+   "site": "hungary",
+   "test_row": 56,
+   "actual_label": 0,
+   "patient": {
+    "age": 53,
+    "trestbps": 113,
+    "thalach": 127,
+    "oldpeak": -0.0,
+    "sex": 0,
+    "exang": 0,
+    "cp": 2,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.029264,
+    "hungary": 0.016088,
+    "switzerland": 0.349979,
+    "va_long_beach": 0.031323
+   }
+  },
+  {
+   "id": "hungary_test_57",
+   "site": "hungary",
+   "test_row": 57,
+   "actual_label": 0,
+   "patient": {
+    "age": 51,
+    "trestbps": 130,
+    "thalach": 160,
+    "oldpeak": 2.0,
+    "sex": 0,
+    "exang": 1,
+    "cp": 3,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.109687,
+    "hungary": 0.499239,
+    "switzerland": 0.818058,
+    "va_long_beach": 0.202972
+   }
+  },
+  {
+   "id": "hungary_test_58",
+   "site": "hungary",
+   "test_row": 58,
+   "actual_label": 1,
+   "patient": {
+    "age": 54,
+    "trestbps": 130,
+    "thalach": 100,
+    "oldpeak": -0.0,
+    "sex": 0,
+    "exang": 1,
+    "cp": 3,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.029581,
+    "hungary": 0.028555,
+    "switzerland": 0.878768,
+    "va_long_beach": 0.101106
+   }
+  },
+  {
+   "id": "hungary_test_59",
+   "site": "hungary",
+   "test_row": 59,
+   "actual_label": 0,
+   "patient": {
+    "age": 29,
+    "trestbps": 120,
+    "thalach": 160,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 2,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.00597,
+    "hungary": 0.032594,
+    "switzerland": 0.773116,
+    "va_long_beach": 0.040432
+   }
+  },
+  {
+   "id": "hungary_test_60",
+   "site": "hungary",
+   "test_row": 60,
+   "actual_label": 0,
+   "patient": {
+    "age": 55,
+    "trestbps": 110,
+    "thalach": 160,
+    "oldpeak": -0.0,
+    "sex": 0,
+    "exang": 0,
+    "cp": 2,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.021532,
+    "hungary": 0.019845,
+    "switzerland": 0.214008,
+    "va_long_beach": 0.047735
+   }
+  },
+  {
+   "id": "hungary_test_61",
+   "site": "hungary",
+   "test_row": 61,
+   "actual_label": 0,
+   "patient": {
+    "age": 48,
+    "trestbps": 120,
+    "thalach": 125,
+    "oldpeak": -0.0,
+    "sex": 0,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.030061,
+    "hungary": 0.047426,
+    "switzerland": 0.579594,
+    "va_long_beach": 0.083158
+   }
+  },
+  {
+   "id": "hungary_test_62",
+   "site": "hungary",
+   "test_row": 62,
+   "actual_label": 1,
+   "patient": {
+    "age": 58,
+    "trestbps": 136,
+    "thalach": 99,
+    "oldpeak": 2.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 2,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.825919,
+    "hungary": 0.440834,
+    "switzerland": 0.985102,
+    "va_long_beach": 0.842875
+   }
+  },
+  {
+   "id": "hungary_test_63",
+   "site": "hungary",
+   "test_row": 63,
+   "actual_label": 1,
+   "patient": {
+    "age": 54,
+    "trestbps": 120,
+    "thalach": 150,
+    "oldpeak": 1.5,
+    "sex": 1,
+    "exang": 1,
+    "cp": 3,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.571144,
+    "hungary": 0.659934,
+    "switzerland": 0.97015,
+    "va_long_beach": 0.662374
+   }
+  },
+  {
+   "id": "hungary_test_64",
+   "site": "hungary",
+   "test_row": 64,
+   "actual_label": 1,
+   "patient": {
+    "age": 54,
+    "trestbps": 130,
+    "thalach": 125,
+    "oldpeak": 1.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.907488,
+    "hungary": 0.859214,
+    "switzerland": 0.996569,
+    "va_long_beach": 0.886405
+   }
+  },
+  {
+   "id": "hungary_test_65",
+   "site": "hungary",
+   "test_row": 65,
+   "actual_label": 0,
+   "patient": {
+    "age": 36,
+    "trestbps": 112,
+    "thalach": 184,
+    "oldpeak": 1.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.040421,
+    "hungary": 0.445744,
+    "switzerland": 0.858846,
+    "va_long_beach": 0.234107
+   }
+  },
+  {
+   "id": "hungary_test_66",
+   "site": "hungary",
+   "test_row": 66,
+   "actual_label": 0,
+   "patient": {
+    "age": 49,
+    "trestbps": 100,
+    "thalach": 174,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 2,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.133071,
+    "hungary": 0.102183,
+    "switzerland": 0.827422,
+    "va_long_beach": 0.287042
+   }
+  },
+  {
+   "id": "hungary_test_67",
+   "site": "hungary",
+   "test_row": 67,
+   "actual_label": 0,
+   "patient": {
+    "age": 39,
+    "trestbps": 160,
+    "thalach": 160,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.009347,
+    "hungary": 0.07522,
+    "switzerland": 0.410849,
+    "va_long_beach": 0.038618
+   }
+  },
+  {
+   "id": "hungary_test_68",
+   "site": "hungary",
+   "test_row": 68,
+   "actual_label": 0,
+   "patient": {
+    "age": 45,
+    "trestbps": 180,
+    "thalach": 180,
+    "oldpeak": -0.0,
+    "sex": 0,
+    "exang": 0,
+    "cp": 2,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.011797,
+    "hungary": 0.016081,
+    "switzerland": 0.089862,
+    "va_long_beach": 0.098601
+   }
+  },
+  {
+   "id": "hungary_test_69",
+   "site": "hungary",
+   "test_row": 69,
+   "actual_label": 0,
+   "patient": {
+    "age": 48,
+    "trestbps": 110,
+    "thalach": 138,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.175581,
+    "hungary": 0.130099,
+    "switzerland": 0.922903,
+    "va_long_beach": 0.415116
+   }
+  },
+  {
+   "id": "hungary_test_70",
+   "site": "hungary",
+   "test_row": 70,
+   "actual_label": 0,
+   "patient": {
+    "age": 33,
+    "trestbps": 120,
+    "thalach": 185,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.009007,
+    "hungary": 0.155523,
+    "switzerland": 0.719147,
+    "va_long_beach": 0.124923
+   }
+  },
+  {
+   "id": "hungary_test_71",
+   "site": "hungary",
+   "test_row": 71,
+   "actual_label": 0,
+   "patient": {
+    "age": 59,
+    "trestbps": 180,
+    "thalach": 100,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.515417,
+    "hungary": 0.660356,
+    "switzerland": 0.975635,
+    "va_long_beach": 0.793343
+   }
+  },
+  {
+   "id": "hungary_test_72",
+   "site": "hungary",
+   "test_row": 72,
+   "actual_label": 0,
+   "patient": {
+    "age": 57,
+    "trestbps": 180,
+    "thalach": 126,
+    "oldpeak": 0.8,
+    "sex": 0,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.642578,
+    "hungary": 0.650913,
+    "switzerland": 0.961331,
+    "va_long_beach": 0.844318
+   }
+  },
+  {
+   "id": "switzerland_test_0",
+   "site": "switzerland",
+   "test_row": 0,
+   "actual_label": 1,
+   "patient": {
+    "age": 52,
+    "trestbps": 135,
+    "thalach": 128,
+    "oldpeak": 2.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.939851,
+    "hungary": 0.946669,
+    "switzerland": 0.997446,
+    "va_long_beach": 0.889113
+   }
+  },
+  {
+   "id": "switzerland_test_1",
+   "site": "switzerland",
+   "test_row": 1,
+   "actual_label": 1,
+   "patient": {
+    "age": 61,
+    "trestbps": 110,
+    "thalach": 113,
+    "oldpeak": 1.4,
+    "sex": 1,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.861611,
+    "hungary": 0.648046,
+    "switzerland": 0.993827,
+    "va_long_beach": 0.923276
+   }
+  },
+  {
+   "id": "switzerland_test_2",
+   "site": "switzerland",
+   "test_row": 2,
+   "actual_label": 1,
+   "patient": {
+    "age": 57,
+    "trestbps": 160,
+    "thalach": 98,
+    "oldpeak": 2.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.968126,
+    "hungary": 0.978972,
+    "switzerland": 0.999058,
+    "va_long_beach": 0.925014
+   }
+  },
+  {
+   "id": "switzerland_test_3",
+   "site": "switzerland",
+   "test_row": 3,
+   "actual_label": 1,
+   "patient": {
+    "age": 59,
+    "trestbps": 110,
+    "thalach": 94,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.755645,
+    "hungary": 0.1904,
+    "switzerland": 0.994015,
+    "va_long_beach": 0.754511
+   }
+  },
+  {
+   "id": "switzerland_test_4",
+   "site": "switzerland",
+   "test_row": 4,
+   "actual_label": 1,
+   "patient": {
+    "age": 54,
+    "trestbps": 130,
+    "thalach": 110,
+    "oldpeak": 3.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.977703,
+    "hungary": 0.976689,
+    "switzerland": 0.999212,
+    "va_long_beach": 0.965843
+   }
+  },
+  {
+   "id": "switzerland_test_5",
+   "site": "switzerland",
+   "test_row": 5,
+   "actual_label": 1,
+   "patient": {
+    "age": 53,
+    "trestbps": 120,
+    "thalach": 120,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.684145,
+    "hungary": 0.352064,
+    "switzerland": 0.988191,
+    "va_long_beach": 0.787562
+   }
+  },
+  {
+   "id": "switzerland_test_6",
+   "site": "switzerland",
+   "test_row": 6,
+   "actual_label": 1,
+   "patient": {
+    "age": 51,
+    "trestbps": 140,
+    "thalach": 60,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.876404,
+    "hungary": 0.313635,
+    "switzerland": 0.998307,
+    "va_long_beach": 0.811192
+   }
+  },
+  {
+   "id": "switzerland_test_7",
+   "site": "switzerland",
+   "test_row": 7,
+   "actual_label": 1,
+   "patient": {
+    "age": 64,
+    "trestbps": 110,
+    "thalach": 114,
+    "oldpeak": 1.3,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.919035,
+    "hungary": 0.73821,
+    "switzerland": 0.997822,
+    "va_long_beach": 0.944078
+   }
+  },
+  {
+   "id": "switzerland_test_8",
+   "site": "switzerland",
+   "test_row": 8,
+   "actual_label": 1,
+   "patient": {
+    "age": 66,
+    "trestbps": 150,
+    "thalach": 108,
+    "oldpeak": 2.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.967856,
+    "hungary": 0.967395,
+    "switzerland": 0.998584,
+    "va_long_beach": 0.953393
+   }
+  },
+  {
+   "id": "switzerland_test_9",
+   "site": "switzerland",
+   "test_row": 9,
+   "actual_label": 1,
+   "patient": {
+    "age": 50,
+    "trestbps": 160,
+    "thalach": 110,
+    "oldpeak": -0.0,
+    "sex": 0,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.197685,
+    "hungary": 0.213988,
+    "switzerland": 0.945858,
+    "va_long_beach": 0.4539
+   }
+  },
+  {
+   "id": "switzerland_test_10",
+   "site": "switzerland",
+   "test_row": 10,
+   "actual_label": 0,
+   "patient": {
+    "age": 53,
+    "trestbps": 80,
+    "thalach": 141,
+    "oldpeak": 2.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.917408,
+    "hungary": 0.83839,
+    "switzerland": 0.998171,
+    "va_long_beach": 0.951914
+   }
+  },
+  {
+   "id": "switzerland_test_11",
+   "site": "switzerland",
+   "test_row": 11,
+   "actual_label": 1,
+   "patient": {
+    "age": 38,
+    "trestbps": 105,
+    "thalach": 166,
+    "oldpeak": 2.8,
+    "sex": 0,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.635421,
+    "hungary": 0.852309,
+    "switzerland": 0.96967,
+    "va_long_beach": 0.745282
+   }
+  },
+  {
+   "id": "switzerland_test_12",
+   "site": "switzerland",
+   "test_row": 12,
+   "actual_label": 1,
+   "patient": {
+    "age": 70,
+    "trestbps": 115,
+    "thalach": 92,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.753923,
+    "hungary": 0.199405,
+    "switzerland": 0.996178,
+    "va_long_beach": 0.805444
+   }
+  },
+  {
+   "id": "switzerland_test_13",
+   "site": "switzerland",
+   "test_row": 13,
+   "actual_label": 1,
+   "patient": {
+    "age": 56,
+    "trestbps": 115,
+    "thalach": 82,
+    "oldpeak": -1.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.23073,
+    "hungary": 0.016797,
+    "switzerland": 0.989781,
+    "va_long_beach": 0.266165
+   }
+  },
+  {
+   "id": "switzerland_test_14",
+   "site": "switzerland",
+   "test_row": 14,
+   "actual_label": 1,
+   "patient": {
+    "age": 62,
+    "trestbps": 140,
+    "thalach": 143,
+    "oldpeak": -0.0,
+    "sex": 0,
+    "exang": 0,
+    "cp": 1,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.104484,
+    "hungary": 0.144748,
+    "switzerland": 0.692164,
+    "va_long_beach": 0.513147
+   }
+  },
+  {
+   "id": "switzerland_test_15",
+   "site": "switzerland",
+   "test_row": 15,
+   "actual_label": 1,
+   "patient": {
+    "age": 36,
+    "trestbps": 110,
+    "thalach": 125,
+    "oldpeak": 1.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.877021,
+    "hungary": 0.859648,
+    "switzerland": 0.998208,
+    "va_long_beach": 0.889952
+   }
+  },
+  {
+   "id": "switzerland_test_16",
+   "site": "switzerland",
+   "test_row": 16,
+   "actual_label": 1,
+   "patient": {
+    "age": 62,
+    "trestbps": 115,
+    "thalach": 72,
+    "oldpeak": -0.5,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.866585,
+    "hungary": 0.214545,
+    "switzerland": 0.998866,
+    "va_long_beach": 0.847695
+   }
+  },
+  {
+   "id": "switzerland_test_17",
+   "site": "switzerland",
+   "test_row": 17,
+   "actual_label": 1,
+   "patient": {
+    "age": 56,
+    "trestbps": 140,
+    "thalach": 121,
+    "oldpeak": 1.8,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.946222,
+    "hungary": 0.948526,
+    "switzerland": 0.99764,
+    "va_long_beach": 0.90588
+   }
+  },
+  {
+   "id": "switzerland_test_18",
+   "site": "switzerland",
+   "test_row": 18,
+   "actual_label": 1,
+   "patient": {
+    "age": 62,
+    "trestbps": 115,
+    "thalach": 128,
+    "oldpeak": 2.5,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.950413,
+    "hungary": 0.926899,
+    "switzerland": 0.998126,
+    "va_long_beach": 0.95312
+   }
+  },
+  {
+   "id": "switzerland_test_19",
+   "site": "switzerland",
+   "test_row": 19,
+   "actual_label": 1,
+   "patient": {
+    "age": 50,
+    "trestbps": 145,
+    "thalach": 139,
+    "oldpeak": 0.7,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.753242,
+    "hungary": 0.811632,
+    "switzerland": 0.992024,
+    "va_long_beach": 0.691164
+   }
+  },
+  {
+   "id": "switzerland_test_20",
+   "site": "switzerland",
+   "test_row": 20,
+   "actual_label": 1,
+   "patient": {
+    "age": 57,
+    "trestbps": 95,
+    "thalach": 182,
+    "oldpeak": 0.7,
+    "sex": 1,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.735757,
+    "hungary": 0.702305,
+    "switzerland": 0.969177,
+    "va_long_beach": 0.857276
+   }
+  },
+  {
+   "id": "switzerland_test_21",
+   "site": "switzerland",
+   "test_row": 21,
+   "actual_label": 1,
+   "patient": {
+    "age": 68,
+    "trestbps": 145,
+    "thalach": 136,
+    "oldpeak": 1.8,
+    "sex": 1,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.884561,
+    "hungary": 0.895865,
+    "switzerland": 0.984465,
+    "va_long_beach": 0.884515
+   }
+  },
+  {
+   "id": "switzerland_test_22",
+   "site": "switzerland",
+   "test_row": 22,
+   "actual_label": 1,
+   "patient": {
+    "age": 63,
+    "trestbps": 140,
+    "thalach": 149,
+    "oldpeak": 2.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.896052,
+    "hungary": 0.877545,
+    "switzerland": 0.976652,
+    "va_long_beach": 0.860562
+   }
+  },
+  {
+   "id": "switzerland_test_23",
+   "site": "switzerland",
+   "test_row": 23,
+   "actual_label": 0,
+   "patient": {
+    "age": 65,
+    "trestbps": 155,
+    "thalach": 154,
+    "oldpeak": 1.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.600822,
+    "hungary": 0.731248,
+    "switzerland": 0.95487,
+    "va_long_beach": 0.707659
+   }
+  },
+  {
+   "id": "switzerland_test_24",
+   "site": "switzerland",
+   "test_row": 24,
+   "actual_label": 1,
+   "patient": {
+    "age": 66,
+    "trestbps": 155,
+    "thalach": 90,
+    "oldpeak": -0.0,
+    "sex": 0,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.5444,
+    "hungary": 0.379859,
+    "switzerland": 0.975864,
+    "va_long_beach": 0.890699
+   }
+  },
+  {
+   "id": "switzerland_test_25",
+   "site": "switzerland",
+   "test_row": 25,
+   "actual_label": 1,
+   "patient": {
+    "age": 58,
+    "trestbps": 115,
+    "thalach": 138,
+    "oldpeak": 0.5,
+    "sex": 1,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.72748,
+    "hungary": 0.532384,
+    "switzerland": 0.981769,
+    "va_long_beach": 0.84906
+   }
+  },
+  {
+   "id": "switzerland_test_26",
+   "site": "switzerland",
+   "test_row": 26,
+   "actual_label": 1,
+   "patient": {
+    "age": 50,
+    "trestbps": 115,
+    "thalach": 120,
+    "oldpeak": 0.5,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.865787,
+    "hungary": 0.711766,
+    "switzerland": 0.997121,
+    "va_long_beach": 0.9046
+   }
+  },
+  {
+   "id": "switzerland_test_27",
+   "site": "switzerland",
+   "test_row": 27,
+   "actual_label": 1,
+   "patient": {
+    "age": 61,
+    "trestbps": 105,
+    "thalach": 110,
+    "oldpeak": 1.5,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.930038,
+    "hungary": 0.776003,
+    "switzerland": 0.99838,
+    "va_long_beach": 0.952326
+   }
+  },
+  {
+   "id": "switzerland_test_28",
+   "site": "switzerland",
+   "test_row": 28,
+   "actual_label": 1,
+   "patient": {
+    "age": 74,
+    "trestbps": 145,
+    "thalach": 123,
+    "oldpeak": 1.3,
+    "sex": 1,
+    "exang": 0,
+    "cp": 2,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.63067,
+    "hungary": 0.414758,
+    "switzerland": 0.855331,
+    "va_long_beach": 0.867951
+   }
+  },
+  {
+   "id": "va_long_beach_test_0",
+   "site": "va_long_beach",
+   "test_row": 0,
+   "actual_label": 1,
+   "patient": {
+    "age": 56,
+    "trestbps": 120,
+    "thalach": 120,
+    "oldpeak": 1.5,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.93182,
+    "hungary": 0.886422,
+    "switzerland": 0.997819,
+    "va_long_beach": 0.937183
+   }
+  },
+  {
+   "id": "va_long_beach_test_1",
+   "site": "va_long_beach",
+   "test_row": 1,
+   "actual_label": 1,
+   "patient": {
+    "age": 54,
+    "trestbps": 127,
+    "thalach": 154,
+    "oldpeak": -0.0,
+    "sex": 0,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.128368,
+    "hungary": 0.113304,
+    "switzerland": 0.769798,
+    "va_long_beach": 0.300527
+   }
+  },
+  {
+   "id": "va_long_beach_test_2",
+   "site": "va_long_beach",
+   "test_row": 2,
+   "actual_label": 1,
+   "patient": {
+    "age": 69,
+    "trestbps": 122,
+    "thalach": 84,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.899469,
+    "hungary": 0.515118,
+    "switzerland": 0.998177,
+    "va_long_beach": 0.955138
+   }
+  },
+  {
+   "id": "va_long_beach_test_3",
+   "site": "va_long_beach",
+   "test_row": 3,
+   "actual_label": 1,
+   "patient": {
+    "age": 72,
+    "trestbps": 120,
+    "thalach": 102,
+    "oldpeak": 1.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 3,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.674795,
+    "hungary": 0.224402,
+    "switzerland": 0.988744,
+    "va_long_beach": 0.813702
+   }
+  },
+  {
+   "id": "va_long_beach_test_4",
+   "site": "va_long_beach",
+   "test_row": 4,
+   "actual_label": 0,
+   "patient": {
+    "age": 58,
+    "trestbps": 132,
+    "thalach": 69,
+    "oldpeak": 1.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.939127,
+    "hungary": 0.749508,
+    "switzerland": 0.998233,
+    "va_long_beach": 0.953413
+   }
+  },
+  {
+   "id": "va_long_beach_test_5",
+   "site": "va_long_beach",
+   "test_row": 5,
+   "actual_label": 1,
+   "patient": {
+    "age": 55,
+    "trestbps": 142,
+    "thalach": 149,
+    "oldpeak": 2.5,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.906764,
+    "hungary": 0.919824,
+    "switzerland": 0.991532,
+    "va_long_beach": 0.842503
+   }
+  },
+  {
+   "id": "va_long_beach_test_6",
+   "site": "va_long_beach",
+   "test_row": 6,
+   "actual_label": 1,
+   "patient": {
+    "age": 52,
+    "trestbps": 128,
+    "thalach": 180,
+    "oldpeak": 3.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 3,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.342687,
+    "hungary": 0.718684,
+    "switzerland": 0.822109,
+    "va_long_beach": 0.614249
+   }
+  },
+  {
+   "id": "va_long_beach_test_7",
+   "site": "va_long_beach",
+   "test_row": 7,
+   "actual_label": 1,
+   "patient": {
+    "age": 67,
+    "trestbps": 120,
+    "thalach": 150,
+    "oldpeak": 1.5,
+    "sex": 1,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.796174,
+    "hungary": 0.728622,
+    "switzerland": 0.977115,
+    "va_long_beach": 0.860347
+   }
+  },
+  {
+   "id": "va_long_beach_test_8",
+   "site": "va_long_beach",
+   "test_row": 8,
+   "actual_label": 1,
+   "patient": {
+    "age": 59,
+    "trestbps": 140,
+    "thalach": 117,
+    "oldpeak": 1.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.878605,
+    "hungary": 0.764671,
+    "switzerland": 0.99482,
+    "va_long_beach": 0.881699
+   }
+  },
+  {
+   "id": "va_long_beach_test_9",
+   "site": "va_long_beach",
+   "test_row": 9,
+   "actual_label": 0,
+   "patient": {
+    "age": 41,
+    "trestbps": 104,
+    "thalach": 111,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.366987,
+    "hungary": 0.114801,
+    "switzerland": 0.989545,
+    "va_long_beach": 0.469923
+   }
+  },
+  {
+   "id": "va_long_beach_test_10",
+   "site": "va_long_beach",
+   "test_row": 10,
+   "actual_label": 1,
+   "patient": {
+    "age": 63,
+    "trestbps": 130,
+    "thalach": 111,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 3,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.330639,
+    "hungary": 0.129125,
+    "switzerland": 0.964044,
+    "va_long_beach": 0.569867
+   }
+  },
+  {
+   "id": "va_long_beach_test_11",
+   "site": "va_long_beach",
+   "test_row": 11,
+   "actual_label": 0,
+   "patient": {
+    "age": 51,
+    "trestbps": 114,
+    "thalach": 96,
+    "oldpeak": 1.0,
+    "sex": 0,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.483264,
+    "hungary": 0.099215,
+    "switzerland": 0.970028,
+    "va_long_beach": 0.32145
+   }
+  },
+  {
+   "id": "va_long_beach_test_12",
+   "site": "va_long_beach",
+   "test_row": 12,
+   "actual_label": 1,
+   "patient": {
+    "age": 50,
+    "trestbps": 144,
+    "thalach": 120,
+    "oldpeak": 1.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.936104,
+    "hungary": 0.899173,
+    "switzerland": 0.996667,
+    "va_long_beach": 0.913469
+   }
+  },
+  {
+   "id": "va_long_beach_test_13",
+   "site": "va_long_beach",
+   "test_row": 13,
+   "actual_label": 1,
+   "patient": {
+    "age": 57,
+    "trestbps": 128,
+    "thalach": 148,
+    "oldpeak": 1.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.825534,
+    "hungary": 0.750734,
+    "switzerland": 0.986429,
+    "va_long_beach": 0.83812
+   }
+  },
+  {
+   "id": "va_long_beach_test_14",
+   "site": "va_long_beach",
+   "test_row": 14,
+   "actual_label": 0,
+   "patient": {
+    "age": 60,
+    "trestbps": 152,
+    "thalach": 118,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.815192,
+    "hungary": 0.570881,
+    "switzerland": 0.992319,
+    "va_long_beach": 0.89849
+   }
+  },
+  {
+   "id": "va_long_beach_test_15",
+   "site": "va_long_beach",
+   "test_row": 15,
+   "actual_label": 1,
+   "patient": {
+    "age": 63,
+    "trestbps": 96,
+    "thalach": 121,
+    "oldpeak": 1.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.821487,
+    "hungary": 0.370909,
+    "switzerland": 0.994249,
+    "va_long_beach": 0.857075
+   }
+  },
+  {
+   "id": "va_long_beach_test_16",
+   "site": "va_long_beach",
+   "test_row": 16,
+   "actual_label": 1,
+   "patient": {
+    "age": 56,
+    "trestbps": 130,
+    "thalach": 98,
+    "oldpeak": 1.5,
+    "sex": 1,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.925204,
+    "hungary": 0.864444,
+    "switzerland": 0.996666,
+    "va_long_beach": 0.953779
+   }
+  },
+  {
+   "id": "va_long_beach_test_17",
+   "site": "va_long_beach",
+   "test_row": 17,
+   "actual_label": 1,
+   "patient": {
+    "age": 65,
+    "trestbps": 150,
+    "thalach": 105,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.845321,
+    "hungary": 0.630512,
+    "switzerland": 0.995113,
+    "va_long_beach": 0.931709
+   }
+  },
+  {
+   "id": "va_long_beach_test_18",
+   "site": "va_long_beach",
+   "test_row": 18,
+   "actual_label": 1,
+   "patient": {
+    "age": 62,
+    "trestbps": 160,
+    "thalach": 108,
+    "oldpeak": 3.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.968471,
+    "hungary": 0.979686,
+    "switzerland": 0.998403,
+    "va_long_beach": 0.95666
+   }
+  },
+  {
+   "id": "va_long_beach_test_19",
+   "site": "va_long_beach",
+   "test_row": 19,
+   "actual_label": 0,
+   "patient": {
+    "age": 61,
+    "trestbps": 140,
+    "thalach": 120,
+    "oldpeak": -0.0,
+    "sex": 0,
+    "exang": 1,
+    "cp": 2,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.118636,
+    "hungary": 0.071741,
+    "switzerland": 0.813986,
+    "va_long_beach": 0.496622
+   }
+  },
+  {
+   "id": "va_long_beach_test_20",
+   "site": "va_long_beach",
+   "test_row": 20,
+   "actual_label": 1,
+   "patient": {
+    "age": 60,
+    "trestbps": 132,
+    "thalach": 140,
+    "oldpeak": 1.5,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.875131,
+    "hungary": 0.825168,
+    "switzerland": 0.990839,
+    "va_long_beach": 0.863118
+   }
+  },
+  {
+   "id": "va_long_beach_test_21",
+   "site": "va_long_beach",
+   "test_row": 21,
+   "actual_label": 1,
+   "patient": {
+    "age": 63,
+    "trestbps": 130,
+    "thalach": 138,
+    "oldpeak": 2.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.933982,
+    "hungary": 0.924101,
+    "switzerland": 0.996,
+    "va_long_beach": 0.911013
+   }
+  },
+  {
+   "id": "va_long_beach_test_22",
+   "site": "va_long_beach",
+   "test_row": 22,
+   "actual_label": 1,
+   "patient": {
+    "age": 62,
+    "trestbps": 158,
+    "thalach": 112,
+    "oldpeak": 3.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.979595,
+    "hungary": 0.987571,
+    "switzerland": 0.998983,
+    "va_long_beach": 0.951204
+   }
+  },
+  {
+   "id": "va_long_beach_test_23",
+   "site": "va_long_beach",
+   "test_row": 23,
+   "actual_label": 1,
+   "patient": {
+    "age": 53,
+    "trestbps": 144,
+    "thalach": 128,
+    "oldpeak": 1.5,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.896289,
+    "hungary": 0.882925,
+    "switzerland": 0.994019,
+    "va_long_beach": 0.836008
+   }
+  },
+  {
+   "id": "va_long_beach_test_24",
+   "site": "va_long_beach",
+   "test_row": 24,
+   "actual_label": 1,
+   "patient": {
+    "age": 61,
+    "trestbps": 146,
+    "thalach": 148,
+    "oldpeak": 3.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.947905,
+    "hungary": 0.970388,
+    "switzerland": 0.995856,
+    "va_long_beach": 0.889542
+   }
+  },
+  {
+   "id": "va_long_beach_test_25",
+   "site": "va_long_beach",
+   "test_row": 25,
+   "actual_label": 1,
+   "patient": {
+    "age": 58,
+    "trestbps": 120,
+    "thalach": 106,
+    "oldpeak": 1.5,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.945854,
+    "hungary": 0.778977,
+    "switzerland": 0.998129,
+    "va_long_beach": 0.928541
+   }
+  },
+  {
+   "id": "va_long_beach_test_26",
+   "site": "va_long_beach",
+   "test_row": 26,
+   "actual_label": 1,
+   "patient": {
+    "age": 65,
+    "trestbps": 150,
+    "thalach": 120,
+    "oldpeak": 1.5,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.941707,
+    "hungary": 0.945295,
+    "switzerland": 0.997113,
+    "va_long_beach": 0.912807
+   }
+  },
+  {
+   "id": "va_long_beach_test_27",
+   "site": "va_long_beach",
+   "test_row": 27,
+   "actual_label": 0,
+   "patient": {
+    "age": 63,
+    "trestbps": 126,
+    "thalach": 120,
+    "oldpeak": 1.5,
+    "sex": 1,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.83548,
+    "hungary": 0.614585,
+    "switzerland": 0.985196,
+    "va_long_beach": 0.870038
+   }
+  },
+  {
+   "id": "va_long_beach_test_28",
+   "site": "va_long_beach",
+   "test_row": 28,
+   "actual_label": 0,
+   "patient": {
+    "age": 55,
+    "trestbps": 150,
+    "thalach": 150,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.44253,
+    "hungary": 0.254486,
+    "switzerland": 0.924723,
+    "va_long_beach": 0.654343
+   }
+  },
+  {
+   "id": "va_long_beach_test_29",
+   "site": "va_long_beach",
+   "test_row": 29,
+   "actual_label": 1,
+   "patient": {
+    "age": 48,
+    "trestbps": 140,
+    "thalach": 159,
+    "oldpeak": 1.5,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.719393,
+    "hungary": 0.885214,
+    "switzerland": 0.988966,
+    "va_long_beach": 0.654018
+   }
+  },
+  {
+   "id": "va_long_beach_test_30",
+   "site": "va_long_beach",
+   "test_row": 30,
+   "actual_label": 1,
+   "patient": {
+    "age": 67,
+    "trestbps": 140,
+    "thalach": 122,
+    "oldpeak": 2.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.916349,
+    "hungary": 0.886892,
+    "switzerland": 0.995728,
+    "va_long_beach": 0.916399
+   }
+  },
+  {
+   "id": "va_long_beach_test_31",
+   "site": "va_long_beach",
+   "test_row": 31,
+   "actual_label": 0,
+   "patient": {
+    "age": 57,
+    "trestbps": 110,
+    "thalach": 100,
+    "oldpeak": -0.0,
+    "sex": 1,
+    "exang": 0,
+    "cp": 4,
+    "restecg": 2
+   },
+   "probabilities": {
+    "cleveland": 0.722959,
+    "hungary": 0.11408,
+    "switzerland": 0.99042,
+    "va_long_beach": 0.599845
+   }
+  },
+  {
+   "id": "va_long_beach_test_32",
+   "site": "va_long_beach",
+   "test_row": 32,
+   "actual_label": 1,
+   "patient": {
+    "age": 57,
+    "trestbps": 144,
+    "thalach": 160,
+    "oldpeak": 2.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.854874,
+    "hungary": 0.87094,
+    "switzerland": 0.983908,
+    "va_long_beach": 0.774321
+   }
+  },
+  {
+   "id": "va_long_beach_test_33",
+   "site": "va_long_beach",
+   "test_row": 33,
+   "actual_label": 1,
+   "patient": {
+    "age": 52,
+    "trestbps": 122,
+    "thalach": 110,
+    "oldpeak": 2.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 3,
+    "restecg": 0
+   },
+   "probabilities": {
+    "cleveland": 0.864254,
+    "hungary": 0.788899,
+    "switzerland": 0.993724,
+    "va_long_beach": 0.836772
+   }
+  },
+  {
+   "id": "va_long_beach_test_34",
+   "site": "va_long_beach",
+   "test_row": 34,
+   "actual_label": 1,
+   "patient": {
+    "age": 70,
+    "trestbps": 170,
+    "thalach": 129,
+    "oldpeak": 3.0,
+    "sex": 1,
+    "exang": 1,
+    "cp": 4,
+    "restecg": 1
+   },
+   "probabilities": {
+    "cleveland": 0.947082,
+    "hungary": 0.971191,
+    "switzerland": 0.996189,
+    "va_long_beach": 0.93254
+   }
+  }
+ ],
+ "n_patients": 213,
+ "per_site": {
+  "cleveland": 76,
+  "hungary": 73,
+  "switzerland": 29,
+  "va_long_beach": 35
+ },
+ "note": "Every held-out local-test patient of the 4 UCI sites (seed=42 local split), with each hospital's saved personalized model's disease probability (torch)."
+}

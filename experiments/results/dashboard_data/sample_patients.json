@@ -1,342 +1,254 @@
 {
   "samples": [
     {
-      "id": "hospital_1_test_0",
-      "hospital_id": "hospital_1",
-      "test_row": 0,
+      "id": "cleveland_test_3",
+      "hospital_id": "cleveland",
+      "test_row": 3,
       "actual_label": 1,
       "patient": {
-        "age": 56,
-        "trestbps": 200,
-        "chol": 288,
-        "thalach": 133,
-        "oldpeak": 4.0,
-        "ca": 2,
-        "sex": 0,
-        "fbs": 1,
+        "age": 57,
+        "trestbps": 130,
+        "thalach": 115,
+        "oldpeak": 1.2,
+        "sex": 1,
         "exang": 1,
         "cp": 4,
-        "restecg": 2,
-        "slope": 3,
-        "thal": 7
+        "restecg": 0
       },
-      "predicted_probability": 0.9932,
+      "predicted_probability": 0.9335,
       "predicted_label": 1,
       "risk_level": "HIGH",
-      "model_test_accuracy": 0.8667,
-      "base_value": 0.6545,
+      "model_test_accuracy": 0.8158,
+      "base_value": 0.4023,
       "explanation": [
         {
-          "feature": "ca",
-          "feature_value": 1.4092463412255647,
-          "shap_value": 0.10613453514466055
+          "feature": "cp_4",
+          "feature_value": 1.0,
+          "shap_value": 0.16279059142730876
         },
         {
-          "feature": "thal_7",
-          "feature_value": 1.0,
-          "shap_value": 0.05450856564017974
-        },
-        {
-          "feature": "restecg_2",
-          "feature_value": 1.0,
-          "shap_value": 0.05087569499022616
+          "feature": "thalach",
+          "feature_value": -0.8794374745441184,
+          "shap_value": 0.1321645986903076
         },
         {
           "feature": "exang",
           "feature_value": 1.0,
-          "shap_value": 0.04458158295948587
-        },
-        {
-          "feature": "thal_3",
-          "feature_value": 0.0,
-          "shap_value": 0.020405166183613502
-        },
-        {
-          "feature": "cp_3",
-          "feature_value": 0.0,
-          "shap_value": 0.019563785097201313
-        },
-        {
-          "feature": "slope_1",
-          "feature_value": 0.0,
-          "shap_value": 0.0151077006973748
-        },
-        {
-          "feature": "oldpeak",
-          "feature_value": 2.5249866397267864,
-          "shap_value": 0.010685281854826327
-        }
-      ]
-    },
-    {
-      "id": "hospital_2_test_4",
-      "hospital_id": "hospital_2",
-      "test_row": 4,
-      "actual_label": 0,
-      "patient": {
-        "age": 44,
-        "trestbps": 118,
-        "chol": 242,
-        "thalach": 149,
-        "oldpeak": 0.3,
-        "ca": 1,
-        "sex": 0,
-        "fbs": 0,
-        "exang": 0,
-        "cp": 3,
-        "restecg": 0,
-        "slope": 2,
-        "thal": 3
-      },
-      "predicted_probability": 0.017,
-      "predicted_label": 0,
-      "risk_level": "LOW",
-      "model_test_accuracy": 0.75,
-      "base_value": 0.6956,
-      "explanation": [
-        {
-          "feature": "cp_3",
-          "feature_value": 1.0,
-          "shap_value": -0.1719229703094169
-        },
-        {
-          "feature": "oldpeak",
-          "feature_value": -0.647921100005364,
-          "shap_value": -0.1518666236931194
+          "shap_value": 0.07496039019617318
         },
         {
           "feature": "sex",
-          "feature_value": 0.0,
-          "shap_value": -0.10427391620758579
-        },
-        {
-          "feature": "thal_7",
-          "feature_value": 0.0,
-          "shap_value": -0.08738231631623829
-        },
-        {
-          "feature": "thal_3",
           "feature_value": 1.0,
-          "shap_value": -0.07404977998611739
+          "shap_value": 0.07420027880709275
         },
         {
-          "feature": "exang",
-          "feature_value": 0.0,
-          "shap_value": -0.03832389621147808
+          "feature": "oldpeak",
+          "feature_value": 0.2968099464198108,
+          "shap_value": 0.04208272549758395
+        },
+        {
+          "feature": "age",
+          "feature_value": 0.41270801240975014,
+          "shap_value": 0.03187383784946291
         },
         {
           "feature": "restecg_0",
           "feature_value": 1.0,
-          "shap_value": -0.016652207888990217
+          "shap_value": -0.029918911547709093
         },
         {
-          "feature": "thalach",
-          "feature_value": -0.02612405370321318,
-          "shap_value": -0.014565624693645654
+          "feature": "cp_1",
+          "feature_value": 0.0,
+          "shap_value": 0.02384806810541494
         }
       ]
     },
     {
-      "id": "hospital_3_test_11",
-      "hospital_id": "hospital_3",
-      "test_row": 11,
-      "actual_label": 1,
+      "id": "hungary_test_2",
+      "hospital_id": "hungary",
+      "test_row": 2,
+      "actual_label": 0,
       "patient": {
-        "age": 52,
-        "trestbps": 128,
-        "chol": 255,
-        "thalach": 161,
-        "oldpeak": 0.0,
-        "ca": 1,
-        "sex": 1,
-        "fbs": 0,
-        "exang": 1,
-        "cp": 4,
-        "restecg": 0,
-        "slope": 1,
-        "thal": 7
+        "age": 53,
+        "trestbps": 120,
+        "thalach": 130,
+        "oldpeak": -0.0,
+        "sex": 0,
+        "exang": 0,
+        "cp": 3,
+        "restecg": 0
       },
-      "predicted_probability": 0.4949,
+      "predicted_probability": 0.0658,
       "predicted_label": 0,
-      "risk_level": "MODERATE",
-      "model_test_accuracy": 0.7857,
-      "base_value": 0.2259,
+      "risk_level": "LOW",
+      "model_test_accuracy": 0.8493,
+      "base_value": 0.4289,
       "explanation": [
         {
-          "feature": "ca",
-          "feature_value": 0.34424338106273333,
-          "shap_value": 0.18592956903188093
-        },
-        {
-          "feature": "slope_1",
-          "feature_value": 1.0,
-          "shap_value": -0.11189971812008763
-        },
-        {
           "feature": "oldpeak",
-          "feature_value": -0.9051838897133763,
-          "shap_value": -0.07377942965137356
+          "feature_value": -0.8027899568983828,
+          "shap_value": -0.12622899857047543
         },
         {
-          "feature": "thal_7",
-          "feature_value": 1.0,
-          "shap_value": 0.07321252185261352
-        },
-        {
-          "feature": "thal_3",
+          "feature": "sex",
           "feature_value": 0.0,
-          "shap_value": 0.060951935808277506
+          "shap_value": -0.09870813500918572
         },
         {
-          "feature": "restecg_2",
+          "feature": "cp_4",
           "feature_value": 0.0,
-          "shap_value": 0.059247106453990235
+          "shap_value": -0.08793442566490525
+        },
+        {
+          "feature": "exang",
+          "feature_value": 0.0,
+          "shap_value": -0.03243301415722154
+        },
+        {
+          "feature": "thalach",
+          "feature_value": -0.2983626463652585,
+          "shap_value": -0.018587273854406422
+        },
+        {
+          "feature": "restecg_1",
+          "feature_value": 0.0,
+          "shap_value": 0.013966101633108957
+        },
+        {
+          "feature": "trestbps",
+          "feature_value": -0.6653044094237462,
+          "shap_value": -0.008433698687393215
         },
         {
           "feature": "cp_3",
-          "feature_value": 0.0,
-          "shap_value": 0.05847585963590828
-        },
-        {
-          "feature": "thalach",
-          "feature_value": 0.4969440777476494,
-          "shap_value": -0.05139737377190295
+          "feature_value": 1.0,
+          "shap_value": -0.007953026070078714
         }
       ]
     },
     {
-      "id": "hospital_4_test_0",
-      "hospital_id": "hospital_4",
+      "id": "switzerland_test_0",
+      "hospital_id": "switzerland",
       "test_row": 0,
-      "actual_label": 0,
+      "actual_label": 1,
       "patient": {
-        "age": 59,
-        "trestbps": 140,
-        "chol": 221,
-        "thalach": 164,
-        "oldpeak": 0.0,
-        "ca": 0,
+        "age": 52,
+        "trestbps": 135,
+        "thalach": 128,
+        "oldpeak": 2.0,
         "sex": 1,
-        "fbs": 0,
         "exang": 1,
-        "cp": 2,
-        "restecg": 0,
-        "slope": 1,
-        "thal": 3
+        "cp": 4,
+        "restecg": 0
       },
-      "predicted_probability": 0.0084,
-      "predicted_label": 0,
-      "risk_level": "LOW",
-      "model_test_accuracy": 0.8571,
-      "base_value": 0.3922,
+      "predicted_probability": 0.9974,
+      "predicted_label": 1,
+      "risk_level": "HIGH",
+      "model_test_accuracy": 0.931,
+      "base_value": 0.9524,
       "explanation": [
         {
-          "feature": "oldpeak",
-          "feature_value": -0.9051838897133763,
-          "shap_value": -0.17332313194743904
+          "feature": "cp_4",
+          "feature_value": 1.0,
+          "shap_value": 0.01670570986386508
         },
         {
-          "feature": "chol",
-          "feature_value": -0.5067575657457041,
-          "shap_value": -0.08967513990818902
+          "feature": "exang",
+          "feature_value": 1.0,
+          "shap_value": 0.014380752060604851
+        },
+        {
+          "feature": "oldpeak",
+          "feature_value": 1.02987654863194,
+          "shap_value": 0.012406701718958761
+        },
+        {
+          "feature": "trestbps",
+          "feature_value": 0.1459414402518002,
+          "shap_value": -0.012101339125961353
         },
         {
           "feature": "thalach",
-          "feature_value": 0.6277111106103651,
-          "shap_value": -0.0608461012485696
-        },
-        {
-          "feature": "cp_2",
-          "feature_value": 1.0,
-          "shap_value": -0.05287595633632531
+          "feature_value": -0.37583929012243983,
+          "shap_value": 0.008536272655306291
         },
         {
           "feature": "sex",
           "feature_value": 1.0,
-          "shap_value": 0.036415073976434065
+          "shap_value": 0.0050429959946920976
         },
         {
-          "feature": "slope_1",
-          "feature_value": 1.0,
-          "shap_value": -0.018695753066106807
-        },
-        {
-          "feature": "thal_3",
-          "feature_value": 1.0,
-          "shap_value": -0.016653257361715183
-        },
-        {
-          "feature": "thal_7",
+          "feature": "cp_1",
           "feature_value": 0.0,
-          "shap_value": -0.006060769736332073
-        }
-      ]
-    },
-    {
-      "id": "hospital_5_test_0",
-      "hospital_id": "hospital_5",
-      "test_row": 0,
-      "actual_label": 1,
-      "patient": {
-        "age": 63,
-        "trestbps": 140,
-        "chol": 187,
-        "thalach": 144,
-        "oldpeak": 4.0,
-        "ca": 2,
-        "sex": 1,
-        "fbs": 0,
-        "exang": 1,
-        "cp": 4,
-        "restecg": 2,
-        "slope": 1,
-        "thal": 7
-      },
-      "predicted_probability": 0.9998,
-      "predicted_label": 1,
-      "risk_level": "HIGH",
-      "model_test_accuracy": 0.8889,
-      "base_value": 0.5034,
-      "explanation": [
-        {
-          "feature": "oldpeak",
-          "feature_value": 2.5249866397267864,
-          "shap_value": 0.31198443573897117
-        },
-        {
-          "feature": "ca",
-          "feature_value": 1.4092463412255647,
-          "shap_value": 0.16114335452577155
+          "shap_value": -0.004289281685410834
         },
         {
           "feature": "cp_3",
           "feature_value": 0.0,
-          "shap_value": 0.058656315568096716
+          "shap_value": 0.003859411443488686
+        }
+      ]
+    },
+    {
+      "id": "va_long_beach_test_4",
+      "hospital_id": "va_long_beach",
+      "test_row": 4,
+      "actual_label": 0,
+      "patient": {
+        "age": 58,
+        "trestbps": 132,
+        "thalach": 69,
+        "oldpeak": 1.0,
+        "sex": 1,
+        "exang": 0,
+        "cp": 4,
+        "restecg": 0
+      },
+      "predicted_probability": 0.9534,
+      "predicted_label": 1,
+      "risk_level": "HIGH",
+      "model_test_accuracy": 0.8286,
+      "base_value": 0.7124,
+      "explanation": [
+        {
+          "feature": "thalach",
+          "feature_value": -2.6614002809592887,
+          "shap_value": 0.09489359582022941
         },
         {
-          "feature": "slope_1",
+          "feature": "cp_4",
           "feature_value": 1.0,
-          "shap_value": -0.049952473113789114
+          "shap_value": 0.06755042844535734
         },
         {
-          "feature": "chol",
-          "feature_value": -1.1606341181224122,
-          "shap_value": -0.0319044837479433
-        },
-        {
-          "feature": "slope_2",
+          "feature": "exang",
           "feature_value": 0.0,
-          "shap_value": -0.026902556555089756
+          "shap_value": -0.025864570145485526
         },
         {
-          "feature": "thal_3",
+          "feature": "oldpeak",
+          "feature_value": 0.11354329586677855,
+          "shap_value": 0.022933240708484296
+        },
+        {
+          "feature": "restecg_1",
           "feature_value": 0.0,
-          "shap_value": 0.025241312556450887
+          "shap_value": 0.018902426387028323
+        },
+        {
+          "feature": "cp_3",
+          "feature_value": 0.0,
+          "shap_value": 0.01864077226395385
+        },
+        {
+          "feature": "sex",
+          "feature_value": 1.0,
+          "shap_value": 0.017624341205703914
         },
         {
           "feature": "trestbps",
-          "feature_value": 0.4676286581616169,
-          "shap_value": 0.02087161695279783
+          "feature_value": -0.016307729683309097,
+          "shap_value": 0.013705034073021673
         }
       ]
     }
