@@ -148,7 +148,8 @@ export default function Overview() {
         <h3>Model</h3>
         <p style={{ margin: 0, fontSize: "0.9rem", color: "var(--color-text-muted)" }}>
           {summary.model_architecture.class} &middot; hidden layers {summary.model_architecture.hidden_sizes.join(" → ")}{" "}
-          &middot; {summary.dataset.n_features} input features &middot; FedProx proximal &mu; ={" "}
+          &middot; {summary.dataset.n_clinical_features} clinical features ({summary.dataset.n_features} model inputs
+          after one-hot encoding) &middot; FedProx proximal &mu; ={" "}
           {summary.training.proximal_mu} &middot; {summary.training.fine_tune_epochs} local fine-tuning epochs per
           hospital &middot; identical architecture in every setting compared
         </p>
@@ -220,6 +221,7 @@ function PersonalizationResult({ equity, comparison }) {
   const perHospital = Object.keys(p).map((k) => ({ hospital: k, delta: p[k] - f[k] }));
   const net = perHospital.reduce((s, x) => s + x.delta, 0);
   const swiss = perHospital.find((x) => x.hospital === "switzerland");
+  const others = perHospital.filter((x) => x.hospital !== "switzerland" && x.delta !== 0);
 
   return (
     <aside className="limitation" aria-label="Personalization result">
@@ -230,7 +232,9 @@ function PersonalizationResult({ equity, comparison }) {
         Fine-tuning the federated model at each hospital raises the 5-seed overall accuracy from{" "}
         {fmtPct(fedavg.mean_accuracy)} to {fmtPct(pers.mean_accuracy)}. But in the seed-42 run,{" "}
         {swiss && net > 0
-          ? `${swiss.delta} of the ${net} extra correctly classified test patients come from Switzerland, whose personalized model predicts "disease" for everyone`
+          ? `it classifies a net ${net} more test patients correctly than FedAvg, and Switzerland alone contributes +${swiss.delta}${
+              others.length ? ` (${others.map((x) => `${hospitalLabel(x.hospital)} ${x.delta > 0 ? "+" : ""}${x.delta}`).join(", ")})` : ""
+            } — and Switzerland's personalized model predicts "disease" for everyone`
           : "the gain is spread unevenly across hospitals"}
         . At the hospital federated training serves worst ({hospitalLabel(worstHospital)}, in {worstN}/
         {ws.per_seed.length} seeds), personalization helped in {ws.seeds_improved}, changed nothing in {ws.seeds_flat}{" "}

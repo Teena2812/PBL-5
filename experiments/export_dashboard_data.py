@@ -234,12 +234,17 @@ def build_explainability() -> dict:
 def build_dashboard_summary(hospitals: dict, comparison: dict) -> dict:
     """Top-level numbers for the dashboard's home/overview screen."""
     manifest = json.loads((MODELS_DIR / "manifest.json").read_text())
+    pre = json.loads((MODELS_DIR / "preprocessing.json").read_text())
+    clinical = pre["numeric_features"] + pre["binary_features"] + pre["categorical_features"]
     return {
         "dataset": {
             "name": "UCI Heart Disease, 4 sites",
             "sites": "Cleveland, Hungary, Switzerland, VA Long Beach",
             "n_patients": sum(h["n_patients"] for h in hospitals["hospitals"]),
+            # n_features = encoded model inputs (one-hot expands cp/restecg);
+            # n_clinical_features = the raw UCI fields those come from.
             "n_features": manifest["n_features"],
+            "n_clinical_features": len(clinical),
         },
         "n_hospitals": hospitals["n_hospitals"],
         "model_architecture": {

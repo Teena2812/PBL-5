@@ -3,7 +3,8 @@
     "name": "UCI Heart Disease, 4 sites",
     "sites": "Cleveland, Hungary, Switzerland, VA Long Beach",
     "n_patients": 849,
-    "n_features": 13
+    "n_features": 13,
+    "n_clinical_features": 8
   },
   "n_hospitals": 4,
   "model_architecture": {
