@@ -16,6 +16,7 @@ on:
       - "tests/**"
       - "requirements-live.txt"
       - ".github/workflows/live-training-check.yml"
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -75,7 +76,7 @@ jobs:
       - name: End-to-end trigger-and-stream check
         run: |
           python3 -m pip install -q httpx
-          python3 tests/live_training_e2e.py http://localhost:8000 reference.json preflight_results e2e_result.json
+          python3 tests/live_training_e2e.py http://localhost:8000 reference.json experiments/results e2e_result.json
           echo "exit=$?"
 
       - name: Server peak memory and annotations

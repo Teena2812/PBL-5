@@ -7,7 +7,7 @@ Triggers a FedAvg run and a FedProx + personalization run over HTTP,
 consumes the SSE stream like a browser, timestamps every event on arrival,
 and checks every streamed number against known-correct outputs:
   - the Flower (Ray) experiment runs on the same data/seed
-    (preflight_results/phase4_fedavg_per_round_per_hospital.csv,
+    (experiments/results/phase4_fedavg_per_round_per_hospital.csv,
      phase5_fedprox_per_round_per_hospital.csv, phase5_personalized_per_hospital.csv)
   - a direct in-process run of the Ray-free loop (reference JSON)
 
