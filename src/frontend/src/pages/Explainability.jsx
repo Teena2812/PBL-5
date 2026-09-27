@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LabelList } from "recharts";
-import { getExplainability, getHospitals, getModelWeights, getSamplePatients } from "../api/client";
+import { getExplainability, getHospitals, getModelWeights, getSamplePatients, getTestPatients } from "../api/client";
 import { useApiData } from "../hooks/useApiData";
 import { Loading, ErrorState } from "../components/LoadingAndError";
 import Tabs from "../components/Tabs";
 import PredictionResult from "../components/PredictionResult";
 import ShapChart from "../components/ShapChart";
 import WhatIfExplorer from "../components/WhatIfExplorer";
+import DivergenceExplorer from "../components/DivergenceExplorer";
 import { verifyAgainstBackend } from "../lib/inference";
 import { hospitalLabel, fmtProb } from "../constants/experiments";
 import { PATIENT_FIELDS, featureLabel, normalizeFeature, patientFieldText } from "../constants/features";
@@ -17,6 +18,7 @@ import "./Explainability.css";
 const TABS = [
   { id: "samples", label: "Sample patients" },
   { id: "try", label: "Try a prediction" },
+  { id: "divergence", label: "Where models disagree" },
   { id: "global", label: "Global importance" },
 ];
 
@@ -39,14 +41,19 @@ export default function Explainability() {
       <div role="tabpanel" id={`panel-${active}`} aria-labelledby={`tab-${active}`}>
         {active === "samples" && <SamplesView onExplore={openInExplorer} />}
         {active === "try" && (
-          <TryPredictionView key={searchParams.get("sample") ?? "default"} initialSampleId={searchParams.get("sample")} />
+          <TryPredictionView
+            key={searchParams.get("patient") ?? searchParams.get("sample") ?? "default"}
+            initialSampleId={searchParams.get("sample")}
+            initialPatientId={searchParams.get("patient")}
+          />
         )}
+        {active === "divergence" && <DivergenceView />}
         {active === "global" && <GlobalView />}
       </div>
 
       <p className="disclaimer">
-        Research prototype, not a clinical decision-making tool. Models were trained on small simulated partitions of
-        the public UCI Heart Disease dataset and are not validated for patient care.
+        Research prototype, not a clinical decision-making tool. Models were trained on the public UCI Heart Disease data
+        from four hospitals (1988), a few hundred patients each, and are not validated for patient care.
       </p>
     </div>
   );
@@ -99,7 +106,7 @@ function SamplesView({ onExplore }) {
               Explore this patient in the what-if explorer →
             </button>
             <span className="muted-note" style={{ margin: 0 }}>
-              Change their values and watch the risk update live, for all 5 hospital models.
+              Change their values and watch the risk update live, for every hospital&apos;s model.
             </span>
           </div>
         </div>
@@ -132,7 +139,7 @@ function PatientTable({ patient }) {
   return (
     <table className="patient-table">
       <tbody>
-        {PATIENT_FIELDS.map((field) => (
+        {PATIENT_FIELDS.filter((field) => patient[field.key] != null).map((field) => (
           <tr key={field.key}>
             <th scope="row">{field.label}</th>
             <td>{patientFieldText(field, patient[field.key])}</td>
@@ -148,34 +155,43 @@ function PatientTable({ patient }) {
 /* ------------------------------------------------------------------ */
 
 async function getWhatIfContext() {
-  const [weights, hospitals, samples] = await Promise.all([getModelWeights(), getHospitals(), getSamplePatients()]);
+  const [weights, hospitals, samples, tests] = await Promise.all([
+    getModelWeights(),
+    getHospitals(),
+    getSamplePatients(),
+    getTestPatients(),
+  ]);
   return {
     weights,
     hospitals: hospitals.hospitals,
     samples: samples.samples,
+    testPatients: tests.patients,
     // Guard against the in-browser models drifting from the real ones.
     verification: verifyAgainstBackend(weights),
   };
 }
 
-function TryPredictionView({ initialSampleId }) {
+function ModelsDrifted({ verification }) {
+  return (
+    <div className="error-box">
+      <strong>In-browser predictions are switched off.</strong>
+      <div style={{ marginTop: 6 }}>
+        The exported model weights no longer reproduce the real backend&apos;s outputs (largest difference{" "}
+        {verification.maxDiff.toExponential(2)}; {verification.cases.length - verification.passed} of{" "}
+        {verification.cases.length} checks outside tolerance). Re-run{" "}
+        <code>experiments/export_model_weights.py</code> rather than trusting drifted predictions.
+      </div>
+    </div>
+  );
+}
+
+function TryPredictionView({ initialSampleId, initialPatientId }) {
   const context = useApiData(getWhatIfContext, []);
   if (context.loading) return <Loading />;
   if (context.error) return <ErrorState error={context.error} />;
 
-  const { weights, hospitals, samples, verification } = context.data;
-  if (!verification.ok) {
-    return (
-      <div className="error-box">
-        <strong>In-browser predictions are switched off.</strong>
-        <div style={{ marginTop: 6 }}>
-          The exported model weights no longer reproduce the real backend&apos;s outputs (largest difference{" "}
-          {verification.maxDiff.toExponential(2)}, allowed 5e-5). Re-run{" "}
-          <code>experiments/export_model_weights.py</code> rather than trusting drifted predictions.
-        </div>
-      </div>
-    );
-  }
+  const { weights, hospitals, samples, testPatients, verification } = context.data;
+  if (!verification.ok) return <ModelsDrifted verification={verification} />;
 
   return (
     <WhatIfExplorer
@@ -184,8 +200,18 @@ function TryPredictionView({ initialSampleId }) {
       samples={samples}
       verification={verification}
       initialSampleId={initialSampleId}
+      initialPatient={testPatients.find((t) => t.id === initialPatientId)}
     />
   );
+}
+
+function DivergenceView() {
+  const context = useApiData(getWhatIfContext, []);
+  if (context.loading) return <Loading />;
+  if (context.error) return <ErrorState error={context.error} />;
+  const { weights, hospitals, testPatients, verification } = context.data;
+  if (!verification.ok) return <ModelsDrifted verification={verification} />;
+  return <DivergenceExplorer weights={weights} testPatients={testPatients} hospitals={hospitals} />;
 }
 
 /* ------------------------------------------------------------------ */
@@ -201,7 +227,8 @@ function GlobalView() {
 
   const d = explain.data;
   const rf = d.rf_global_importance.slice(0, TOP_N);
-  const nn = d.nn_hospital_1_importance.slice(0, TOP_N);
+  const nn = d.nn_target_importance.slice(0, TOP_N);
+  const target = hospitalLabel(d.nn_target_hospital);
   const sameTop = normalizeFeature(rf[0].feature) === normalizeFeature(nn[0].feature);
 
   return (
@@ -211,8 +238,8 @@ function GlobalView() {
         <span>
           Mean |SHAP| is how far a feature moves the predicted disease probability on average, in either direction.{" "}
           {sameTop
-            ? `${featureLabel(rf[0].feature)} is the top feature for both the pooled Random Forest and Hospital 1's personalized model.`
-            : `The pooled Random Forest and Hospital 1's personalized model rank different top features (${featureLabel(rf[0].feature)} vs ${featureLabel(nn[0].feature)}).`}
+            ? `${featureLabel(rf[0].feature)} is the top feature for both the pooled Random Forest and ${target}'s personalized model.`
+            : `The pooled Random Forest and ${target}'s personalized model rank different top features (${featureLabel(rf[0].feature)} vs ${featureLabel(nn[0].feature)}).`}
         </span>
       </div>
 
@@ -223,8 +250,11 @@ function GlobalView() {
           <ImportanceChart rows={rf} />
         </div>
         <div className="card">
-          <h3>Hospital 1 personalized model</h3>
-          <p className="muted-note">KernelExplainer on Hospital 1&apos;s test set &middot; top {TOP_N} of {d.nn_hospital_1_importance.length} features &middot; percentage points</p>
+          <h3>{target} personalized model</h3>
+          <p className="muted-note">
+            KernelExplainer on {target}&apos;s test set (the hospital FedAvg served worst) &middot; top {TOP_N} of{" "}
+            {d.nn_target_importance.length} features &middot; percentage points
+          </p>
           <ImportanceChart rows={nn} />
         </div>
       </div>

@@ -18,6 +18,7 @@ const REQUIRED = [
   "explainability.json",
   "model_weights.json",
   "sample_patients.json",
+  "test_patients.json",
 ];
 
 mkdirSync(target, { recursive: true });

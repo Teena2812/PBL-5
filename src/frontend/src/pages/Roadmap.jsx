@@ -31,15 +31,15 @@ function phaseResults({ summary, hospitals, equity, explain, samples }) {
   const multiseed = Object.fromEntries(
     equity.phase5_multiseed_summary.map((r) => [MULTISEED_NAME_TO_KEY[r.experiment], r])
   );
-  const improved = equity.per_seed.filter((r) => r.delta > 0).length;
+  const ws = equity.worst_served;
   const correct = samples.filter((s) => s.predicted_label === s.actual_label).length;
 
   return {
     1: `Dataset chosen: ${summary.dataset.name}`,
     2: `${summary.dataset.n_patients} patients → ${summary.n_hospitals} hospitals, disease rate ${fmtPct(Math.min(...rates))}–${fmtPct(Math.max(...rates))}`,
     3: null,
-    4: `FedAvg ${fmtPct(multiseed.fedavg.mean_accuracy)} ± ${fmtPct(multiseed.fedavg.std_accuracy)} over ${multiseed.fedavg.n_seeds} seeds vs Local ${fmtPct(multiseed.local.mean_accuracy)}`,
-    5: `Worst-served hospital improved in ${improved}/${equity.per_seed.length} seeds`,
+    4: `FedAvg ${fmtPct(multiseed.fedavg.mean_accuracy)} ± ${fmtPct(multiseed.fedavg.std_accuracy)} vs each hospital alone ${fmtPct(multiseed.local.mean_accuracy)} (${multiseed.fedavg.n_seeds} seeds)`,
+    5: `Personalized ${fmtPct(multiseed.personalized.mean_accuracy)} overall (5 seeds); at the worst-served hospital a mixed result: better in ${ws.seeds_improved}/${ws.per_seed.length} seeds`,
     6: `Top driver: ${featureLabel(explain.rf_global_importance[0].feature)}`,
     7: samples.length
       ? `Live dashboard; ${samples.length} sample patients scored by the saved models, ${correct}/${samples.length} correct`

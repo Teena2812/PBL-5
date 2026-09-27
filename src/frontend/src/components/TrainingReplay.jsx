@@ -29,9 +29,12 @@ function countParameters(nFeatures, hiddenSizes) {
  * model's accuracy on each hospital's own local test set after that
  * round's aggregation; "global" weights them by test-set size.
  */
-export default function TrainingReplay({ curves, hospitals, summary, autoPlay = false, compact = false }) {
-  const [algorithm, setAlgorithm] = useState("fedavg");
-  const [round, setRound] = useState(1);
+export default function TrainingReplay({ curves, hospitals, summary, autoPlay = false, compact = false, live = null }) {
+  // live: {algorithm, rounds: [{round, hospitals: [{hospital, accuracy, n_test}], global_accuracy}], totalRounds}
+  // -- a run streaming from the backend, drawn round by round as it arrives.
+  const [pickedAlgorithm, setAlgorithm] = useState("fedavg");
+  const algorithm = live ? live.algorithm : pickedAlgorithm;
+  const [pickedRound, setRound] = useState(1);
   const [playing, setPlaying] = useState(autoPlay);
   const [focus, setFocus] = useState(null);
 
@@ -41,9 +44,18 @@ export default function TrainingReplay({ curves, hospitals, summary, autoPlay = 
 
   const { rows, nRounds, minTest, yMin } = useMemo(() => {
     const run = curves[algorithm];
-    const byRound = new Map(run.global_by_round.map((g) => [g.round, { round: g.round, global: g.global_weighted_accuracy }]));
-    for (const r of run.per_hospital_by_round) byRound.get(r.round)[r.hospital] = r.accuracy;
-    const sorted = [...byRound.values()].sort((a, b) => a.round - b.round);
+    let sorted;
+    if (live) {
+      sorted = live.rounds.map((e) => ({
+        round: e.round,
+        global: e.global_accuracy,
+        ...Object.fromEntries(e.hospitals.map((h) => [h.hospital, h.accuracy])),
+      }));
+    } else {
+      const byRound = new Map(run.global_by_round.map((g) => [g.round, { round: g.round, global: g.global_weighted_accuracy }]));
+      for (const r of run.per_hospital_by_round) byRound.get(r.round)[r.hospital] = r.accuracy;
+      sorted = [...byRound.values()].sort((a, b) => a.round - b.round);
+    }
     // Zoom the axis to just below the lowest value in either run, so the
     // axis doesn't jump when switching algorithms.
     const lowest = Math.min(
@@ -51,11 +63,13 @@ export default function TrainingReplay({ curves, hospitals, summary, autoPlay = 
     );
     return {
       rows: sorted,
-      nRounds: sorted.length,
+      nRounds: live ? live.totalRounds : sorted.length,
       minTest: Math.min(...run.per_hospital_by_round.map((r) => r.n_test)),
       yMin: Math.max(0, Math.floor(lowest * 10) / 10),
     };
-  }, [curves, algorithm]);
+  }, [curves, algorithm, live]);
+  // Live: always show the newest round that has arrived.
+  const round = live ? Math.max(rows.length, 1) : pickedRound;
 
   useEffect(() => {
     if (!playing) return undefined;
@@ -86,6 +100,9 @@ export default function TrainingReplay({ curves, hospitals, summary, autoPlay = 
       return <circle key={index} cx={cx} cy={cy} r={4.5} fill={color} stroke="#ffffff" strokeWidth={1.5} />;
     };
 
+  if (live && rows.length === 0) {
+    return <p className="muted-note">Waiting for the first round&hellip;</p>;
+  }
   const current = rows[round - 1];
   const first = rows[0];
   const visible = rows.slice(0, round);
@@ -93,6 +110,12 @@ export default function TrainingReplay({ curves, hospitals, summary, autoPlay = 
 
   return (
     <div className={"replay" + (compact ? " replay-compact" : "")}>
+      {live ? (
+        <p className="replay-live-label">
+          <span className="replay-live-dot" aria-hidden="true" /> Live run &middot; round <strong>{round}</strong> /{" "}
+          {nRounds}
+        </p>
+      ) : (
       <div className="replay-controls">
         {!compact && (
           <div className="segmented replay-algos" role="radiogroup" aria-label="Training algorithm">
@@ -131,6 +154,7 @@ export default function TrainingReplay({ curves, hospitals, summary, autoPlay = 
           />
         </label>
       </div>
+      )}
 
       {compact ? (
         <p className="replay-inline-stats">

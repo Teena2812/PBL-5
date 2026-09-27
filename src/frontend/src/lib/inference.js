@@ -69,7 +69,9 @@ export function deviationBreakdown(raw, hospitalId, weights) {
   const baseline = hospital.baseline.mean_encoded;
   const columns = fieldColumns(weights);
 
-  const contributions = CLINICAL_FIELDS.map((field) => {
+  // Only the clinical fields this model actually takes (the 4-site models
+  // use 8 of the 13 UCI inputs).
+  const contributions = CLINICAL_FIELDS.filter((field) => columns[field]).map((field) => {
     const swapped = x.slice();
     for (const i of columns[field]) swapped[i] = baseline[i];
     return { feature: field, delta: p - forwardProbability(hospital.layers, swapped) };
@@ -79,17 +81,20 @@ export function deviationBreakdown(raw, hospitalId, weights) {
 }
 
 /**
- * Re-scores the exported verification cases (real predict_and_explain()
- * outputs, saved at 4 dp) and reports whether every one matches within that
- * rounding. The UI refuses to show in-browser predictions if this fails.
+ * Re-scores the exported verification cases -- the real torch model's
+ * outputs for every test patient x every hospital model (6 dp) and the SHAP
+ * sample patients (predict_and_explain(), 4 dp) -- and reports whether each
+ * matches within its own rounding tolerance. The UI refuses to show
+ * in-browser predictions if any fails.
  */
 export function verifyAgainstBackend(weights) {
   const cases = weights.verification.cases.map((c) => {
     const probability = predict(c.patient, c.hospital_id, weights);
-    return { ...c, probability, diff: Math.abs(probability - c.expected_probability) };
+    const diff = Math.abs(probability - c.expected_probability);
+    return { ...c, probability, diff, pass: diff <= (c.tolerance ?? 5e-5) };
   });
   const maxDiff = Math.max(...cases.map((c) => c.diff));
-  return { ok: maxDiff <= 5e-5, maxDiff, cases };
+  return { ok: cases.every((c) => c.pass), maxDiff, cases, passed: cases.filter((c) => c.pass).length };
 }
 
 /** Risk band, same cut-offs as the backend's _risk_level(). */

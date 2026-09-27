@@ -276,3 +276,41 @@
 .replay-chip strong {
   font-variant-numeric: tabular-nums;
 }
+
+.replay-live-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 16px 0;
+  font-size: 0.9rem;
+}
+
+.replay-live-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-danger);
+  animation: replay-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes replay-pulse {
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .replay-live-dot {
+    animation: none;
+  }
+}
+
+.replay-mode.segmented {
+  display: inline-flex;
+  margin-bottom: 16px;
+}
+
+.replay-mode .segmented-option {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}

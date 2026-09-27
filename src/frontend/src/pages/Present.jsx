@@ -1,32 +1,22 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import {
-  getDashboardSummary,
-  getEquityAnalysis,
-  getHospitals,
-  getModelWeights,
-  getSamplePatients,
-  getTrainingCurves,
-} from "../api/client";
+import { getDashboardSummary, getEquityAnalysis, getHospitals, getTrainingCurves } from "../api/client";
 import { useApiData } from "../hooks/useApiData";
 import { Loading, ErrorState } from "../components/LoadingAndError";
 import TrainingReplay from "../components/TrainingReplay";
-import WorstServedChart from "../components/WorstServedChart";
-import { fmtPct, fmtProb, hospitalLabel } from "../constants/experiments";
-import { predict, verifyAgainstBackend } from "../lib/inference";
+import SeedComparisonChart from "../components/SeedComparisonChart";
+import { fmtPct, hospitalLabel } from "../constants/experiments";
 import { PHASES } from "../constants/roadmap";
 import "./Present.css";
 
 async function getPresentData() {
-  const [summary, hospitals, equity, curves, samples, weights] = await Promise.all([
+  const [summary, hospitals, equity, curves] = await Promise.all([
     getDashboardSummary(),
     getHospitals(),
     getEquityAnalysis(),
     getTrainingCurves(),
-    getSamplePatients(),
-    getModelWeights(),
   ]);
-  return { summary, hospitals: hospitals.hospitals, equity, curves, samples: samples.samples, weights };
+  return { summary, hospitals: hospitals.hospitals, equity, curves };
 }
 
 // Slide order is fixed; navigation is Next/Back only (plus arrow / PageUp /
@@ -36,8 +26,8 @@ const SLIDES = [
   { id: "problem", render: (d) => <ProblemSlide {...d} /> },
   { id: "noniid", render: (d) => <NonIidSlide {...d} /> },
   { id: "replay", render: (d) => <ReplaySlide {...d} /> },
-  { id: "equity", render: (d) => <EquitySlide {...d} /> },
-  { id: "limitation", render: (d) => <LimitationSlide {...d} /> },
+  { id: "headline", render: (d) => <HeadlineSlide {...d} /> },
+  { id: "accuracy", render: (d) => <NaiveAccuracySlide {...d} /> },
   { id: "roadmap", render: () => <RoadmapSlide /> },
 ];
 
@@ -184,18 +174,19 @@ function KeyNumber({ value, label, tone = "primary" }) {
 }
 
 /* 1. Problem */
-function ProblemSlide({ summary, hospitals }) {
+function ProblemSlide({ summary, hospitals, equity }) {
   const sizes = hospitals.map((h) => h.n_patients);
+  const h = equity.headline;
   const barriers = ["Privacy laws", "Data silos", "Non-IID patients", "Clinician mistrust"];
   return (
     <>
       <SlideHead step="The problem" title="Can hospitals learn together without sharing patient records?">
-        A research simulation: {summary.dataset.n_patients} patients from the public {summary.dataset.name} dataset,
-        split into {summary.n_hospitals} simulated hospitals.
+        A research simulation on {summary.dataset.n_patients} patients from {summary.n_hospitals} real hospitals (
+        {summary.dataset.sites}; public UCI Heart Disease data).
       </SlideHead>
       <KeyNumber
         value={`${Math.min(...sizes)}–${Math.max(...sizes)}`}
-        label="patients per hospital — too few for any one hospital to train a reliable model alone"
+        label={`patients per hospital — trained alone, the hospitals' models reach ${fmtPct(h.local_mean_accuracy)} overall accuracy`}
       />
       <ol className="slide-chain">
         {barriers.map((b, i) => (
@@ -257,76 +248,61 @@ function ReplaySlide({ curves, hospitals, summary }) {
   );
 }
 
-/* 4. Equity finding */
-function EquitySlide({ equity }) {
-  const seeds = equity.per_seed;
-  const improved = seeds.filter((r) => r.delta > 0);
-  const worse = seeds.filter((r) => r.delta < 0);
-  const mean = (list) => list.reduce((s, r) => s + r.delta, 0) / list.length;
+/* 4. Headline finding */
+function HeadlineSlide({ equity }) {
+  const h = equity.headline;
   return (
     <>
-      <SlideHead step="Headline finding" title="Personalization lifts the hospital the shared model serves worst">
-        Worst-served = the hospital FedAvg scored lowest, re-identified in each of {seeds.length} seeds.
+      <SlideHead step="Headline finding" title="Training together beats training alone — without sharing records">
+        Same model, same data, {h.n_seeds} random starting points. Pooling all records in one place (which privacy rules
+        forbid) averaged {fmtPct(h.centralized_mean_accuracy)}.
       </SlideHead>
       <KeyNumber
-        value={`+${(mean(improved) * 100).toFixed(1)} pp`}
-        label={`in ${improved.length} of ${seeds.length} seeds · +${(mean(seeds) * 100).toFixed(1)} pp across all ${seeds.length} · ${worse.length === 0 ? "never made it worse" : `worse in ${worse.length}`}`}
+        value={`+${h.delta_pp} pp`}
+        label={`federated ${fmtPct(h.fedavg_mean_accuracy)} vs alone ${fmtPct(h.local_mean_accuracy)} · better in ${h.seeds_fedavg_beats_local}/${h.n_seeds} seeds · matches or beats pooling in ${h.seeds_fedavg_matches_or_beats_centralized}/${h.n_seeds}`}
         tone="success"
       />
       <div className="slide-panel">
-        <WorstServedChart seeds={seeds} />
+        <SeedComparisonChart seeds={h.per_seed} />
       </div>
     </>
   );
 }
 
-/* 5. Borderline patient / known limitation */
-function LimitationSlide({ samples, weights, hospitals }) {
-  const missed = samples.filter((s) => s.predicted_label !== s.actual_label);
-  const verified = verifyAgainstBackend(weights).ok;
-  if (missed.length !== 1) {
-    return <SlideHead step="Known limitation" title="No single missed sample patient to show" />;
-  }
-  const s = missed[0];
-  const own = hospitals.find((h) => h.hospital === s.hospital_id);
-  const lowestRate = Math.min(...hospitals.map((h) => h.disease_rate));
-  const scores = verified
-    ? hospitals.map((h) => ({ id: h.hospital, rate: h.disease_rate, p: predict(s.patient, h.hospital, weights) }))
-    : [];
-
+/* 5. What naive accuracy reporting misses */
+function NaiveAccuracySlide({ hospitals }) {
+  const s = hospitals.find((x) => x.hospital === "switzerland");
+  if (!s) return <SlideHead step="Accuracy" title="Per-hospital results" />;
+  const rows = [
+    { label: "Accuracy", value: s.personalized_accuracy, text: fmtPct(s.personalized_accuracy) },
+    { label: "Always saying \u201cdisease\u201d", value: s.majority_class_accuracy, text: fmtPct(s.majority_class_accuracy) },
+    { label: "Balanced accuracy", value: s.personalized_balanced_accuracy, text: fmtPct(s.personalized_balanced_accuracy) },
+    { label: "AUC", value: s.personalized_auc, text: s.personalized_auc.toFixed(3) },
+  ];
   return (
     <>
-      <SlideHead step="Known limitation" title="Personalization can cut both ways">
-        One real test patient who <strong>had heart disease</strong>, scored by {hospitalLabel(s.hospital_id)}&apos;s own
-        model &mdash; and by the other hospitals&apos; models.
+      <SlideHead step="What naive accuracy misses" title={`${hospitalLabel(s.hospital)}: ${fmtPct(s.personalized_accuracy)} accurate — and close to chance`}>
+        Its test set: {s.test_disease} patients with heart disease, {s.test_no_disease} without. The model recognises{" "}
+        {Math.round(s.personalized_specificity * s.test_no_disease)} of the {s.test_no_disease} healthy patients.
       </SlideHead>
-      <KeyNumber
-        value={fmtProb(s.predicted_probability)}
-        label={`${hospitalLabel(s.hospital_id)}'s model — just under the 50% threshold, so a miss`}
-        tone="warning"
-      />
-      {verified && (
-        <div className="slide-bars">
-          {scores.map((r) => (
-            <div key={r.id} className={"slide-bar-row" + (r.id === s.hospital_id ? " highlight" : "")}>
-              <span className="slide-bar-label">
-                <strong>{hospitalLabel(r.id)} model</strong> {fmtPct(r.rate)} disease rate
-              </span>
-              <span className="slide-bar-track">
-                <span className="slide-bar-fill risk" style={{ width: `${r.p * 100}%` }} />
-                <span className="slide-bar-pooled" style={{ left: "50%" }} />
-              </span>
-              <span className="slide-bar-value">{fmtProb(r.p)}</span>
-            </div>
-          ))}
-          <span className="slide-note">Dark line = 50% decision threshold.</span>
-        </div>
-      )}
+      <KeyNumber value={s.personalized_auc.toFixed(3)} label="AUC — 0.5 is chance; the high accuracy comes from class imbalance" tone="warning" />
+      <div className="slide-bars">
+        {rows.map((r) => (
+          <div key={r.label} className="slide-bar-row">
+            <span className="slide-bar-label">
+              <strong>{r.label}</strong>
+            </span>
+            <span className="slide-bar-track">
+              <span className="slide-bar-fill risk" style={{ width: `${r.value * 100}%` }} />
+              <span className="slide-bar-pooled" style={{ left: "50%" }} />
+            </span>
+            <span className="slide-bar-value">{r.text}</span>
+          </div>
+        ))}
+        <span className="slide-note">Dark line = 0.5 (chance for balanced accuracy and AUC).</span>
+      </div>
       <p className="slide-note">
-        {own.disease_rate === lowestRate
-          ? `${hospitalLabel(s.hospital_id)} has the lowest disease rate of the ${hospitals.length} (${fmtPct(own.disease_rate)}); fitting that population may pull risk down for patients unlike it. `
-          : ""}
-        <strong>A single-patient observation, not a measured effect.</strong>
+        <strong>Why it matters:</strong> reporting accuracy alone would make this the best-performing hospital.
       </p>
     </>
   );

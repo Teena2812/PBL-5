@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import ShapChart from "./ShapChart";
-import { PATIENT_FIELDS, DEFAULT_PATIENT } from "../constants/features";
+import { DEFAULT_PATIENT, fieldsForModel } from "../constants/features";
 import { fmtPct, fmtProb, hospitalLabel } from "../constants/experiments";
 import { deviationBreakdown, predict, riskLevel } from "../lib/inference";
 import "./WhatIfExplorer.css";
@@ -17,13 +17,19 @@ const TOP_FIELDS = 8;
  * rates); samples: precomputed sample patients (for "start from");
  * initialSampleId: optional sample to load first.
  */
-export default function WhatIfExplorer({ weights, hospitals, samples, verification, initialSampleId }) {
-  const initialSample = samples.find((s) => s.id === initialSampleId);
-  const [patient, setPatient] = useState(initialSample ? { ...initialSample.patient } : { ...DEFAULT_PATIENT });
-  const [hospitalId, setHospitalId] = useState(initialSample?.hospital_id ?? "hospital_1");
-  const [preset, setPreset] = useState(initialSample ? initialSample.id : "default");
-
+export default function WhatIfExplorer({ weights, hospitals, samples, verification, initialSampleId, initialPatient }) {
   const hospitalIds = Object.keys(weights.hospitals).sort();
+  const fields = fieldsForModel(weights.preprocessing);
+  const initialSample = samples.find((s) => s.id === initialSampleId);
+  // A test patient handed over from the divergence explorer: {id, site, patient}.
+  const start = initialPatient
+    ? { patient: initialPatient.patient, hospital: initialPatient.site, preset: "handoff" }
+    : initialSample
+      ? { patient: initialSample.patient, hospital: initialSample.hospital_id, preset: initialSample.id }
+      : { patient: DEFAULT_PATIENT, hospital: hospitalIds[0], preset: "default" };
+  const [patient, setPatient] = useState({ ...start.patient });
+  const [hospitalId, setHospitalId] = useState(hospitalIds.includes(start.hospital) ? start.hospital : hospitalIds[0]);
+  const [preset, setPreset] = useState(start.preset);
   const ranges = weights.preprocessing.observed_range;
   const diseaseRate = Object.fromEntries(hospitals.map((h) => [h.hospital, h.disease_rate]));
 
@@ -63,7 +69,8 @@ export default function WhatIfExplorer({ weights, hospitals, samples, verificati
         <span>
           <strong>Running in your browser</strong> &mdash; the {hospitalIds.length} saved personalized models (
           {weights.architecture.n_parameters} parameters each), no server. Checked on load against the real backend:{" "}
-          {verification.cases.length}/{verification.cases.length} reference patients match (max difference{" "}
+          {verification.passed}/{verification.cases.length} reference predictions match the real models (max
+          difference{" "}
           {verification.maxDiff.toExponential(1)}).
         </span>
       </div>
@@ -80,12 +87,13 @@ export default function WhatIfExplorer({ weights, hospitals, samples, verificati
                   {hospitalLabel(s.hospital_id)} sample patient
                 </option>
               ))}
+              {preset === "handoff" && initialPatient && <option value="handoff">Test patient {initialPatient.id}</option>}
               {preset === "custom" && <option value="custom">Edited patient</option>}
             </select>
           </div>
 
           <div className="whatif-fields">
-            {PATIENT_FIELDS.map((field) =>
+            {fields.map((field) =>
               ranges[field.key] && field.key !== "ca" ? (
                 <SliderField
                   key={field.key}
@@ -198,7 +206,7 @@ export default function WhatIfExplorer({ weights, hospitals, samples, verificati
       </div>
 
       <div className="card" style={{ marginTop: 20 }}>
-        <h3>Same patient, 5 hospitals</h3>
+        <h3>Same patient, {hospitalIds.length} hospitals</h3>
         <p className="muted-note">
           The inputs above, scored by each hospital&apos;s own personalized model. Click a row to switch the model used
           above.

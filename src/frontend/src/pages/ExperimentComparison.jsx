@@ -30,6 +30,7 @@ import Tabs from "../components/Tabs";
 import SeedComparisonChart from "../components/SeedComparisonChart";
 import TradeoffExplorer from "../components/TradeoffExplorer";
 import TrainingReplay from "../components/TrainingReplay";
+import LiveReplay from "../components/LiveReplay";
 import {
   EXPERIMENT_ORDER,
   EXPERIMENT_LABELS,
@@ -299,9 +300,35 @@ async function getReplayData() {
 
 function ReplayView() {
   const { data, loading, error } = useApiData(getReplayData, []);
+  const [mode, setMode] = useState("recorded");
   if (loading) return <Loading />;
   if (error) return <ErrorState error={error} />;
-  return <TrainingReplay curves={data.curves} hospitals={data.hospitals} summary={data.summary} />;
+  return (
+    <>
+      <div className="segmented replay-mode" role="radiogroup" aria-label="Recorded or live">
+        {[
+          { id: "recorded", label: "Recorded run" },
+          { id: "live", label: "▶ Run it live" },
+        ].map((m) => (
+          <button
+            key={m.id}
+            type="button"
+            role="radio"
+            aria-checked={mode === m.id}
+            className={"segmented-option" + (mode === m.id ? " active" : "")}
+            onClick={() => setMode(m.id)}
+          >
+            {m.label}
+          </button>
+        ))}
+      </div>
+      {mode === "recorded" ? (
+        <TrainingReplay curves={data.curves} hospitals={data.hospitals} summary={data.summary} />
+      ) : (
+        <LiveReplay curves={data.curves} hospitals={data.hospitals} summary={data.summary} />
+      )}
+    </>
+  );
 }
 
 /* ------------------------------------------------------------------ */
