@@ -71,8 +71,8 @@ export default function Hospitals() {
       <div className="page-header">
         <h1>Hospitals</h1>
         <p>
-          {hospitals.data.n_hospitals} simulated hospitals &middot; {totalPatients} patients from{" "}
-          {summary.data.dataset.name} &middot; non-IID Dirichlet label-skew partition
+          {hospitals.data.n_hospitals} real hospitals &middot; {totalPatients} patients &middot;{" "}
+          {summary.data.dataset.name} ({summary.data.dataset.sites}) &middot; each site is one federated client
         </p>
       </div>
 
@@ -92,7 +92,7 @@ export default function Hospitals() {
         <StatCard
           label="Pooled disease rate"
           value={fmtPct(pooledRate)}
-          sublabel={`${totalDisease} of ${totalPatients} patients · what IID would give every hospital`}
+          sublabel={`${totalDisease} of ${totalPatients} patients · what identical sites would each show`}
           accent="teal"
         />
         <StatCard
@@ -143,7 +143,7 @@ export default function Hospitals() {
 
         <div className="card">
           <h3>Disease rate per hospital</h3>
-          <p style={mutedNote}>Dashed line is the pooled rate &mdash; under an IID split every bar would sit on it</p>
+          <p style={mutedNote}>Dashed line is the pooled rate &mdash; if the sites were alike, every bar would sit on it</p>
           <ResponsiveContainer width="100%" height={280}>
             <BarChart data={chartData} margin={{ top: 20, right: 80, left: -10, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
@@ -177,7 +177,9 @@ export default function Hospitals() {
       <div className="card" style={{ marginTop: 20 }}>
         <h3>Hospital profiles</h3>
         <p style={mutedNote}>
-          Label skew also shifts the case mix: disease-heavy hospitals are dominated by asymptomatic chest pain
+          The sites also differ in who they saw: mean age {Math.min(...list.map((h) => h.mean_age)).toFixed(1)}–
+          {Math.max(...list.map((h) => h.mean_age)).toFixed(1)} years, {fmtPct(Math.min(...list.map((h) => h.pct_female)))}–
+          {fmtPct(Math.max(...list.map((h) => h.pct_female)))} women
         </p>
         <table>
           <thead>

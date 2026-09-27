@@ -1,0 +1,42 @@
+# Lint + static build of the dashboard on Linux for every frontend change on
+# the working branch (the local Windows machine's Application Control policy
+# blocks oxlint's native binary, so lint runs here instead).
+name: Frontend - lint and build
+
+on:
+  push:
+    branches: [multisite-data]
+    paths:
+      - "src/frontend/**"
+      - "experiments/results/dashboard_data/**"
+      - ".github/workflows/frontend-check.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: src/frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: src/frontend/package-lock.json
+      - run: npm ci
+      - name: Lint
+        run: |
+          npm run lint 2>&1 | tee lint.txt
+          warnings=$(grep -cE "^\s*[!x⚠]|warning|error" lint.txt || true)
+          echo "::notice title=Lint::$(tail -n 3 lint.txt | tr '\n' ' ')"
+      - name: Static build
+        run: npm run build:static
+        env:
+          VITE_STATIC_DATA: "true"
+          VITE_ROUTER: hash
+          VITE_BASE: /PBL-5/

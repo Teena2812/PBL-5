@@ -2,7 +2,7 @@
 // checklist. Keep `done` in sync with that checklist.
 export const PHASES = [
   { n: 1, title: "Literature survey, dataset & gap statement", done: true },
-  { n: 2, title: "Dataset preprocessing; non-IID hospital splits", done: true },
+  { n: 2, title: "Dataset preprocessing: 4 real hospital sites as clients", done: true },
   { n: 3, title: "Baselines: Local ML + Centralized ML", done: true },
   { n: 4, title: "Federated learning (FedAvg via Flower)", done: true },
   { n: 5, title: "Personalization (FedProx + fine-tuning) vs FedAvg", done: true },

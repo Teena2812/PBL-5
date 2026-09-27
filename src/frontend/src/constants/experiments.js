@@ -25,15 +25,22 @@ export const EXPERIMENT_COLORS = {
   personalized: "#eb6834",
 };
 
-// One color per simulated hospital (training replay). Validated in this
-// order: adjacent pairs clear CVD dE >= 9.2; lines cross, so charts using
-// these must also direct-label each line (aqua/magenta are closer).
+// One color per real site. Validated as a set of 4 on all pairs (lines
+// cross in the replay chart): colorblind dE >= 9.2, normal-vision dE >= 16.3.
 export const HOSPITAL_COLORS = {
-  hospital_1: "#2a78d6",
-  hospital_2: "#eb6834",
-  hospital_3: "#1baf7a",
-  hospital_4: "#4a3aa7",
-  hospital_5: "#e87ba4",
+  cleveland: "#2a78d6",
+  hungary: "#eb6834",
+  switzerland: "#1baf7a",
+  va_long_beach: "#4a3aa7",
+};
+
+// Short display names for the 4 UCI Heart Disease sites (hospitals.json
+// carries the full institution names).
+export const HOSPITAL_NAMES = {
+  cleveland: "Cleveland",
+  hungary: "Hungary",
+  switzerland: "Switzerland",
+  va_long_beach: "VA Long Beach",
 };
 
 // Experiment names as written by the Phase 4/5 multi-seed CSVs.
@@ -59,5 +66,5 @@ export function fmtProb(p, digits = 1) {
 }
 
 export function hospitalLabel(id) {
-  return id.replace("hospital_", "Hospital ");
+  return HOSPITAL_NAMES[id] ?? id;
 }

@@ -1,0 +1,83 @@
+.tradeoff-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px 20px;
+  margin-bottom: 8px;
+}
+
+.tradeoff-head h3 {
+  margin-bottom: 4px;
+}
+
+.tradeoff-head .segmented {
+  margin-bottom: 0;
+}
+
+.tradeoff-head .segmented-option,
+.live-controls .segmented-option {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.tradeoff-table {
+  margin-top: 8px;
+  font-size: 0.86rem;
+}
+
+.tradeoff-swatch {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  margin-right: 8px;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+  vertical-align: -1px;
+}
+
+.tradeoff-swatch.hollow {
+  background: var(--color-surface);
+}
+
+.live-panel {
+  margin-top: 20px;
+}
+
+.live-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+}
+
+.live-controls .segmented {
+  margin-bottom: 0;
+}
+
+.live-seed {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.live-seed input {
+  width: 90px;
+  font: inherit;
+  padding: 6px 8px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.live-status {
+  margin: 12px 0 0 0;
+  font-size: 0.86rem;
+  min-height: 1.3em;
+}
+
+.live-error {
+  color: #b91c1c;
+}

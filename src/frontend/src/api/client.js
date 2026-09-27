@@ -17,6 +17,7 @@ const STATIC_FILES = {
   "/explainability": "explainability.json",
   "/models/weights": "model_weights.json",
   "/explainability/samples": "sample_patients.json",
+  "/explainability/test-patients": "test_patients.json",
 };
 
 export const api = STATIC_DATA
@@ -61,6 +62,11 @@ export async function getExplainability() {
 /** The 5 personalized models' weights + preprocessing, for in-browser inference. */
 export async function getModelWeights() {
   return getData("/models/weights");
+}
+
+/** Every held-out test patient with each hospital model's probability. */
+export async function getTestPatients() {
+  return getData("/explainability/test-patients");
 }
 
 /** Precomputed sample-patient predictions (empty list until generated on Colab). */

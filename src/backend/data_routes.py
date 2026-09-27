@@ -26,6 +26,7 @@ _FILES = {
     "explainability": "explainability.json",
     "explainability/samples": "sample_patients.json",
     "models/weights": "model_weights.json",
+    "explainability/test-patients": "test_patients.json",
 }
 
 
@@ -78,6 +79,13 @@ def get_model_weights() -> dict:
     # inference (experiments/export_model_weights.py). Aggregate hospital
     # means only; no individual patient records.
     return _load(_FILES["models/weights"])
+
+
+@router.get("/explainability/test-patients")
+def get_test_patients() -> dict:
+    # Every held-out test patient (4 sites) with each hospital model's
+    # probability (experiments/export_test_patients.py).
+    return _load(_FILES["explainability/test-patients"])
 
 
 @router.get("/explainability/samples")

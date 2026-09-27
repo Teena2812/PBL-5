@@ -19,24 +19,25 @@ class PatientInput(BaseModel):
     sex: int = Field(..., ge=0, le=1, description="0 = female, 1 = male")
     cp: int = Field(..., ge=1, le=4, description="Chest pain type (1-4)")
     trestbps: float = Field(..., ge=50, le=300, description="Resting blood pressure (mm Hg)")
-    chol: float = Field(..., ge=50, le=700, description="Serum cholesterol (mg/dl)")
-    fbs: int = Field(..., ge=0, le=1, description="Fasting blood sugar > 120 mg/dl (0/1)")
+    # Not used by the 4-site models (largely missing at some sites); accepted
+    # for backward compatibility and ignored.
+    chol: float | None = Field(None, ge=50, le=700, description="Serum cholesterol (mg/dl) -- unused")
+    fbs: int | None = Field(None, ge=0, le=1, description="Fasting blood sugar > 120 mg/dl (0/1) -- unused")
     restecg: int = Field(..., ge=0, le=2, description="Resting ECG result (0-2)")
     thalach: float = Field(..., ge=50, le=250, description="Max heart rate achieved")
     exang: int = Field(..., ge=0, le=1, description="Exercise-induced angina (0/1)")
-    oldpeak: float = Field(..., ge=0, le=10, description="ST depression induced by exercise")
-    slope: int = Field(..., ge=1, le=3, description="Slope of peak exercise ST segment (1-3)")
-    ca: int = Field(..., ge=0, le=3, description="Number of major vessels colored by fluoroscopy (0-3)")
-    thal: int = Field(..., ge=0, le=7, description="Thalassemia result (3=normal, 6=fixed defect, 7=reversible defect)")
+    oldpeak: float = Field(..., ge=-5, le=10, description="ST depression induced by exercise (negative values occur in the 4-site data)")
+    slope: int | None = Field(None, ge=1, le=3, description="Slope of peak exercise ST segment (1-3) -- unused")
+    ca: int | None = Field(None, ge=0, le=3, description="Major vessels colored by fluoroscopy (0-3) -- unused")
+    thal: int | None = Field(None, ge=0, le=7, description="Thalassemia result -- unused")
     hospital_id: str = Field(..., description="Which hospital's personalized model to use, e.g. 'hospital_1'")
 
     model_config = {
         "json_schema_extra": {
             "example": {
-                "age": 63, "sex": 1, "cp": 4, "trestbps": 145, "chol": 233,
-                "fbs": 1, "restecg": 0, "thalach": 150, "exang": 0,
-                "oldpeak": 2.3, "slope": 1, "ca": 0, "thal": 6,
-                "hospital_id": "hospital_1",
+                "age": 63, "sex": 1, "cp": 4, "trestbps": 145,
+                "restecg": 0, "thalach": 150, "exang": 0, "oldpeak": 2.3,
+                "hospital_id": "cleveland",
             }
         }
     }

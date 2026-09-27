@@ -85,7 +85,7 @@ export default function Problem() {
           <div className="flow-response" style={{ gridColumn: "1 / span 2" }}>
             <span className="flow-response-label">Answered by &middot; Federated learning</span>
             <p>Hospitals train together by sharing model weights only &mdash; raw records never leave a site.</p>
-            <Link to="/hospitals">See the {hospitals.length} simulated hospitals →</Link>
+            <Link to="/hospitals">See the {hospitals.length} hospitals →</Link>
           </div>
           <div className="flow-response" style={{ gridColumn: "3" }}>
             <span className="flow-response-label">Answered by &middot; Personalization</span>
@@ -108,8 +108,9 @@ export default function Problem() {
         <p style={{ margin: 0, fontSize: "0.92rem", lineHeight: 1.6 }}>
           Can {hospitals.length} hospitals with very different patient populations collaboratively train a heart-disease
           risk model that stays private, serves each hospital well &mdash; especially the worst-off one &mdash; and
-          explains every prediction? This is a research simulation: non-IID partitions of the public{" "}
-          {summary.dataset.name} dataset, not a real multi-hospital deployment.
+          explains every prediction? This is a research simulation on the public {summary.dataset.name} data (
+          {summary.dataset.sites}, collected in 1988): the hospitals are real, but they did not actually run
+          federated training.
         </p>
       </div>
     </div>

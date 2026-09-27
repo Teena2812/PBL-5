@@ -122,3 +122,14 @@ export function patientFieldText(field, value) {
   const text = field.step < 1 ? Number(value).toFixed(1) : String(value);
   return field.unit ? `${text} ${field.unit}` : text;
 }
+
+/** The form fields the current models actually use, in PATIENT_FIELDS order
+ *  (the 4-site models take 8 of the 13 UCI inputs). */
+export function fieldsForModel(preprocessing) {
+  const used = new Set([
+    ...preprocessing.numeric_features,
+    ...preprocessing.binary_features,
+    ...preprocessing.categorical_features,
+  ]);
+  return PATIENT_FIELDS.filter((f) => used.has(f.key));
+}

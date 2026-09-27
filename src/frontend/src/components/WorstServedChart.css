@@ -30,7 +30,7 @@
 
 .dumbbell-row {
   display: grid;
-  grid-template-columns: 130px minmax(0, 1fr) 130px 100px;
+  grid-template-columns: 130px minmax(0, 1fr) 150px 100px;
   align-items: center;
   gap: 14px;
 }
@@ -129,4 +129,23 @@
     margin-left: 0;
   }
 
+}
+
+/* Hollow ring marker (pooled / centralized result). */
+.dumbbell-dot-ring {
+  border-width: 3px;
+  border-style: solid;
+  box-shadow: none;
+}
+
+.dumbbell-key-ring {
+  background: transparent;
+  border: 2px solid;
+  box-sizing: border-box;
+}
+
+.dumbbell-sub {
+  display: block;
+  font-size: 0.74rem;
+  color: var(--color-text-muted);
 }

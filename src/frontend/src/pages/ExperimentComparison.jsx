@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import {
   BarChart,
@@ -13,6 +14,7 @@ import {
   ResponsiveContainer,
   LabelList,
   Cell,
+  ReferenceLine,
 } from "recharts";
 import {
   getDashboardSummary,
@@ -25,6 +27,8 @@ import { useApiData } from "../hooks/useApiData";
 import { Loading, ErrorState } from "../components/LoadingAndError";
 import StatCard from "../components/StatCard";
 import Tabs from "../components/Tabs";
+import SeedComparisonChart from "../components/SeedComparisonChart";
+import TradeoffExplorer from "../components/TradeoffExplorer";
 import TrainingReplay from "../components/TrainingReplay";
 import {
   EXPERIMENT_ORDER,
@@ -36,10 +40,12 @@ import {
 } from "../constants/experiments";
 
 const TABS = [
-  { id: "equity", label: "Worst-served hospital", badge: "Headline" },
+  { id: "headline", label: "Federated vs alone vs pooled", badge: "Headline" },
   { id: "replay", label: "Training replay" },
+  { id: "tradeoff", label: "Fairness vs accuracy" },
+  { id: "per-hospital", label: "Per hospital" },
   { id: "multiseed", label: "5-seed mean ± std" },
-  { id: "per-hospital", label: "Per hospital (single run)" },
+  { id: "worst-served", label: "Worst-served hospital" },
 ];
 
 const mutedNote = { color: "var(--color-text-muted)", fontSize: "0.85rem", marginTop: -4 };
@@ -54,92 +60,142 @@ function fmtPts(delta) {
 export default function ExperimentComparison() {
   const equity = useApiData(getEquityAnalysis, []);
   const comparison = useApiData(getExperimentComparison, []);
+  const hospitals = useApiData(getHospitals, []);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const requested = searchParams.get("view");
-  const active = TABS.some((t) => t.id === requested) ? requested : "equity";
-  const setActive = (id) => setSearchParams(id === "equity" ? {} : { view: id }, { replace: true });
+  const active = TABS.some((t) => t.id === requested) ? requested : "headline";
+  const setActive = (id) => setSearchParams(id === "headline" ? {} : { view: id }, { replace: true });
 
-  if (equity.loading || comparison.loading) return <Loading />;
-  if (equity.error) return <ErrorState error={equity.error} />;
-  if (comparison.error) return <ErrorState error={comparison.error} />;
+  if (equity.loading || comparison.loading || hospitals.loading) return <Loading />;
+  for (const r of [equity, comparison, hospitals]) if (r.error) return <ErrorState error={r.error} />;
+  const sites = hospitals.data.hospitals;
 
   return (
     <div>
       <div className="page-header">
         <h1>Experiment Comparison</h1>
         <p>
-          Local ML vs Centralized vs FedAvg vs FedProx vs Personalized FL &middot; identical model architecture in
-          every setting
+          Each hospital alone vs federated (FedAvg, FedProx, personalized) vs all data pooled &middot; the same model in
+          every setting, {sites.length} real hospitals
         </p>
       </div>
 
       <Tabs tabs={TABS} active={active} onChange={setActive} label="Comparison views" />
 
       <div role="tabpanel" id={`panel-${active}`} aria-labelledby={`tab-${active}`}>
-        {active === "equity" && <EquityView data={equity.data} />}
+        {active === "headline" && <HeadlineView equity={equity.data} sites={sites} />}
         {active === "replay" && <ReplayView />}
+        {active === "tradeoff" && <TradeoffExplorer comparison={comparison.data} hospitals={sites} />}
+        {active === "per-hospital" && <PerHospitalView data={comparison.data} sites={sites} />}
         {active === "multiseed" && <MultiSeedView data={equity.data} />}
-        {active === "per-hospital" && <PerHospitalView data={comparison.data} />}
+        {active === "worst-served" && <WorstServedView equity={equity.data} sites={sites} />}
       </div>
     </div>
   );
 }
 
 /* ------------------------------------------------------------------ */
-/* Equity: worst-served hospital per seed, before/after personalization */
+/* Headline: federated vs each hospital alone vs all data pooled       */
 /* ------------------------------------------------------------------ */
 
-function EquityView({ data }) {
-  const rows = data.per_seed.map((r) => ({
+function HeadlineView({ equity, sites }) {
+  const h = equity.headline;
+  const nTest = sites.reduce((s, x) => s + x.n_test, 0);
+  return (
+    <>
+      <div className="headline-callout">
+        <span className="headline-callout-label">Headline finding</span>
+        <span>{h.text}</span>
+      </div>
+
+      <div className="grid grid-stats" style={{ marginTop: 20 }}>
+        <StatCard
+          label="Beats training alone"
+          value={`${h.seeds_fedavg_beats_local}/${h.n_seeds} seeds`}
+          sublabel={`federated ${fmtPct(h.fedavg_mean_accuracy)} vs alone ${fmtPct(h.local_mean_accuracy)}`}
+          accent="success"
+        />
+        <StatCard label="Average gain" value={`+${h.delta_pp} pp`} sublabel="overall accuracy, 5-seed mean" accent="primary" />
+        <StatCard
+          label="Matches or beats pooling"
+          value={`${h.seeds_fedavg_matches_or_beats_centralized}/${h.n_seeds} seeds`}
+          sublabel={`pooled data averaged ${fmtPct(h.centralized_mean_accuracy)}`}
+          accent="teal"
+        />
+        <StatCard label="Patient records shared" value="0" sublabel="only model weights travel" accent="success" />
+      </div>
+
+      <div className="card" style={{ marginTop: 20 }}>
+        <h3>Overall accuracy per seed</h3>
+        <p style={mutedNote}>
+          Correct predictions across all {nTest} held-out test patients &middot; same model, five random starting
+          points
+        </p>
+        <SeedComparisonChart seeds={h.per_seed} />
+      </div>
+
+      <div className="card" style={{ marginTop: 20 }}>
+        <h3>Reading this honestly</h3>
+        <ul style={{ fontSize: "0.9rem", lineHeight: 1.55, margin: 0, paddingLeft: 18 }}>
+          <li>
+            &ldquo;Training alone&rdquo; means each hospital trains the same model on only its own patients; the
+            comparison is overall accuracy across all four hospitals&apos; test patients.
+          </li>
+          <li>
+            Not every hospital gains: Switzerland&apos;s own model scores higher on accuracy than the federated one,
+            but on a test set of {sites.find((x) => x.hospital === "switzerland")?.test_disease} diseased and{" "}
+            {sites.find((x) => x.hospital === "switzerland")?.test_no_disease} healthy patients, where accuracy says
+            little (see the <em>Per hospital</em> tab with balanced accuracy or AUC).
+          </li>
+          <li>
+            Runs on Flower&apos;s Ray engine can differ by one or two test patients between identical runs
+            (&plusmn;0.5&ndash;1 pp), so single-seed differences that small are noise.
+          </li>
+        </ul>
+      </div>
+    </>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Personalization at the worst-served hospital (a mixed result)       */
+/* ------------------------------------------------------------------ */
+
+function WorstServedView({ equity, sites }) {
+  const ws = equity.worst_served;
+  const rows = ws.per_seed.map((r) => ({
     ...r,
     label: `Seed ${r.seed}`,
     hospitalName: hospitalLabel(r.worst_hospital),
   }));
   const nSeeds = rows.length;
-  const improved = rows.filter((r) => r.delta > 0);
-  const worse = rows.filter((r) => r.delta < 0);
-  const meanDelta = (list) => list.reduce((sum, r) => sum + r.delta, 0) / list.length;
-
   const worstCounts = rows.reduce((acc, r) => ({ ...acc, [r.worst_hospital]: (acc[r.worst_hospital] || 0) + 1 }), {});
   const [mostWorst, mostWorstCount] = Object.entries(worstCounts).sort((a, b) => b[1] - a[1])[0];
+  const worstSite = sites.find((x) => x.hospital === mostWorst);
+  const onePatientPp = worstSite ? 100 / worstSite.n_test : null;
 
   return (
     <>
-      <div className="headline-callout">
-        <span className="headline-callout-label">Headline finding</span>
-        <span>{data.headline}</span>
-      </div>
-
-      <div className="grid grid-stats" style={{ marginTop: 20 }}>
+      <div className="grid grid-stats">
         <StatCard
-          label="Worst hospital improved"
-          value={`${improved.length}/${nSeeds} seeds`}
-          sublabel="personalized vs FedAvg, same hospital"
-          accent="success"
+          label="Worst-served hospital"
+          value={hospitalLabel(mostWorst)}
+          sublabel={`lowest FedAvg accuracy in ${mostWorstCount}/${nSeeds} seeds`}
+          accent="warning"
         />
+        <StatCard label="Personalization helped" value={`${ws.seeds_improved}/${nSeeds} seeds`} sublabel="same hospital" accent="primary" />
+        <StatCard label="No change / hurt" value={`${ws.seeds_flat} / ${ws.seeds_worse}`} sublabel="seeds" accent="teal" />
         <StatCard
-          label="Avg gain when improved"
-          value={improved.length ? fmtPts(meanDelta(improved)) : "—"}
-          sublabel={`over the ${improved.length} improved seeds`}
-          accent="primary"
-        />
-        <StatCard
-          label="Avg gain, all seeds"
-          value={fmtPts(meanDelta(rows))}
-          sublabel="including the flat case"
-          accent="teal"
-        />
-        <StatCard
-          label="Seeds made worse"
-          value={worse.length}
-          sublabel={`${hospitalLabel(mostWorst)} was worst-served in ${mostWorstCount}/${nSeeds} seeds`}
-          accent={worse.length ? "warning" : "success"}
+          label="Mean change"
+          value={`${ws.mean_delta_pp > 0 ? "+" : ""}${ws.mean_delta_pp} pp`}
+          sublabel={onePatientPp ? `1 patient = ${onePatientPp.toFixed(1)} pp at ${hospitalLabel(mostWorst)}` : "all seeds"}
+          accent={ws.mean_delta_pp < 0 ? "warning" : "success"}
         />
       </div>
 
       <div className="card" style={{ marginTop: 20 }}>
-        <h3>Worst-served hospital: FedAvg vs Personalized</h3>
+        <h3>Worst-served hospital: FedAvg vs personalized</h3>
         <p style={mutedNote}>
           For each model-init seed, the hospital with the lowest FedAvg accuracy &mdash; and the same hospital after
           FedProx + local fine-tuning
@@ -156,25 +212,10 @@ function EquityView({ data }) {
               formatter={(value) => <span style={{ color: "var(--color-text)" }}>{value}</span>}
             />
             <Bar dataKey="fedavg_accuracy" name="FedAvg" fill={EXPERIMENT_COLORS.fedavg} radius={[4, 4, 0, 0]}>
-              <LabelList
-                dataKey="fedavg_accuracy"
-                position="top"
-                formatter={(v) => fmtPct(v)}
-                style={{ fontSize: 11, fill: "var(--color-text)" }}
-              />
+              <LabelList dataKey="fedavg_accuracy" position="top" formatter={(v) => fmtPct(v)} style={{ fontSize: 11, fill: "var(--color-text)" }} />
             </Bar>
-            <Bar
-              dataKey="personalized_accuracy"
-              name="Personalized"
-              fill={EXPERIMENT_COLORS.personalized}
-              radius={[4, 4, 0, 0]}
-            >
-              <LabelList
-                dataKey="personalized_accuracy"
-                position="top"
-                formatter={(v) => fmtPct(v)}
-                style={{ fontSize: 11, fill: "var(--color-text)" }}
-              />
+            <Bar dataKey="personalized_accuracy" name="Personalized" fill={EXPERIMENT_COLORS.personalized} radius={[4, 4, 0, 0]}>
+              <LabelList dataKey="personalized_accuracy" position="top" formatter={(v) => fmtPct(v)} style={{ fontSize: 11, fill: "var(--color-text)" }} />
             </Bar>
           </BarChart>
         </ResponsiveContainer>
@@ -214,16 +255,18 @@ function EquityView({ data }) {
         </div>
 
         <div className="card">
-          <h3>Why this is the headline</h3>
+          <h3>Reading this honestly</h3>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.55, margin: "0 0 10px 0" }}>
-            A global accuracy number is weighted by patient count, so the largest hospitals dominate it and a gain at
-            a small, poorly-served hospital barely moves it. On that global number, Personalized only ties FedAvg (see
-            the <em>5-seed mean ± std</em> tab).
+            The project set out to test whether personalization helps the hospital a shared model serves worst. On the
+            real four-hospital data it does not do so reliably: {ws.seeds_improved} seeds better, {ws.seeds_flat} flat,{" "}
+            {ws.seeds_worse} worse.
           </p>
           <p style={{ fontSize: "0.9rem", lineHeight: 1.55, margin: 0 }}>
-            The project&apos;s hypothesis is about the worst-off participant: does personalization help the hospital
-            the shared model serves worst? That is what this view measures &mdash; and the one seed with no gain is
-            shown as a flat result, not hidden.
+            {onePatientPp
+              ? `Each step is one or two of ${hospitalLabel(mostWorst)}'s ${worstSite.n_test} test patients (${onePatientPp.toFixed(1)} pp each), the same size as run-to-run noise.`
+              : "The changes are one or two test patients, the same size as run-to-run noise."}{" "}
+            An earlier version of this project, on a synthetic split of Cleveland alone, found a large improvement
+            here; it did not carry over to the real multi-hospital data.
           </p>
         </div>
       </div>
@@ -378,14 +421,12 @@ function MultiSeedView({ data }) {
         <div className="card">
           <h3>Reading this honestly</h3>
           <ul style={{ fontSize: "0.9rem", lineHeight: 1.55, margin: 0, paddingLeft: 18 }}>
-            <li>Federated training (FedAvg) matches or beats both training in isolation and pooling all data.</li>
+            <li>Federated training (FedAvg) beats each hospital training alone and matches or beats pooling all data.</li>
+            <li>FedProx&apos;s proximal term alone (before fine-tuning) lands within noise of FedAvg.</li>
             <li>
-              FedProx&apos;s proximal term alone (before fine-tuning) scores <em>below</em> FedAvg; local fine-tuning
-              recovers that loss but only ties FedAvg on this global number.
-            </li>
-            <li>
-              Global accuracy is not where personalization&apos;s value shows &mdash; the{" "}
-              <em>Worst-served hospital</em> tab is.
+              Personalized has the highest mean, but much of that gain is Switzerland&apos;s model predicting
+              &ldquo;disease&rdquo; for everyone &mdash; see the <em>Per hospital</em> tab with AUC or balanced
+              accuracy.
             </li>
           </ul>
         </div>
@@ -403,81 +444,124 @@ function MeanDot({ cx, cy, fill }) {
 /* Single run (model-init seed 42): per-hospital accuracy by setting   */
 /* ------------------------------------------------------------------ */
 
-function PerHospitalView({ data }) {
+const PER_HOSPITAL_METRICS = [
+  { id: "accuracy", label: "Accuracy" },
+  { id: "balanced_accuracy", label: "Balanced accuracy" },
+  { id: "auc", label: "AUC" },
+];
+
+function PerHospitalView({ data, sites }) {
+  const [metric, setMetric] = useState("accuracy");
   const keys = EXPERIMENT_ORDER.filter((k) => data.per_hospital[k]);
+  const metricLabel = PER_HOSPITAL_METRICS.find((m) => m.id === metric).label;
 
   // Each experiment's per-hospital list comes in its own order; index by hospital.
   const byHospital = {};
   for (const key of keys) {
     for (const row of data.per_hospital[key]) {
-      byHospital[row.hospital] = { ...byHospital[row.hospital], [key]: row.accuracy };
+      byHospital[row.hospital] = { ...byHospital[row.hospital], [key]: row[metric] };
     }
   }
-  const hospitals = Object.keys(byHospital).sort();
-  const chartData = hospitals.map((h) => ({ hospital: h, label: hospitalLabel(h), ...byHospital[h] }));
+  const order = sites.map((x) => x.hospital);
+  const chartData = order.map((h) => ({ hospital: h, label: hospitalLabel(h), ...byHospital[h] }));
+  const site = Object.fromEntries(sites.map((x) => [x.hospital, x]));
 
   return (
     <>
       <div className="card">
-        <h3>Accuracy per hospital, by training setting</h3>
-        <p style={mutedNote}>Model-init seed 42 &middot; each hospital&apos;s own local test set</p>
+        <div className="tradeoff-head">
+          <div>
+            <h3>{metricLabel} per hospital, by training setting</h3>
+            <p style={{ ...mutedNote, marginBottom: 0 }}>
+              Model-init seed 42 &middot; each hospital&apos;s own held-out test set
+              {metric !== "accuracy" && " · dashed line = chance (0.5)"}
+            </p>
+          </div>
+          <div className="segmented" role="radiogroup" aria-label="Metric">
+            {PER_HOSPITAL_METRICS.map((m) => (
+              <button
+                key={m.id}
+                type="button"
+                role="radio"
+                aria-checked={metric === m.id}
+                className={"segmented-option" + (metric === m.id ? " active" : "")}
+                onClick={() => setMetric(m.id)}
+              >
+                {m.label}
+              </button>
+            ))}
+          </div>
+        </div>
         <ResponsiveContainer width="100%" height={320}>
           <BarChart data={chartData} margin={{ top: 10, right: 10, left: -10, bottom: 0 }} barGap={2}>
             <CartesianGrid strokeDasharray="3 3" stroke={gridStroke} vertical={false} />
             <XAxis dataKey="label" interval={0} tick={{ fontSize: 12 }} />
-            <YAxis domain={[0, 1]} tickFormatter={(v) => `${Math.round(v * 100)}%`} tick={{ fontSize: 12 }} />
-            <Tooltip content={<PerHospitalTooltip keys={keys} />} cursor={hoverCursor} />
+            <YAxis
+              domain={[0, 1]}
+              tickFormatter={(v) => (metric === "auc" ? v.toFixed(1) : `${Math.round(v * 100)}%`)}
+              tick={{ fontSize: 12 }}
+            />
+            {metric !== "accuracy" && <ReferenceLine y={0.5} stroke="var(--color-text-muted)" strokeDasharray="4 4" />}
+            <Tooltip content={<PerHospitalTooltip keys={keys} metric={metric} />} cursor={hoverCursor} />
             <Legend
               wrapperStyle={{ fontSize: 12 }}
               itemSorter={null}
               formatter={(value) => <span style={{ color: "var(--color-text)" }}>{value}</span>}
             />
             {keys.map((key) => (
-              <Bar
-                key={key}
-                dataKey={key}
-                name={EXPERIMENT_LABELS[key]}
-                fill={EXPERIMENT_COLORS[key]}
-                radius={[4, 4, 0, 0]}
-              />
+              <Bar key={key} dataKey={key} name={EXPERIMENT_LABELS[key]} fill={EXPERIMENT_COLORS[key]} radius={[4, 4, 0, 0]} />
             ))}
           </BarChart>
         </ResponsiveContainer>
       </div>
 
       <div className="card" style={{ marginTop: 20 }}>
-        <h3>Accuracy table</h3>
-        <p style={mutedNote}>Best setting per hospital in bold</p>
+        <h3>{metricLabel} table</h3>
+        <p style={mutedNote}>
+          Best setting per hospital in bold
+          {metric === "accuracy" && " · last column: accuracy of always predicting the majority class"}
+        </p>
         <table>
           <thead>
             <tr>
               <th>Hospital</th>
+              <th>Test (disease : healthy)</th>
               {keys.map((key) => (
                 <th key={key}>
                   <Swatch color={EXPERIMENT_COLORS[key]} />
                   {EXPERIMENT_LABELS[key]}
                 </th>
               ))}
+              {metric === "accuracy" && <th>Majority-class</th>}
             </tr>
           </thead>
           <tbody>
             {chartData.map((row) => {
               const best = Math.max(...keys.map((k) => row[k] ?? 0));
+              const fmt = (v) => (v == null ? "—" : metric === "auc" ? v.toFixed(3) : fmtPct(v));
               return (
                 <tr key={row.hospital}>
                   <td>{row.label}</td>
+                  <td className="muted-inline">
+                    {site[row.hospital].test_disease} : {site[row.hospital].test_no_disease}
+                  </td>
                   {keys.map((key) => (
-                    <td key={key}>{row[key] === best ? <strong>{fmtPct(row[key])}</strong> : fmtPct(row[key])}</td>
+                    <td key={key}>{row[key] === best ? <strong>{fmt(row[key])}</strong> : fmt(row[key])}</td>
                   ))}
+                  {metric === "accuracy" && <td className="muted-inline">{fmtPct(site[row.hospital].majority_class_accuracy)}</td>}
                 </tr>
               );
             })}
-            <tr className="table-total">
-              <td>Global (weighted)</td>
-              {keys.map((key) => (
-                <td key={key}>{fmtPct(data.global_accuracy[key])}</td>
-              ))}
-            </tr>
+            {metric === "accuracy" && (
+              <tr className="table-total">
+                <td>Overall (all test patients)</td>
+                <td />
+                {keys.map((key) => (
+                  <td key={key}>{fmtPct(data.global_accuracy[key])}</td>
+                ))}
+                <td />
+              </tr>
+            )}
           </tbody>
         </table>
         <p style={{ ...mutedNote, marginTop: 12, marginBottom: 0 }}>{data.note}</p>
@@ -556,7 +640,7 @@ function MultiSeedTooltip({ active, payload }) {
   );
 }
 
-function PerHospitalTooltip({ active, payload, keys }) {
+function PerHospitalTooltip({ active, payload, keys, metric = "accuracy" }) {
   if (!active || !payload?.length) return null;
   const d = payload[0].payload;
   return (
@@ -565,7 +649,7 @@ function PerHospitalTooltip({ active, payload, keys }) {
       {keys.map((key) => (
         <div key={key}>
           <Swatch color={EXPERIMENT_COLORS[key]} />
-          {EXPERIMENT_LABELS[key]}: {fmtPct(d[key])}
+          {EXPERIMENT_LABELS[key]}: {d[key] == null ? "—" : metric === "auc" ? d[key].toFixed(3) : fmtPct(d[key])}
         </div>
       ))}
     </div>
