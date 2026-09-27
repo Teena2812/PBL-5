@@ -12,6 +12,7 @@ import {
   MULTISEED_NAME_TO_KEY,
   fmtPct,
   hospitalLabel,
+  hospitalsWhereAloneWins,
 } from "../constants/experiments";
 import "./Overview.css";
 
@@ -31,6 +32,7 @@ export default function Overview() {
   if (error) return <ErrorState error={error} />;
 
   const { summary, hospitals, equity, comparison } = data;
+  const aloneWins = hospitalsWhereAloneWins(comparison);
   const h = equity.headline;
   const sizes = hospitals.map((x) => x.n_patients);
   const rates = hospitals.map((x) => x.disease_rate);
@@ -74,6 +76,10 @@ export default function Overview() {
           <span className="muted-note" style={{ margin: 0 }}>
             Overall accuracy = correct predictions across all {hospitals.reduce((s, x) => s + x.n_test, 0)} held-out
             test patients of the four hospitals.
+            {aloneWins.length > 0 &&
+              ` Not at every hospital: in the seed-42 run, ${aloneWins
+                .map((x) => `${hospitalLabel(x.hospital)}'s own model scores ${fmtPct(x.local)} vs federated ${fmtPct(x.fedavg)}`)
+                .join("; ")} (see below for why that accuracy says little).`}
           </span>
         </div>
       </section>

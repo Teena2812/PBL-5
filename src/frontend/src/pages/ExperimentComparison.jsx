@@ -38,6 +38,7 @@ import {
   MULTISEED_NAME_TO_KEY,
   fmtPct,
   hospitalLabel,
+  hospitalsWhereAloneWins,
 } from "../constants/experiments";
 
 const TABS = [
@@ -85,11 +86,11 @@ export default function ExperimentComparison() {
       <Tabs tabs={TABS} active={active} onChange={setActive} label="Comparison views" />
 
       <div role="tabpanel" id={`panel-${active}`} aria-labelledby={`tab-${active}`}>
-        {active === "headline" && <HeadlineView equity={equity.data} sites={sites} />}
+        {active === "headline" && <HeadlineView equity={equity.data} sites={sites} comparison={comparison.data} />}
         {active === "replay" && <ReplayView />}
         {active === "tradeoff" && <TradeoffExplorer comparison={comparison.data} hospitals={sites} />}
         {active === "per-hospital" && <PerHospitalView data={comparison.data} sites={sites} />}
-        {active === "multiseed" && <MultiSeedView data={equity.data} />}
+        {active === "multiseed" && <MultiSeedView data={equity.data} comparison={comparison.data} />}
         {active === "worst-served" && <WorstServedView equity={equity.data} sites={sites} />}
       </div>
     </div>
@@ -100,7 +101,8 @@ export default function ExperimentComparison() {
 /* Headline: federated vs each hospital alone vs all data pooled       */
 /* ------------------------------------------------------------------ */
 
-function HeadlineView({ equity, sites }) {
+function HeadlineView({ equity, sites, comparison }) {
+  const aloneWins = hospitalsWhereAloneWins(comparison);
   const h = equity.headline;
   const nTest = sites.reduce((s, x) => s + x.n_test, 0);
   return (
@@ -143,12 +145,19 @@ function HeadlineView({ equity, sites }) {
             &ldquo;Training alone&rdquo; means each hospital trains the same model on only its own patients; the
             comparison is overall accuracy across all four hospitals&apos; test patients.
           </li>
-          <li>
-            Not every hospital gains: Switzerland&apos;s own model scores higher on accuracy than the federated one,
-            but on a test set of {sites.find((x) => x.hospital === "switzerland")?.test_disease} diseased and{" "}
-            {sites.find((x) => x.hospital === "switzerland")?.test_no_disease} healthy patients, where accuracy says
-            little (see the <em>Per hospital</em> tab with balanced accuracy or AUC).
-          </li>
+          {aloneWins.length > 0 && (
+            <li>
+              Not every hospital gains. In the seed-42 run (the only run with per-hospital results), {aloneWins.map((x, i) => (
+              <span key={x.hospital}>
+                {i > 0 && "; "}
+                {hospitalLabel(x.hospital)}&apos;s own model scores {fmtPct(x.local)} vs federated {fmtPct(x.fedavg)}
+              </span>
+            ))}.
+              Switzerland&apos;s test set has {sites.find((x) => x.hospital === "switzerland")?.test_disease} diseased and{" "}
+              {sites.find((x) => x.hospital === "switzerland")?.test_no_disease} healthy patients, where accuracy says
+              little (see the <em>Per hospital</em> tab with balanced accuracy or AUC).
+            </li>
+          )}
           <li>
             Runs on Flower&apos;s Ray engine can differ by one or two test patients between identical runs
             (&plusmn;0.5&ndash;1 pp), so single-seed differences that small are noise.
@@ -335,7 +344,8 @@ function ReplayView() {
 /* Multi-seed global accuracy: mean ± std across 5 model-init seeds    */
 /* ------------------------------------------------------------------ */
 
-function MultiSeedView({ data }) {
+function MultiSeedView({ data, comparison }) {
+  const aloneWins = hospitalsWhereAloneWins(comparison);
   const rows = data.phase5_multiseed_summary
     .map((r) => ({ ...r, key: MULTISEED_NAME_TO_KEY[r.experiment] }))
     .filter((r) => r.key)
@@ -448,7 +458,21 @@ function MultiSeedView({ data }) {
         <div className="card">
           <h3>Reading this honestly</h3>
           <ul style={{ fontSize: "0.9rem", lineHeight: 1.55, margin: 0, paddingLeft: 18 }}>
-            <li>Federated training (FedAvg) beats each hospital training alone and matches or beats pooling all data.</li>
+            <li>
+              On overall accuracy, federated training (FedAvg) beats hospitals training alone and matches or beats
+              pooling all data.
+              {aloneWins.length > 0 && (
+                <>
+                  {" "}
+                  Not at every hospital: in the seed-42 run, {aloneWins.map((x, i) => (
+              <span key={x.hospital}>
+                {i > 0 && "; "}
+                {hospitalLabel(x.hospital)}&apos;s own model scores {fmtPct(x.local)} vs federated {fmtPct(x.fedavg)}
+              </span>
+            ))}.
+                </>
+              )}
+            </li>
             <li>FedProx&apos;s proximal term alone (before fine-tuning) lands within noise of FedAvg.</li>
             <li>
               Personalized has the highest mean, but much of that gain is Switzerland&apos;s model predicting

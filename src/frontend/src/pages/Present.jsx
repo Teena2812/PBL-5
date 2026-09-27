@@ -1,22 +1,29 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { getDashboardSummary, getEquityAnalysis, getHospitals, getTrainingCurves } from "../api/client";
+import {
+  getDashboardSummary,
+  getEquityAnalysis,
+  getExperimentComparison,
+  getHospitals,
+  getTrainingCurves,
+} from "../api/client";
 import { useApiData } from "../hooks/useApiData";
 import { Loading, ErrorState } from "../components/LoadingAndError";
 import TrainingReplay from "../components/TrainingReplay";
 import SeedComparisonChart from "../components/SeedComparisonChart";
-import { fmtPct, hospitalLabel } from "../constants/experiments";
+import { fmtPct, hospitalLabel, hospitalsWhereAloneWins } from "../constants/experiments";
 import { PHASES } from "../constants/roadmap";
 import "./Present.css";
 
 async function getPresentData() {
-  const [summary, hospitals, equity, curves] = await Promise.all([
+  const [summary, hospitals, equity, curves, comparison] = await Promise.all([
     getDashboardSummary(),
     getHospitals(),
     getEquityAnalysis(),
     getTrainingCurves(),
+    getExperimentComparison(),
   ]);
-  return { summary, hospitals: hospitals.hospitals, equity, curves };
+  return { summary, hospitals: hospitals.hospitals, equity, curves, comparison };
 }
 
 // Slide order is fixed; navigation is Next/Back only (plus arrow / PageUp /
@@ -249,22 +256,32 @@ function ReplaySlide({ curves, hospitals, summary }) {
 }
 
 /* 4. Headline finding */
-function HeadlineSlide({ equity }) {
+function HeadlineSlide({ equity, comparison }) {
   const h = equity.headline;
+  const aloneWins = hospitalsWhereAloneWins(comparison);
   return (
     <>
-      <SlideHead step="Headline finding" title="Training together beats training alone — without sharing records">
+      <SlideHead step="Headline finding" title="Overall, training together beats training alone — without sharing records">
         Same model, same data, {h.n_seeds} random starting points. Pooling all records in one place (which privacy rules
         forbid) averaged {fmtPct(h.centralized_mean_accuracy)}.
       </SlideHead>
       <KeyNumber
         value={`+${h.delta_pp} pp`}
-        label={`federated ${fmtPct(h.fedavg_mean_accuracy)} vs alone ${fmtPct(h.local_mean_accuracy)} · better in ${h.seeds_fedavg_beats_local}/${h.n_seeds} seeds · matches or beats pooling in ${h.seeds_fedavg_matches_or_beats_centralized}/${h.n_seeds}`}
+        label={`overall accuracy: federated ${fmtPct(h.fedavg_mean_accuracy)} vs alone ${fmtPct(h.local_mean_accuracy)} · better in ${h.seeds_fedavg_beats_local}/${h.n_seeds} seeds · matches or beats pooling in ${h.seeds_fedavg_matches_or_beats_centralized}/${h.n_seeds}`}
         tone="success"
       />
       <div className="slide-panel">
         <SeedComparisonChart seeds={h.per_seed} />
       </div>
+      {aloneWins.length > 0 && (
+        <p className="slide-note">
+          <strong>Not at every hospital:</strong> in the seed-42 run,{" "}
+          {aloneWins
+            .map((x) => `${hospitalLabel(x.hospital)}'s own model scores ${fmtPct(x.local)} vs federated ${fmtPct(x.fedavg)}`)
+            .join("; ")}{" "}
+          &mdash; next slide.
+        </p>
+      )}
     </>
   );
 }

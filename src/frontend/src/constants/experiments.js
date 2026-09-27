@@ -68,3 +68,16 @@ export function fmtProb(p, digits = 1) {
 export function hospitalLabel(id) {
   return HOSPITAL_NAMES[id] ?? id;
 }
+
+/**
+ * Hospitals whose own local model beats FedAvg on accuracy in the seed-42
+ * run (the only run with per-hospital results). The headline is about
+ * overall accuracy; these are the exceptions every headline mention must
+ * not paper over.
+ */
+export function hospitalsWhereAloneWins(comparison) {
+  const fedavg = new Map(comparison.per_hospital.fedavg.map((r) => [r.hospital, r.accuracy]));
+  return comparison.per_hospital.local
+    .filter((r) => r.accuracy > (fedavg.get(r.hospital) ?? Infinity))
+    .map((r) => ({ hospital: r.hospital, local: r.accuracy, fedavg: fedavg.get(r.hospital) }));
+}

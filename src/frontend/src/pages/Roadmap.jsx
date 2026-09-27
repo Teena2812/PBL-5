@@ -38,7 +38,7 @@ function phaseResults({ summary, hospitals, equity, explain, samples }) {
     1: `Dataset chosen: ${summary.dataset.name}`,
     2: `${summary.dataset.n_patients} patients → ${summary.n_hospitals} hospitals, disease rate ${fmtPct(Math.min(...rates))}–${fmtPct(Math.max(...rates))}`,
     3: null,
-    4: `FedAvg ${fmtPct(multiseed.fedavg.mean_accuracy)} ± ${fmtPct(multiseed.fedavg.std_accuracy)} vs each hospital alone ${fmtPct(multiseed.local.mean_accuracy)} (${multiseed.fedavg.n_seeds} seeds)`,
+    4: `FedAvg ${fmtPct(multiseed.fedavg.mean_accuracy)} ± ${fmtPct(multiseed.fedavg.std_accuracy)} vs hospitals alone ${fmtPct(multiseed.local.mean_accuracy)} overall accuracy (${multiseed.fedavg.n_seeds} seeds)`,
     5: `Personalized ${fmtPct(multiseed.personalized.mean_accuracy)} overall (5 seeds); at the worst-served hospital a mixed result: better in ${ws.seeds_improved}/${ws.per_seed.length} seeds`,
     6: `Top driver: ${featureLabel(explain.rf_global_importance[0].feature)}`,
     7: samples.length
