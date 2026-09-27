@@ -8,7 +8,10 @@
 > are experimental and for academic/research purposes (PBL-3, Sharda
 > University, Dept. of CSE (AI/ML), CSP-391).
 
-**Live dashboard:** https://teena2812.github.io/PBL-5/
+**Dashboard:** https://teena2812.github.io/PBL-5/ -- note: the published site
+still shows the earlier Cleveland-only version; it updates to what this README
+describes when the `multisite-data` branch is merged to `master`. To view the
+current version locally, see [Live dashboard (GitHub Pages)](#live-dashboard-github-pages).
 
 ## Headline result
 
@@ -102,8 +105,8 @@ Every figure below was counted from the raw UCI files, not recalled.
 | **Total** | **849** | 461 | 388 | 54.3% |
 
 Honest caveats: dropping `ca` and `thal` removes the two strongest
-predictors in the Cleveland-only SHAP analysis, so accuracy is expected to
-fall; Switzerland has only 8 patients without disease, so its per-site
+predictors in the Cleveland-only SHAP analysis, so accuracies here are not
+comparable with the archived Cleveland-only numbers; Switzerland has only 8 patients without disease, so its per-site
 accuracy is not meaningful on its own (a model that always predicts
 "disease" scores 93% there) and is reported with balanced accuracy and
 AUC (Results, section 3);
@@ -278,8 +281,8 @@ hard-coded.
 | **Overview** | The headline, per-seed chart (alone → federated, pooled marker), the Switzerland accuracy story, the mixed personalization result, per-hospital table with always-"disease" baseline, balanced accuracy and AUC |
 | **Problem** | Barrier chain (privacy laws → data silos → non-IID → clinician mistrust), each with evidence from this data |
 | **Hospitals** | Site sizes, disease split, demographics |
-| **Experiment Comparison** | Tabs: headline; **training replay** (recorded run, or **run it live** on the server); **fairness vs accuracy** (overall vs worst-hospital metric per setting and seed, plus live runs); per hospital (accuracy / balanced accuracy / AUC); 5-seed mean ± std; worst-served hospital |
-| **Explainability** | Tabs: sample patients (real SHAP); **try a prediction** (all 4 models in the browser, hand-off from any test patient); **patients the models split on** (all 4 models on all 213 test patients, live); global SHAP importance |
+| **Experiment Comparison** | Tabs: *Federated vs alone vs pooled* (headline, default); *Training replay* (recorded run, or *Run it live* on the server); *Fairness vs accuracy* (overall vs worst-hospital metric per setting and seed, plus live runs); *Per hospital* (accuracy / balanced accuracy / AUC); *5-seed mean ± std*; *Worst-served hospital* |
+| **Explainability** | Tabs: *Sample patients* (real SHAP); *Try a prediction* (all 4 models in the browser, hand-off from any test patient); *Where models disagree* (all 4 models on all 213 test patients, computed live); *Global importance* (SHAP) |
 | **Roadmap** | 8-phase timeline with each phase's result |
 | **Present** (`/present`) | 6 full-screen slides: problem, non-IID, training replay, headline, Switzerland, roadmap |
 
@@ -373,7 +376,8 @@ training. Deploy dependencies: [`requirements-live.txt`](requirements-live.txt)
 [`tests/live_training_e2e.py`](tests/live_training_e2e.py) (real server,
 run by [`.github/workflows/live-training-check.yml`](.github/workflows/live-training-check.yml)
 inside a 512 MB / 0.1 CPU container, comparing every streamed number with
-the Flower experiment outputs).
+the Colab-confirmed Flower outputs committed in [`tests/reference/`](tests/reference/)
+and with a direct in-process run of the Ray-free loop).
 
 ### Live-training feasibility (measured 2026-09-26)
 
@@ -410,10 +414,26 @@ Pages can't route deep links. Local static build:
 cd src/frontend && VITE_STATIC_DATA=true VITE_ROUTER=hash VITE_BASE=/PBL-5/ npm run build:static
 ```
 
-CI: [`frontend-check.yml`](.github/workflows/frontend-check.yml) lints and
-builds the frontend on every push;
-[`export-model-artifacts.yml`](.github/workflows/export-model-artifacts.yml)
-regenerates the torch-dependent artifacts (sample and test patients).
+To preview that build locally (serves `dist/` at http://localhost:4173/PBL-5/;
+live training shows "not connected" unless `VITE_LIVE_API_URL` was set for
+the build):
+
+```bash
+cd src/frontend && npx vite preview --base /PBL-5/
+```
+
+## Testing and CI
+
+| Check | What it verifies | Runs |
+|---|---|---|
+| [`frontend-check.yml`](.github/workflows/frontend-check.yml) | oxlint + production build of the dashboard | pushes to `multisite-data` touching the frontend or dashboard data |
+| [`live-training-check.yml`](.github/workflows/live-training-check.yml) | streaming-contract unit tests, then a real server in a 512 MB / 0.1 CPU container: every streamed round-by-hospital number vs [`tests/reference/`](tests/reference/) (80/80 FedAvg, 80/80 FedProx, 4/4 personalized), SSE delivery timing, one-run-at-a-time lock, peak memory | pushes to `multisite-data` touching backend, federated, data, tests, `requirements-live.txt` or `render.yaml`; or run by hand |
+| [`export-model-artifacts.yml`](.github/workflows/export-model-artifacts.yml) | regenerates the torch-dependent sample and test-patient files and commits them | pushes to `multisite-data` touching the models or those exporters |
+| [`deploy-pages.yml`](.github/workflows/deploy-pages.yml) | lint + static build + publish to GitHub Pages | pushes to `master` |
+| In-browser self-check | 856 reference predictions re-scored on every page load; predictions switch off on any mismatch | every dashboard load |
+
+Local, without torch: `venv\Scripts\python tests	est_live_training.py`
+(the streaming-contract tests).
 
 ## Setup
 
@@ -455,9 +475,9 @@ PBL-5/
 │   ├── explainability/    ← SHAP
 │   ├── backend/           ← FastAPI app (data, prediction, live training)
 │   └── frontend/          ← React dashboard
-├── experiments/          ← phase scripts, exporters, results/ (CSVs, models, dashboard_data, logs)
+├── experiments/          ← phase scripts, exporters, results/ (models, dashboard_data, logs; result CSVs gitignored)
 ├── notebooks/            ← Colab notebook
-├── tests/                ← live-training tests
+├── tests/                ← live-training tests + reference outputs
 ├── requirements.txt
 └── README.md
 ```
