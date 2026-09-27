@@ -1,113 +1,160 @@
 {
-  "per_seed": [
-    {
-      "seed": 42,
-      "worst_hospital": "hospital_1",
-      "fedavg_accuracy": 0.7333,
-      "personalized_accuracy": 0.8667,
-      "delta": 0.1334,
-      "improved": true
-    },
-    {
-      "seed": 1,
-      "worst_hospital": "hospital_1",
-      "fedavg_accuracy": 0.7333,
-      "personalized_accuracy": 0.8,
-      "delta": 0.0667,
-      "improved": true
-    },
-    {
-      "seed": 7,
-      "worst_hospital": "hospital_1",
-      "fedavg_accuracy": 0.7333,
-      "personalized_accuracy": 0.8667,
-      "delta": 0.1334,
-      "improved": true
-    },
-    {
-      "seed": 123,
-      "worst_hospital": "hospital_1",
-      "fedavg_accuracy": 0.7333,
-      "personalized_accuracy": 0.8667,
-      "delta": 0.1334,
-      "improved": true
-    },
-    {
-      "seed": 2024,
-      "worst_hospital": "hospital_2",
-      "fedavg_accuracy": 0.75,
-      "personalized_accuracy": 0.75,
-      "delta": 0.0,
-      "improved": false
-    }
-  ],
+  "headline": {
+    "text": "Federated training beats hospitals training alone in 5/5 seeds (82.6% vs 78.8% overall accuracy, +3.9pp average) and matches or beats full data pooling in 5/5 seeds \u2014 without sharing patient records.",
+    "n_seeds": 5,
+    "seeds_fedavg_beats_local": 5,
+    "seeds_fedavg_matches_or_beats_centralized": 5,
+    "fedavg_mean_accuracy": 0.8263,
+    "local_mean_accuracy": 0.7878,
+    "centralized_mean_accuracy": 0.8178,
+    "delta_pp": 3.9,
+    "per_seed": [
+      {
+        "seed": 42,
+        "local_nn_accuracy": 0.7840173708920187,
+        "fedavg_nn_accuracy": 0.8309657276995305,
+        "centralized_nn_accuracy": 0.8216
+      },
+      {
+        "seed": 1,
+        "local_nn_accuracy": 0.8028173708920187,
+        "fedavg_nn_accuracy": 0.8169004694835681,
+        "centralized_nn_accuracy": 0.8075
+      },
+      {
+        "seed": 7,
+        "local_nn_accuracy": 0.7980957746478874,
+        "fedavg_nn_accuracy": 0.8216103286384976,
+        "centralized_nn_accuracy": 0.8216
+      },
+      {
+        "seed": 123,
+        "local_nn_accuracy": 0.7793169014084507,
+        "fedavg_nn_accuracy": 0.8262934272300468,
+        "centralized_nn_accuracy": 0.8169
+      },
+      {
+        "seed": 2024,
+        "local_nn_accuracy": 0.7746338028169013,
+        "fedavg_nn_accuracy": 0.8356859154929578,
+        "centralized_nn_accuracy": 0.8216
+      }
+    ]
+  },
+  "worst_served": {
+    "per_seed": [
+      {
+        "seed": 42,
+        "worst_hospital": "va_long_beach",
+        "fedavg_accuracy": 0.8,
+        "personalized_accuracy": 0.8286,
+        "delta": 0.0286,
+        "improved": true
+      },
+      {
+        "seed": 1,
+        "worst_hospital": "va_long_beach",
+        "fedavg_accuracy": 0.7429,
+        "personalized_accuracy": 0.7714,
+        "delta": 0.0285,
+        "improved": true
+      },
+      {
+        "seed": 7,
+        "worst_hospital": "va_long_beach",
+        "fedavg_accuracy": 0.7429,
+        "personalized_accuracy": 0.7429,
+        "delta": 0.0,
+        "improved": false
+      },
+      {
+        "seed": 123,
+        "worst_hospital": "va_long_beach",
+        "fedavg_accuracy": 0.7714,
+        "personalized_accuracy": 0.7429,
+        "delta": -0.0285,
+        "improved": false
+      },
+      {
+        "seed": 2024,
+        "worst_hospital": "va_long_beach",
+        "fedavg_accuracy": 0.7714,
+        "personalized_accuracy": 0.7143,
+        "delta": -0.0571,
+        "improved": false
+      }
+    ],
+    "seeds_improved": 2,
+    "seeds_flat": 1,
+    "seeds_worse": 2,
+    "mean_delta_pp": -0.57
+  },
   "phase4_multiseed_summary": [
     {
       "experiment": "Local NN",
-      "mean_accuracy": 0.8053,
-      "std_accuracy": 0.0172,
-      "min_accuracy": 0.7895,
-      "max_accuracy": 0.829,
+      "mean_accuracy": 0.7878,
+      "std_accuracy": 0.0122,
+      "min_accuracy": 0.7746,
+      "max_accuracy": 0.8028,
       "n_seeds": 5
     },
     {
       "experiment": "FedAvg NN",
-      "mean_accuracy": 0.8316,
-      "std_accuracy": 0.0059,
-      "min_accuracy": 0.829,
-      "max_accuracy": 0.8421,
+      "mean_accuracy": 0.8263,
+      "std_accuracy": 0.0074,
+      "min_accuracy": 0.8169,
+      "max_accuracy": 0.8357,
       "n_seeds": 5
     },
     {
       "experiment": "Centralized NN",
-      "mean_accuracy": 0.8052,
-      "std_accuracy": 0.027,
-      "min_accuracy": 0.7763,
-      "max_accuracy": 0.8289,
+      "mean_accuracy": 0.8178,
+      "std_accuracy": 0.0061,
+      "min_accuracy": 0.8075,
+      "max_accuracy": 0.8216,
       "n_seeds": 5
     }
   ],
   "phase5_multiseed_summary": [
     {
       "experiment": "Local NN",
-      "mean_accuracy": 0.8053,
-      "std_accuracy": 0.0172,
-      "min_accuracy": 0.7895,
-      "max_accuracy": 0.829,
+      "mean_accuracy": 0.7878,
+      "std_accuracy": 0.0122,
+      "min_accuracy": 0.7746,
+      "max_accuracy": 0.8028,
       "n_seeds": 5
     },
     {
       "experiment": "FedAvg NN",
-      "mean_accuracy": 0.8316,
-      "std_accuracy": 0.0059,
-      "min_accuracy": 0.829,
-      "max_accuracy": 0.8421,
+      "mean_accuracy": 0.8263,
+      "std_accuracy": 0.0074,
+      "min_accuracy": 0.8169,
+      "max_accuracy": 0.8357,
       "n_seeds": 5
     },
     {
       "experiment": "FedProx NN",
-      "mean_accuracy": 0.8184,
-      "std_accuracy": 0.0144,
-      "min_accuracy": 0.8026,
-      "max_accuracy": 0.8421,
+      "mean_accuracy": 0.8254,
+      "std_accuracy": 0.0077,
+      "min_accuracy": 0.8169,
+      "max_accuracy": 0.831,
       "n_seeds": 5
     },
     {
       "experiment": "Personalized (FedProx+FT)",
-      "mean_accuracy": 0.8316,
-      "std_accuracy": 0.011,
-      "min_accuracy": 0.8158,
-      "max_accuracy": 0.8421,
+      "mean_accuracy": 0.8375,
+      "std_accuracy": 0.0054,
+      "min_accuracy": 0.831,
+      "max_accuracy": 0.8451,
       "n_seeds": 5
     },
     {
       "experiment": "Centralized NN",
-      "mean_accuracy": 0.8052,
-      "std_accuracy": 0.027,
-      "min_accuracy": 0.7763,
-      "max_accuracy": 0.8289,
+      "mean_accuracy": 0.8178,
+      "std_accuracy": 0.0061,
+      "min_accuracy": 0.8075,
+      "max_accuracy": 0.8216,
       "n_seeds": 5
     }
-  ],
-  "headline": "Personalization improved the worst-performing hospital in 4/5 seeds, by an average of +11.67 percentage points among the seeds where it improved (+9.34 pp across all 5, including one flat case)."
+  ]
 }

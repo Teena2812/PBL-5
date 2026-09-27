@@ -1,10 +1,11 @@
 {
   "dataset": {
-    "name": "UCI Heart Disease (Cleveland processed)",
-    "n_patients": 297,
-    "n_features": 22
+    "name": "UCI Heart Disease, 4 sites",
+    "sites": "Cleveland, Hungary, Switzerland, VA Long Beach",
+    "n_patients": 849,
+    "n_features": 13
   },
-  "n_hospitals": 5,
+  "n_hospitals": 4,
   "model_architecture": {
     "class": "HeartDiseaseNet",
     "hidden_sizes": [
@@ -19,11 +20,11 @@
     "proximal_mu": 0.1
   },
   "global_accuracy": {
-    "local": 0.8158,
-    "fedavg": 0.829,
-    "centralized": 0.8158,
-    "fedprox": 0.8158,
-    "personalized": 0.8421
+    "local": 0.784,
+    "fedavg": 0.831,
+    "centralized": 0.8216,
+    "fedprox": 0.831,
+    "personalized": 0.8451
   },
-  "privacy_statement": "Only model weight updates are shared during training -- no raw patient data ever left any simulated hospital. This is a research prototype using non-IID partitions of one public dataset, not a real multi-hospital deployment."
+  "privacy_statement": "Only model weight updates are shared during training -- no patient record leaves its hospital. This is a research simulation on the public UCI Heart Disease data from four real institutions (collected in 1988); those hospitals did not actually run federated training."
 }

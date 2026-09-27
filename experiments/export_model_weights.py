@@ -14,7 +14,7 @@ Also exports what the browser needs around the models:
     experiments/results/models/preprocessing.json) so raw clinical inputs
     are encoded exactly like src/data/load_dataset.py:transform_new_patient
   - each hospital's average encoded patient, over ALL its patients from the
-    seed=117 partition (aggregate means only, no individual records), used
+    4-site dataset (aggregate means only, no individual records), used
     as the baseline for the dashboard's approximate per-feature breakdown
   - the observed min/max of each numeric input across the 297 patients,
     which bounds the dashboard's what-if sliders
@@ -39,16 +39,16 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from src.data.load_dataset import load_and_preprocess, load_preprocessing_artifact, transform_new_patient  # noqa: E402
-from src.data.partition import create_hospital_partitions  # noqa: E402
+from src.data.load_dataset import load_preprocessing_artifact, transform_new_patient  # noqa: E402
+from src.data.multisite import create_site_partitions, load_multisite  # noqa: E402
 
 RESULTS_DIR = Path(__file__).resolve().parent / "results"
 MODELS_DIR = RESULTS_DIR / "models"
 OUT_PATH = RESULTS_DIR / "dashboard_data" / "model_weights.json"
 SAMPLES_PATH = RESULTS_DIR / "dashboard_data" / "sample_patients.json"
+TEST_PATIENTS_PATH = RESULTS_DIR / "dashboard_data" / "test_patients.json"
 
 # Same partition protocol as every other phase (src/backend/inference.py).
-N_CLIENTS, ALPHA, PARTITION_SEED = 5, 0.5, 117
 
 _STORAGE_DTYPES = {"FloatStorage": np.float32, "DoubleStorage": np.float64}
 
@@ -116,7 +116,7 @@ def main() -> None:
     for hospital_id, info in sorted(manifest["hospitals"].items()):
         layers = _layers(_load_state_dict(MODELS_DIR / info["checkpoint"]))
         shapes = [layer["weight"].shape for layer in layers]
-        expected = [(16, 22), (8, 16), (1, 8)]
+        expected = [(16, manifest["n_features"]), (8, 16), (1, 8)]
         if shapes != expected:
             raise ValueError(f"{hospital_id}: layer shapes {shapes}, expected {expected}")
         models[hospital_id] = layers
@@ -134,11 +134,22 @@ def main() -> None:
         if diff > 5e-5:  # saved at 4 dp, so max rounding error is 5e-5
             raise ValueError(f"{s['id']}: exported model disagrees with the real backend output")
 
+    # And against every held-out test patient x every hospital model (torch,
+    # experiments/export_test_patients.py), saved at 6 dp.
+    test_patients = json.loads(TEST_PATIENTS_PATH.read_text(encoding="utf-8"))["patients"]
+    worst = 0.0
+    for t in test_patients:
+        x = transform_new_patient(t["patient"], artifact).iloc[0][feature_order].to_numpy(dtype=np.float64)
+        for h, expected_p in t["probabilities"].items():
+            worst = max(worst, abs(forward_prob(models[h], x) - expected_p))
+    n_checks = sum(len(t["probabilities"]) for t in test_patients)
+    print(f"Verification against test_patients.json (torch): {n_checks} predictions, max |diff| = {worst:.2e}")
+    if worst > 2e-6:  # 6-dp rounding (5e-7) + float32 vs float64
+        raise ValueError(f"exported models disagree with torch on the test patients (max diff {worst})")
+
     # Each hospital's average encoded patient over its full partition.
-    x_all, y_all, df_clean = load_and_preprocess()
-    partitions = create_hospital_partitions(
-        x_all, y_all, df_clean, n_clients=N_CLIENTS, alpha=ALPHA, seed=PARTITION_SEED
-    )
+    x_all, y_all, df_clean = load_multisite()
+    partitions = create_site_partitions(x_all, y_all, df_clean)
     hospitals_json = json.loads((RESULTS_DIR / "dashboard_data" / "hospitals.json").read_text(encoding="utf-8"))
     expected_sizes = {h["hospital"]: h["n_patients"] for h in hospitals_json["hospitals"]}
     baselines = {}
@@ -147,7 +158,7 @@ def main() -> None:
             raise ValueError(f"{p.name}: partition has {len(p.x)} patients, hospitals.json says {expected_sizes[p.name]}")
         baselines[p.name] = {"n_patients": len(p.x), "mean_encoded": p.x[feature_order].mean().round(6).tolist()}
 
-    # Raw-unit range of each numeric input across all 297 patients, so the
+    # Raw-unit range of each numeric input across all patients, so the
     # dashboard's sliders stay inside values the models actually saw.
     observed_range = {
         f: [float(df_clean[f].min()), float(df_clean[f].max())] for f in artifact["numeric_features"]
@@ -159,7 +170,8 @@ def main() -> None:
     OUT_PATH.write_text(json.dumps({
         "architecture": {
             "class": manifest["model_class"],
-            "layers": "Linear(22,16) -> ReLU -> Linear(16,8) -> ReLU -> Linear(8,1) -> sigmoid",
+            "layers": f"Linear({manifest['n_features']},16) -> ReLU -> Linear(16,8) -> ReLU -> Linear(8,1) -> sigmoid",
+            "n_features": manifest["n_features"],
             "n_parameters": int(n_params),
         },
         "feature_order": feature_order,
@@ -183,11 +195,18 @@ def main() -> None:
             for h in models
         },
         "verification": {
-            "reference": "sample_patients.json (predict_and_explain() on Colab)",
+            "reference": (
+                "sample_patients.json (predict_and_explain(), saved at 4 dp) and "
+                "test_patients.json (torch, every test patient x every hospital model, 6 dp)"
+            ),
             "cases": [
                 {"id": s["id"], "hospital_id": s["hospital_id"], "patient": s["patient"],
-                 "expected_probability": s["predicted_probability"]}
+                 "expected_probability": s["predicted_probability"], "tolerance": 5e-5}
                 for s in samples
+            ] + [
+                {"id": f"{t['id']}@{h}", "hospital_id": h, "patient": t["patient"],
+                 "expected_probability": p, "tolerance": 2e-6}
+                for t in test_patients for h, p in t["probabilities"].items()
             ],
         },
     }, indent=1), encoding="utf-8")

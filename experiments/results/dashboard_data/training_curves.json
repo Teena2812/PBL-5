@@ -3,1085 +3,885 @@
     "global_by_round": [
       {
         "round": 1,
-        "global_weighted_accuracy": 0.6841960526315789
+        "global_weighted_accuracy": 0.4601004694835681
       },
       {
         "round": 2,
-        "global_weighted_accuracy": 0.789467105263158
+        "global_weighted_accuracy": 0.6760417840375588
       },
       {
         "round": 3,
-        "global_weighted_accuracy": 0.7763026315789473
+        "global_weighted_accuracy": 0.8168948356807513
       },
       {
         "round": 4,
-        "global_weighted_accuracy": 0.8420815789473683
+        "global_weighted_accuracy": 0.8262723004694835
       },
       {
         "round": 5,
-        "global_weighted_accuracy": 0.8289355263157895
+        "global_weighted_accuracy": 0.821575117370892
       },
       {
         "round": 6,
-        "global_weighted_accuracy": 0.8289355263157895
+        "global_weighted_accuracy": 0.8450596244131455
       },
       {
         "round": 7,
-        "global_weighted_accuracy": 0.8289355263157895
+        "global_weighted_accuracy": 0.8497568075117371
       },
       {
         "round": 8,
-        "global_weighted_accuracy": 0.8289355263157895
+        "global_weighted_accuracy": 0.8450840375586856
       },
       {
         "round": 9,
-        "global_weighted_accuracy": 0.8289355263157895
+        "global_weighted_accuracy": 0.840374178403756
       },
       {
         "round": 10,
-        "global_weighted_accuracy": 0.8289355263157895
+        "global_weighted_accuracy": 0.8310046948356807
       },
       {
         "round": 11,
-        "global_weighted_accuracy": 0.8289355263157895
+        "global_weighted_accuracy": 0.8215976525821596
       },
       {
         "round": 12,
-        "global_weighted_accuracy": 0.8289355263157895
+        "global_weighted_accuracy": 0.8309760563380283
       },
       {
         "round": 13,
-        "global_weighted_accuracy": 0.8289355263157895
+        "global_weighted_accuracy": 0.8356859154929578
       },
       {
         "round": 14,
-        "global_weighted_accuracy": 0.8289355263157895
+        "global_weighted_accuracy": 0.8356859154929578
       },
       {
         "round": 15,
-        "global_weighted_accuracy": 0.8289355263157895
+        "global_weighted_accuracy": 0.8356859154929578
       },
       {
         "round": 16,
-        "global_weighted_accuracy": 0.8157710526315789
+        "global_weighted_accuracy": 0.8403854460093896
       },
       {
         "round": 17,
-        "global_weighted_accuracy": 0.8157710526315789
+        "global_weighted_accuracy": 0.8356755868544601
       },
       {
         "round": 18,
-        "global_weighted_accuracy": 0.8289513157894737
+        "global_weighted_accuracy": 0.8309657276995305
       },
       {
         "round": 19,
-        "global_weighted_accuracy": 0.8289513157894737
+        "global_weighted_accuracy": 0.8309657276995305
       },
       {
         "round": 20,
-        "global_weighted_accuracy": 0.8289513157894737
+        "global_weighted_accuracy": 0.8309657276995305
       }
     ],
     "per_hospital_by_round": [
       {
         "round": 1,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.5,
-        "precision": 0.1429,
-        "recall": 0.5,
-        "f1": 0.2222,
-        "auc": 0.6667
+        "hospital": "va_long_beach",
+        "n_test": 35,
+        "accuracy": 0.2286,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "auc": 0.838
       },
       {
         "round": 1,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.619,
-        "precision": 0.4667,
-        "recall": 1.0,
-        "f1": 0.6364,
-        "auc": 0.8367
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.5395,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "auc": 0.8509
       },
       {
         "round": 1,
-        "hospital": "hospital_1",
-        "n_test": 15,
-        "accuracy": 0.6667,
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.6438,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "auc": 0.8216
+      },
+      {
+        "round": 1,
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.069,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "auc": 0.4815
+      },
+      {
+        "round": 2,
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.4828,
+        "precision": 1.0,
+        "recall": 0.4444,
+        "f1": 0.6154,
+        "auc": 0.5185
+      },
+      {
+        "round": 2,
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.7368,
+        "precision": 0.8571,
+        "recall": 0.5143,
+        "f1": 0.6429,
+        "auc": 0.8871
+      },
+      {
+        "round": 2,
+        "hospital": "va_long_beach",
+        "n_test": 35,
+        "accuracy": 0.6286,
+        "precision": 0.8889,
+        "recall": 0.5926,
+        "f1": 0.7111,
+        "auc": 0.7917
+      },
+      {
+        "round": 2,
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.7123,
+        "precision": 0.7778,
+        "recall": 0.2692,
+        "f1": 0.4,
+        "auc": 0.8511
+      },
+      {
+        "round": 3,
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.8082,
         "precision": 0.7143,
-        "recall": 0.9091,
-        "f1": 0.8,
-        "auc": 0.5909
+        "recall": 0.7692,
+        "f1": 0.7407,
+        "auc": 0.8633
       },
       {
-        "round": 1,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.875,
-        "precision": 0.8571,
-        "recall": 1.0,
-        "f1": 0.9231,
-        "auc": 0.9167
+        "round": 3,
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8421,
+        "precision": 0.7949,
+        "recall": 0.8857,
+        "f1": 0.8378,
+        "auc": 0.9108
       },
       {
-        "round": 1,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8333,
-        "precision": 0.75,
-        "recall": 1.0,
-        "f1": 0.8571,
-        "auc": 0.9383
+        "round": 3,
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.7586,
+        "precision": 0.9167,
+        "recall": 0.8148,
+        "f1": 0.8627,
+        "auc": 0.6111
       },
       {
-        "round": 2,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.7857,
-        "precision": 0.3333,
-        "recall": 0.5,
-        "f1": 0.4,
+        "round": 3,
+        "hospital": "va_long_beach",
+        "n_test": 35,
+        "accuracy": 0.8286,
+        "precision": 0.8387,
+        "recall": 0.963,
+        "f1": 0.8966,
+        "auc": 0.7963
+      },
+      {
+        "round": 4,
+        "hospital": "va_long_beach",
+        "n_test": 35,
+        "accuracy": 0.8,
+        "precision": 0.8125,
+        "recall": 0.963,
+        "f1": 0.8814,
         "auc": 0.7917
       },
       {
-        "round": 2,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.875,
-        "precision": 1.0,
-        "recall": 0.8333,
-        "f1": 0.9091,
-        "auc": 0.9167
+        "round": 4,
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.8219,
+        "precision": 0.697,
+        "recall": 0.8846,
+        "f1": 0.7797,
+        "auc": 0.8846
       },
       {
-        "round": 2,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.8095,
-        "precision": 0.6364,
-        "recall": 1.0,
+        "round": 4,
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.8621,
+        "precision": 0.9259,
+        "recall": 0.9259,
+        "f1": 0.9259,
+        "auc": 0.5926
+      },
+      {
+        "round": 4,
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8289,
+        "precision": 0.775,
+        "recall": 0.8857,
+        "f1": 0.8267,
+        "auc": 0.9213
+      },
+      {
+        "round": 5,
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.8276,
+        "precision": 0.9231,
+        "recall": 0.8889,
+        "f1": 0.9057,
+        "auc": 0.6111
+      },
+      {
+        "round": 5,
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8289,
+        "precision": 0.7619,
+        "recall": 0.9143,
+        "f1": 0.8312,
+        "auc": 0.9289
+      },
+      {
+        "round": 5,
+        "hospital": "va_long_beach",
+        "n_test": 35,
+        "accuracy": 0.8,
+        "precision": 0.8125,
+        "recall": 0.963,
+        "f1": 0.8814,
+        "auc": 0.8056
+      },
+      {
+        "round": 5,
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.8219,
+        "precision": 0.697,
+        "recall": 0.8846,
+        "f1": 0.7797,
+        "auc": 0.8961
+      },
+      {
+        "round": 6,
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.8493,
+        "precision": 0.7419,
+        "recall": 0.8846,
+        "f1": 0.807,
+        "auc": 0.9092
+      },
+      {
+        "round": 6,
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.8276,
+        "precision": 0.9231,
+        "recall": 0.8889,
+        "f1": 0.9057,
+        "auc": 0.5
+      },
+      {
+        "round": 6,
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8684,
+        "precision": 0.8205,
+        "recall": 0.9143,
+        "f1": 0.8649,
+        "auc": 0.9373
+      },
+      {
+        "round": 6,
+        "hospital": "va_long_beach",
+        "n_test": 35,
+        "accuracy": 0.8,
+        "precision": 0.8125,
+        "recall": 0.963,
+        "f1": 0.8814,
+        "auc": 0.7917
+      },
+      {
+        "round": 7,
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.8493,
+        "precision": 0.7419,
+        "recall": 0.8846,
+        "f1": 0.807,
+        "auc": 0.9141
+      },
+      {
+        "round": 7,
+        "hospital": "va_long_beach",
+        "n_test": 35,
+        "accuracy": 0.8,
+        "precision": 0.8125,
+        "recall": 0.963,
+        "f1": 0.8814,
+        "auc": 0.7963
+      },
+      {
+        "round": 7,
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8684,
+        "precision": 0.8205,
+        "recall": 0.9143,
+        "f1": 0.8649,
+        "auc": 0.9401
+      },
+      {
+        "round": 7,
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.8621,
+        "precision": 0.9259,
+        "recall": 0.9259,
+        "f1": 0.9259,
+        "auc": 0.5185
+      },
+      {
+        "round": 8,
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8816,
+        "precision": 0.825,
+        "recall": 0.9429,
+        "f1": 0.88,
+        "auc": 0.9387
+      },
+      {
+        "round": 8,
+        "hospital": "va_long_beach",
+        "n_test": 35,
+        "accuracy": 0.7429,
+        "precision": 0.7812,
+        "recall": 0.9259,
+        "f1": 0.8475,
+        "auc": 0.7963
+      },
+      {
+        "round": 8,
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.8621,
+        "precision": 0.9259,
+        "recall": 0.9259,
+        "f1": 0.9259,
+        "auc": 0.537
+      },
+      {
+        "round": 8,
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.8493,
+        "precision": 0.7586,
+        "recall": 0.8462,
+        "f1": 0.8,
+        "auc": 0.9206
+      },
+      {
+        "round": 9,
+        "hospital": "va_long_beach",
+        "n_test": 35,
+        "accuracy": 0.7429,
+        "precision": 0.7812,
+        "recall": 0.9259,
+        "f1": 0.8475,
+        "auc": 0.7963
+      },
+      {
+        "round": 9,
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8684,
+        "precision": 0.8049,
+        "recall": 0.9429,
+        "f1": 0.8684,
+        "auc": 0.9394
+      },
+      {
+        "round": 9,
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.8621,
+        "precision": 0.9259,
+        "recall": 0.9259,
+        "f1": 0.9259,
+        "auc": 0.537
+      },
+      {
+        "round": 9,
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.8493,
+        "precision": 0.7778,
+        "recall": 0.8077,
+        "f1": 0.7925,
+        "auc": 0.9231
+      },
+      {
+        "round": 10,
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.8356,
+        "precision": 0.75,
+        "recall": 0.8077,
         "f1": 0.7778,
-        "auc": 0.898
+        "auc": 0.9214
       },
       {
-        "round": 2,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
-        "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.963
+        "round": 10,
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8553,
+        "precision": 0.7857,
+        "recall": 0.9429,
+        "f1": 0.8571,
+        "auc": 0.9373
       },
       {
-        "round": 2,
-        "hospital": "hospital_1",
-        "n_test": 15,
-        "accuracy": 0.6,
-        "precision": 0.7273,
-        "recall": 0.7273,
-        "f1": 0.7273,
-        "auc": 0.5682
+        "round": 10,
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.8621,
+        "precision": 0.9259,
+        "recall": 0.9259,
+        "f1": 0.9259,
+        "auc": 0.537
       },
       {
-        "round": 3,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.7857,
-        "precision": 0.3333,
-        "recall": 0.5,
-        "f1": 0.4,
-        "auc": 0.7917
+        "round": 10,
+        "hospital": "va_long_beach",
+        "n_test": 35,
+        "accuracy": 0.7429,
+        "precision": 0.7812,
+        "recall": 0.9259,
+        "f1": 0.8475,
+        "auc": 0.7963
       },
       {
-        "round": 3,
-        "hospital": "hospital_1",
-        "n_test": 15,
-        "accuracy": 0.5333,
+        "round": 11,
+        "hospital": "va_long_beach",
+        "n_test": 35,
+        "accuracy": 0.7429,
+        "precision": 0.7812,
+        "recall": 0.9259,
+        "f1": 0.8475,
+        "auc": 0.8102
+      },
+      {
+        "round": 11,
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8421,
+        "precision": 0.7674,
+        "recall": 0.9429,
+        "f1": 0.8462,
+        "auc": 0.9345
+      },
+      {
+        "round": 11,
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.8356,
         "precision": 0.75,
-        "recall": 0.5455,
-        "f1": 0.6316,
-        "auc": 0.6591
-      },
-      {
-        "round": 3,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
-        "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.9383
-      },
-      {
-        "round": 3,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.875,
-        "precision": 1.0,
-        "recall": 0.8333,
-        "f1": 0.9091,
-        "auc": 0.9167
-      },
-      {
-        "round": 3,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.8095,
-        "precision": 0.6364,
-        "recall": 1.0,
+        "recall": 0.8077,
         "f1": 0.7778,
-        "auc": 0.9184
-      },
-      {
-        "round": 4,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
-        "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.9506
-      },
-      {
-        "round": 4,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.8571,
-        "precision": 0.7,
-        "recall": 1.0,
-        "f1": 0.8235,
-        "auc": 0.9286
-      },
-      {
-        "round": 4,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.8571,
-        "precision": 0.5,
-        "recall": 0.5,
-        "f1": 0.5,
-        "auc": 0.8333
-      },
-      {
-        "round": 4,
-        "hospital": "hospital_1",
-        "n_test": 15,
-        "accuracy": 0.7333,
-        "precision": 0.8889,
-        "recall": 0.7273,
-        "f1": 0.8,
-        "auc": 0.7273
-      },
-      {
-        "round": 4,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.875,
-        "precision": 1.0,
-        "recall": 0.8333,
-        "f1": 0.9091,
-        "auc": 0.9167
-      },
-      {
-        "round": 5,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.8571,
-        "precision": 0.75,
-        "recall": 0.8571,
-        "f1": 0.8,
-        "auc": 0.9286
-      },
-      {
-        "round": 5,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.75,
-        "precision": 1.0,
-        "recall": 0.6667,
-        "f1": 0.8,
-        "auc": 0.9167
-      },
-      {
-        "round": 5,
-        "hospital": "hospital_1",
-        "n_test": 15,
-        "accuracy": 0.8,
-        "precision": 0.9,
-        "recall": 0.8182,
-        "f1": 0.8571,
-        "auc": 0.7273
-      },
-      {
-        "round": 5,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
-        "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.9753
-      },
-      {
-        "round": 5,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.7857,
-        "precision": 0.3333,
-        "recall": 0.5,
-        "f1": 0.4,
-        "auc": 0.7917
-      },
-      {
-        "round": 6,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.7857,
-        "precision": 0.3333,
-        "recall": 0.5,
-        "f1": 0.4,
-        "auc": 0.7917
-      },
-      {
-        "round": 6,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.75,
-        "precision": 1.0,
-        "recall": 0.6667,
-        "f1": 0.8,
-        "auc": 0.9167
-      },
-      {
-        "round": 6,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
-        "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.9753
-      },
-      {
-        "round": 6,
-        "hospital": "hospital_1",
-        "n_test": 15,
-        "accuracy": 0.8,
-        "precision": 0.9,
-        "recall": 0.8182,
-        "f1": 0.8571,
-        "auc": 0.7273
-      },
-      {
-        "round": 6,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.8571,
-        "precision": 0.75,
-        "recall": 0.8571,
-        "f1": 0.8,
-        "auc": 0.9286
-      },
-      {
-        "round": 7,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
-        "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.9753
-      },
-      {
-        "round": 7,
-        "hospital": "hospital_1",
-        "n_test": 15,
-        "accuracy": 0.8,
-        "precision": 0.9,
-        "recall": 0.8182,
-        "f1": 0.8571,
-        "auc": 0.7273
-      },
-      {
-        "round": 7,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.7857,
-        "precision": 0.3333,
-        "recall": 0.5,
-        "f1": 0.4,
-        "auc": 0.7917
-      },
-      {
-        "round": 7,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.8571,
-        "precision": 0.75,
-        "recall": 0.8571,
-        "f1": 0.8,
-        "auc": 0.9184
-      },
-      {
-        "round": 7,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.75,
-        "precision": 1.0,
-        "recall": 0.6667,
-        "f1": 0.8,
-        "auc": 0.9167
-      },
-      {
-        "round": 8,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
-        "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.9753
-      },
-      {
-        "round": 8,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.7857,
-        "precision": 0.3333,
-        "recall": 0.5,
-        "f1": 0.4,
-        "auc": 0.7917
-      },
-      {
-        "round": 8,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.8571,
-        "precision": 0.75,
-        "recall": 0.8571,
-        "f1": 0.8,
-        "auc": 0.9184
-      },
-      {
-        "round": 8,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.75,
-        "precision": 1.0,
-        "recall": 0.6667,
-        "f1": 0.8,
-        "auc": 0.9167
-      },
-      {
-        "round": 8,
-        "hospital": "hospital_1",
-        "n_test": 15,
-        "accuracy": 0.8,
-        "precision": 0.9,
-        "recall": 0.8182,
-        "f1": 0.8571,
-        "auc": 0.75
-      },
-      {
-        "round": 9,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.8571,
-        "precision": 0.75,
-        "recall": 0.8571,
-        "f1": 0.8,
-        "auc": 0.9184
-      },
-      {
-        "round": 9,
-        "hospital": "hospital_1",
-        "n_test": 15,
-        "accuracy": 0.8,
-        "precision": 0.9,
-        "recall": 0.8182,
-        "f1": 0.8571,
-        "auc": 0.75
-      },
-      {
-        "round": 9,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
-        "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.9753
-      },
-      {
-        "round": 9,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.75,
-        "precision": 1.0,
-        "recall": 0.6667,
-        "f1": 0.8,
-        "auc": 0.9167
-      },
-      {
-        "round": 9,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.7857,
-        "precision": 0.3333,
-        "recall": 0.5,
-        "f1": 0.4,
-        "auc": 0.75
-      },
-      {
-        "round": 10,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.8571,
-        "precision": 0.75,
-        "recall": 0.8571,
-        "f1": 0.8,
-        "auc": 0.9082
-      },
-      {
-        "round": 10,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.75,
-        "precision": 1.0,
-        "recall": 0.6667,
-        "f1": 0.8,
-        "auc": 0.9167
-      },
-      {
-        "round": 10,
-        "hospital": "hospital_1",
-        "n_test": 15,
-        "accuracy": 0.8,
-        "precision": 0.9,
-        "recall": 0.8182,
-        "f1": 0.8571,
-        "auc": 0.75
-      },
-      {
-        "round": 10,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.7857,
-        "precision": 0.3333,
-        "recall": 0.5,
-        "f1": 0.4,
-        "auc": 0.75
-      },
-      {
-        "round": 10,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
-        "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.9753
+        "auc": 0.9206
       },
       {
         "round": 11,
-        "hospital": "hospital_1",
-        "n_test": 15,
-        "accuracy": 0.8,
-        "precision": 0.9,
-        "recall": 0.8182,
-        "f1": 0.8571,
-        "auc": 0.75
-      },
-      {
-        "round": 11,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.8276,
+        "precision": 0.9231,
         "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.963
-      },
-      {
-        "round": 11,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.7857,
-        "precision": 0.3333,
-        "recall": 0.5,
-        "f1": 0.4,
-        "auc": 0.75
-      },
-      {
-        "round": 11,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.8571,
-        "precision": 0.75,
-        "recall": 0.8571,
-        "f1": 0.8,
-        "auc": 0.9082
-      },
-      {
-        "round": 11,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.75,
-        "precision": 1.0,
-        "recall": 0.6667,
-        "f1": 0.8,
-        "auc": 0.9167
+        "f1": 0.9057,
+        "auc": 0.537
       },
       {
         "round": 12,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.8571,
-        "precision": 0.75,
-        "recall": 0.8571,
-        "f1": 0.8,
-        "auc": 0.9082
+        "hospital": "va_long_beach",
+        "n_test": 35,
+        "accuracy": 0.7714,
+        "precision": 0.8065,
+        "recall": 0.9259,
+        "f1": 0.8621,
+        "auc": 0.8102
       },
       {
         "round": 12,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.7857,
-        "precision": 0.3333,
-        "recall": 0.5,
-        "f1": 0.4,
-        "auc": 0.75
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8421,
+        "precision": 0.7674,
+        "recall": 0.9429,
+        "f1": 0.8462,
+        "auc": 0.931
       },
       {
         "round": 12,
-        "hospital": "hospital_1",
-        "n_test": 15,
-        "accuracy": 0.8,
-        "precision": 0.9,
-        "recall": 0.8182,
-        "f1": 0.8571,
-        "auc": 0.75
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.8276,
+        "precision": 0.9231,
+        "recall": 0.8889,
+        "f1": 0.9057,
+        "auc": 0.5185
       },
       {
         "round": 12,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.75,
-        "precision": 1.0,
-        "recall": 0.6667,
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.8493,
+        "precision": 0.7586,
+        "recall": 0.8462,
         "f1": 0.8,
-        "auc": 0.9167
+        "auc": 0.9214
       },
       {
-        "round": 12,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
+        "round": 13,
+        "hospital": "va_long_beach",
+        "n_test": 35,
+        "accuracy": 0.7714,
+        "precision": 0.8065,
+        "recall": 0.9259,
+        "f1": 0.8621,
+        "auc": 0.8102
+      },
+      {
+        "round": 13,
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.8493,
+        "precision": 0.7586,
+        "recall": 0.8462,
+        "f1": 0.8,
+        "auc": 0.9198
+      },
+      {
+        "round": 13,
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.8276,
+        "precision": 0.9231,
         "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.963
+        "f1": 0.9057,
+        "auc": 0.537
       },
       {
         "round": 13,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.8571,
-        "precision": 0.75,
-        "recall": 0.8571,
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8553,
+        "precision": 0.7857,
+        "recall": 0.9429,
+        "f1": 0.8571,
+        "auc": 0.9268
+      },
+      {
+        "round": 14,
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8553,
+        "precision": 0.7857,
+        "recall": 0.9429,
+        "f1": 0.8571,
+        "auc": 0.924
+      },
+      {
+        "round": 14,
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.8276,
+        "precision": 0.9231,
+        "recall": 0.8889,
+        "f1": 0.9057,
+        "auc": 0.537
+      },
+      {
+        "round": 14,
+        "hospital": "va_long_beach",
+        "n_test": 35,
+        "accuracy": 0.7714,
+        "precision": 0.8065,
+        "recall": 0.9259,
+        "f1": 0.8621,
+        "auc": 0.8194
+      },
+      {
+        "round": 14,
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.8493,
+        "precision": 0.7586,
+        "recall": 0.8462,
         "f1": 0.8,
-        "auc": 0.898
+        "auc": 0.919
       },
       {
-        "round": 13,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.7857,
-        "precision": 0.3333,
-        "recall": 0.5,
-        "f1": 0.4,
-        "auc": 0.75
+        "round": 15,
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.8493,
+        "precision": 0.7419,
+        "recall": 0.8846,
+        "f1": 0.807,
+        "auc": 0.9182
       },
       {
-        "round": 13,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.75,
-        "precision": 1.0,
-        "recall": 0.6667,
-        "f1": 0.8,
-        "auc": 1.0
+        "round": 15,
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.8276,
+        "precision": 0.9231,
+        "recall": 0.8889,
+        "f1": 0.9057,
+        "auc": 0.537
       },
       {
-        "round": 13,
-        "hospital": "hospital_1",
-        "n_test": 15,
+        "round": 15,
+        "hospital": "va_long_beach",
+        "n_test": 35,
+        "accuracy": 0.7714,
+        "precision": 0.8065,
+        "recall": 0.9259,
+        "f1": 0.8621,
+        "auc": 0.8102
+      },
+      {
+        "round": 15,
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8553,
+        "precision": 0.7857,
+        "recall": 0.9429,
+        "f1": 0.8571,
+        "auc": 0.9206
+      },
+      {
+        "round": 16,
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.8493,
+        "precision": 0.7419,
+        "recall": 0.8846,
+        "f1": 0.807,
+        "auc": 0.9182
+      },
+      {
+        "round": 16,
+        "hospital": "va_long_beach",
+        "n_test": 35,
         "accuracy": 0.8,
-        "precision": 0.9,
-        "recall": 0.8182,
+        "precision": 0.8333,
+        "recall": 0.9259,
+        "f1": 0.8772,
+        "auc": 0.8056
+      },
+      {
+        "round": 16,
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8553,
+        "precision": 0.7857,
+        "recall": 0.9429,
         "f1": 0.8571,
-        "auc": 0.75
+        "auc": 0.9185
       },
       {
-        "round": 13,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
+        "round": 16,
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.8276,
+        "precision": 0.9231,
         "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.963
+        "f1": 0.9057,
+        "auc": 0.537
       },
       {
-        "round": 14,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.75,
-        "precision": 1.0,
-        "recall": 0.6667,
-        "f1": 0.8,
-        "auc": 1.0
-      },
-      {
-        "round": 14,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
+        "round": 17,
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.8276,
+        "precision": 0.9231,
         "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.963
+        "f1": 0.9057,
+        "auc": 0.5185
       },
       {
-        "round": 14,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.8571,
-        "precision": 0.75,
-        "recall": 0.8571,
-        "f1": 0.8,
-        "auc": 0.898
-      },
-      {
-        "round": 14,
-        "hospital": "hospital_1",
-        "n_test": 15,
+        "round": 17,
+        "hospital": "va_long_beach",
+        "n_test": 35,
         "accuracy": 0.8,
-        "precision": 0.9,
-        "recall": 0.8182,
-        "f1": 0.8571,
-        "auc": 0.75
+        "precision": 0.8333,
+        "recall": 0.9259,
+        "f1": 0.8772,
+        "auc": 0.8148
       },
       {
-        "round": 14,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.7857,
-        "precision": 0.3333,
-        "recall": 0.5,
-        "f1": 0.4,
-        "auc": 0.75
+        "round": 17,
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8421,
+        "precision": 0.7674,
+        "recall": 0.9429,
+        "f1": 0.8462,
+        "auc": 0.9157
       },
       {
-        "round": 15,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.8571,
+        "round": 17,
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.8493,
+        "precision": 0.7419,
+        "recall": 0.8846,
+        "f1": 0.807,
+        "auc": 0.9182
+      },
+      {
+        "round": 18,
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8289,
         "precision": 0.75,
-        "recall": 0.8571,
-        "f1": 0.8,
-        "auc": 0.898
+        "recall": 0.9429,
+        "f1": 0.8354,
+        "auc": 0.9143
       },
       {
-        "round": 15,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.7857,
-        "precision": 0.3333,
-        "recall": 0.5,
-        "f1": 0.4,
-        "auc": 0.75
-      },
-      {
-        "round": 15,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.75,
-        "precision": 1.0,
-        "recall": 0.6667,
-        "f1": 0.8,
-        "auc": 1.0
-      },
-      {
-        "round": 15,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
-        "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.963
-      },
-      {
-        "round": 15,
-        "hospital": "hospital_1",
-        "n_test": 15,
+        "round": 18,
+        "hospital": "va_long_beach",
+        "n_test": 35,
         "accuracy": 0.8,
-        "precision": 0.9,
-        "recall": 0.8182,
-        "f1": 0.8571,
-        "auc": 0.75
+        "precision": 0.8333,
+        "recall": 0.9259,
+        "f1": 0.8772,
+        "auc": 0.8194
       },
       {
-        "round": 16,
-        "hospital": "hospital_1",
-        "n_test": 15,
-        "accuracy": 0.7333,
-        "precision": 0.8889,
-        "recall": 0.7273,
-        "f1": 0.8,
-        "auc": 0.75
+        "round": 18,
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.8493,
+        "precision": 0.7419,
+        "recall": 0.8846,
+        "f1": 0.807,
+        "auc": 0.9182
       },
       {
-        "round": 16,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
+        "round": 18,
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.8276,
+        "precision": 0.9231,
         "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.9753
+        "f1": 0.9057,
+        "auc": 0.537
       },
       {
-        "round": 16,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.75,
-        "precision": 1.0,
-        "recall": 0.6667,
-        "f1": 0.8,
-        "auc": 1.0
-      },
-      {
-        "round": 16,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.8571,
+        "round": 19,
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8289,
         "precision": 0.75,
-        "recall": 0.8571,
-        "f1": 0.8,
-        "auc": 0.9082
+        "recall": 0.9429,
+        "f1": 0.8354,
+        "auc": 0.9129
       },
       {
-        "round": 16,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.7857,
-        "precision": 0.3333,
-        "recall": 0.5,
-        "f1": 0.4,
-        "auc": 0.75
+        "round": 19,
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.8276,
+        "precision": 0.9231,
+        "recall": 0.8889,
+        "f1": 0.9057,
+        "auc": 0.5185
       },
       {
-        "round": 17,
-        "hospital": "hospital_1",
-        "n_test": 15,
-        "accuracy": 0.7333,
-        "precision": 0.8889,
-        "recall": 0.7273,
-        "f1": 0.8,
-        "auc": 0.75
+        "round": 19,
+        "hospital": "va_long_beach",
+        "n_test": 35,
+        "accuracy": 0.8,
+        "precision": 0.8333,
+        "recall": 0.9259,
+        "f1": 0.8772,
+        "auc": 0.8287
       },
       {
-        "round": 17,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.75,
-        "precision": 1.0,
-        "recall": 0.6667,
-        "f1": 0.8,
-        "auc": 1.0
+        "round": 19,
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.8493,
+        "precision": 0.7419,
+        "recall": 0.8846,
+        "f1": 0.807,
+        "auc": 0.919
       },
       {
-        "round": 17,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.8571,
+        "round": 20,
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.8276,
+        "precision": 0.9231,
+        "recall": 0.8889,
+        "f1": 0.9057,
+        "auc": 0.5185
+      },
+      {
+        "round": 20,
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8289,
         "precision": 0.75,
-        "recall": 0.8571,
-        "f1": 0.8,
-        "auc": 0.9082
-      },
-      {
-        "round": 17,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.7857,
-        "precision": 0.3333,
-        "recall": 0.5,
-        "f1": 0.4,
-        "auc": 0.75
-      },
-      {
-        "round": 17,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
-        "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.9753
-      },
-      {
-        "round": 18,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.7857,
-        "precision": 0.3333,
-        "recall": 0.5,
-        "f1": 0.4,
-        "auc": 0.7917
-      },
-      {
-        "round": 18,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.75,
-        "precision": 1.0,
-        "recall": 0.6667,
-        "f1": 0.8,
-        "auc": 1.0
-      },
-      {
-        "round": 18,
-        "hospital": "hospital_1",
-        "n_test": 15,
-        "accuracy": 0.7333,
-        "precision": 0.8889,
-        "recall": 0.7273,
-        "f1": 0.8,
-        "auc": 0.75
-      },
-      {
-        "round": 18,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.9048,
-        "precision": 0.8571,
-        "recall": 0.8571,
-        "f1": 0.8571,
-        "auc": 0.9082
-      },
-      {
-        "round": 18,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
-        "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.9753
-      },
-      {
-        "round": 19,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.9048,
-        "precision": 0.8571,
-        "recall": 0.8571,
-        "f1": 0.8571,
-        "auc": 0.9184
-      },
-      {
-        "round": 19,
-        "hospital": "hospital_1",
-        "n_test": 15,
-        "accuracy": 0.7333,
-        "precision": 0.8889,
-        "recall": 0.7273,
-        "f1": 0.8,
-        "auc": 0.75
-      },
-      {
-        "round": 19,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
-        "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.9753
-      },
-      {
-        "round": 19,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.75,
-        "precision": 1.0,
-        "recall": 0.6667,
-        "f1": 0.8,
-        "auc": 1.0
-      },
-      {
-        "round": 19,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.7857,
-        "precision": 0.3333,
-        "recall": 0.5,
-        "f1": 0.4,
-        "auc": 0.8333
+        "recall": 0.9429,
+        "f1": 0.8354,
+        "auc": 0.9108
       },
       {
         "round": 20,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.9048,
-        "precision": 0.8571,
-        "recall": 0.8571,
-        "f1": 0.8571,
-        "auc": 0.9184
+        "hospital": "va_long_beach",
+        "n_test": 35,
+        "accuracy": 0.8,
+        "precision": 0.8333,
+        "recall": 0.9259,
+        "f1": 0.8772,
+        "auc": 0.838
       },
       {
         "round": 20,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
-        "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.9753
-      },
-      {
-        "round": 20,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.75,
-        "precision": 1.0,
-        "recall": 0.6667,
-        "f1": 0.8,
-        "auc": 1.0
-      },
-      {
-        "round": 20,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.7857,
-        "precision": 0.3333,
-        "recall": 0.5,
-        "f1": 0.4,
-        "auc": 0.8333
-      },
-      {
-        "round": 20,
-        "hospital": "hospital_1",
-        "n_test": 15,
-        "accuracy": 0.7333,
-        "precision": 0.8889,
-        "recall": 0.7273,
-        "f1": 0.8,
-        "auc": 0.75
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.8493,
+        "precision": 0.7419,
+        "recall": 0.8846,
+        "f1": 0.807,
+        "auc": 0.9182
       }
     ]
   },
@@ -1089,1085 +889,885 @@
     "global_by_round": [
       {
         "round": 1,
-        "global_weighted_accuracy": 0.6578986842105262
+        "global_weighted_accuracy": 0.4601004694835681
       },
       {
         "round": 2,
-        "global_weighted_accuracy": 0.7763026315789473
+        "global_weighted_accuracy": 0.6290995305164319
       },
       {
         "round": 3,
-        "global_weighted_accuracy": 0.7763026315789473
+        "global_weighted_accuracy": 0.7981089201877933
       },
       {
         "round": 4,
-        "global_weighted_accuracy": 0.8157723684210526
+        "global_weighted_accuracy": 0.8262723004694835
       },
       {
         "round": 5,
-        "global_weighted_accuracy": 0.8420881578947368
+        "global_weighted_accuracy": 0.8262723004694835
       },
       {
         "round": 6,
-        "global_weighted_accuracy": 0.8289355263157895
+        "global_weighted_accuracy": 0.8309779342723005
       },
       {
         "round": 7,
-        "global_weighted_accuracy": 0.8289355263157895
+        "global_weighted_accuracy": 0.8309924882629107
       },
       {
         "round": 8,
-        "global_weighted_accuracy": 0.8289355263157895
+        "global_weighted_accuracy": 0.8544643192488263
       },
       {
         "round": 9,
-        "global_weighted_accuracy": 0.8289355263157895
+        "global_weighted_accuracy": 0.8544643192488263
       },
       {
         "round": 10,
-        "global_weighted_accuracy": 0.8289355263157895
+        "global_weighted_accuracy": 0.8403830985915492
       },
       {
         "round": 11,
-        "global_weighted_accuracy": 0.8289355263157895
+        "global_weighted_accuracy": 0.8309760563380281
       },
       {
         "round": 12,
-        "global_weighted_accuracy": 0.8289355263157895
+        "global_weighted_accuracy": 0.8356755868544601
       },
       {
         "round": 13,
-        "global_weighted_accuracy": 0.8289355263157895
+        "global_weighted_accuracy": 0.8356755868544601
       },
       {
         "round": 14,
-        "global_weighted_accuracy": 0.8289355263157895
+        "global_weighted_accuracy": 0.8356755868544601
       },
       {
         "round": 15,
-        "global_weighted_accuracy": 0.8289355263157895
+        "global_weighted_accuracy": 0.8403708920187793
       },
       {
         "round": 16,
-        "global_weighted_accuracy": 0.8289355263157895
+        "global_weighted_accuracy": 0.8403708920187793
       },
       {
         "round": 17,
-        "global_weighted_accuracy": 0.8026184210526315
+        "global_weighted_accuracy": 0.840375117370892
       },
       {
         "round": 18,
-        "global_weighted_accuracy": 0.8026184210526315
+        "global_weighted_accuracy": 0.8356755868544601
       },
       {
         "round": 19,
-        "global_weighted_accuracy": 0.8157710526315789
+        "global_weighted_accuracy": 0.8309802816901409
       },
       {
         "round": 20,
-        "global_weighted_accuracy": 0.8157710526315789
+        "global_weighted_accuracy": 0.8309802816901409
       }
     ],
     "per_hospital_by_round": [
       {
         "round": 1,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.4286,
-        "precision": 0.125,
-        "recall": 0.5,
-        "f1": 0.2,
-        "auc": 0.6667
+        "hospital": "va_long_beach",
+        "n_test": 35,
+        "accuracy": 0.2286,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "auc": 0.8287
       },
       {
         "round": 1,
-        "hospital": "hospital_1",
-        "n_test": 15,
-        "accuracy": 0.6667,
-        "precision": 0.7143,
-        "recall": 0.9091,
-        "f1": 0.8,
-        "auc": 0.6364
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.069,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "auc": 0.463
       },
       {
         "round": 1,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.875,
-        "precision": 0.8571,
-        "recall": 1.0,
-        "f1": 0.9231,
-        "auc": 0.9167
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.6438,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "auc": 0.8183
       },
       {
         "round": 1,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.619,
-        "precision": 0.4667,
-        "recall": 1.0,
-        "f1": 0.6364,
-        "auc": 0.8163
-      },
-      {
-        "round": 1,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.7778,
-        "precision": 0.6923,
-        "recall": 1.0,
-        "f1": 0.8182,
-        "auc": 0.9136
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.5395,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "auc": 0.8439
       },
       {
         "round": 2,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
-        "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.9753
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.7237,
+        "precision": 0.85,
+        "recall": 0.4857,
+        "f1": 0.6182,
+        "auc": 0.8801
       },
       {
         "round": 2,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.7857,
-        "precision": 0.3333,
-        "recall": 0.5,
-        "f1": 0.4,
-        "auc": 0.75
+        "hospital": "va_long_beach",
+        "n_test": 35,
+        "accuracy": 0.4857,
+        "precision": 0.9091,
+        "recall": 0.3704,
+        "f1": 0.5263,
+        "auc": 0.8009
       },
       {
         "round": 2,
-        "hospital": "hospital_1",
-        "n_test": 15,
-        "accuracy": 0.5333,
-        "precision": 0.7,
-        "recall": 0.6364,
-        "f1": 0.6667,
-        "auc": 0.5909
-      },
-      {
-        "round": 2,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.875,
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.3793,
         "precision": 1.0,
-        "recall": 0.8333,
-        "f1": 0.9091,
-        "auc": 0.9167
-      },
-      {
-        "round": 2,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.8095,
-        "precision": 0.6364,
-        "recall": 1.0,
-        "f1": 0.7778,
-        "auc": 0.898
-      },
-      {
-        "round": 3,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.875,
-        "precision": 1.0,
-        "recall": 0.8333,
-        "f1": 0.9091,
-        "auc": 0.9167
-      },
-      {
-        "round": 3,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.7857,
-        "precision": 0.3333,
-        "recall": 0.5,
-        "f1": 0.4,
-        "auc": 0.7917
-      },
-      {
-        "round": 3,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
-        "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.9506
-      },
-      {
-        "round": 3,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.8095,
-        "precision": 0.6364,
-        "recall": 1.0,
-        "f1": 0.7778,
-        "auc": 0.9082
-      },
-      {
-        "round": 3,
-        "hospital": "hospital_1",
-        "n_test": 15,
-        "accuracy": 0.5333,
-        "precision": 0.75,
-        "recall": 0.5455,
-        "f1": 0.6316,
-        "auc": 0.6136
-      },
-      {
-        "round": 4,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.8571,
-        "precision": 0.75,
-        "recall": 0.8571,
-        "f1": 0.8,
-        "auc": 0.9286
-      },
-      {
-        "round": 4,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.8571,
-        "precision": 0.5,
-        "recall": 0.5,
+        "recall": 0.3333,
         "f1": 0.5,
+        "auc": 0.5741
+      },
+      {
+        "round": 2,
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.6986,
+        "precision": 0.75,
+        "recall": 0.2308,
+        "f1": 0.3529,
+        "auc": 0.847
+      },
+      {
+        "round": 3,
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.6897,
+        "precision": 0.9091,
+        "recall": 0.7407,
+        "f1": 0.8163,
+        "auc": 0.6111
+      },
+      {
+        "round": 3,
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.7945,
+        "precision": 0.72,
+        "recall": 0.6923,
+        "f1": 0.7059,
+        "auc": 0.8617
+      },
+      {
+        "round": 3,
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8289,
+        "precision": 0.7895,
+        "recall": 0.8571,
+        "f1": 0.8219,
+        "auc": 0.9024
+      },
+      {
+        "round": 3,
+        "hospital": "va_long_beach",
+        "n_test": 35,
+        "accuracy": 0.8286,
+        "precision": 0.8387,
+        "recall": 0.963,
+        "f1": 0.8966,
+        "auc": 0.787
+      },
+      {
+        "round": 4,
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.8219,
+        "precision": 0.697,
+        "recall": 0.8846,
+        "f1": 0.7797,
+        "auc": 0.8773
+      },
+      {
+        "round": 4,
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8289,
+        "precision": 0.775,
+        "recall": 0.8857,
+        "f1": 0.8267,
+        "auc": 0.915
+      },
+      {
+        "round": 4,
+        "hospital": "va_long_beach",
+        "n_test": 35,
+        "accuracy": 0.8,
+        "precision": 0.8125,
+        "recall": 0.963,
+        "f1": 0.8814,
+        "auc": 0.787
+      },
+      {
+        "round": 4,
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.8621,
+        "precision": 0.9259,
+        "recall": 0.9259,
+        "f1": 0.9259,
+        "auc": 0.6111
+      },
+      {
+        "round": 5,
+        "hospital": "va_long_beach",
+        "n_test": 35,
+        "accuracy": 0.8,
+        "precision": 0.8125,
+        "recall": 0.963,
+        "f1": 0.8814,
+        "auc": 0.8102
+      },
+      {
+        "round": 5,
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.8219,
+        "precision": 0.697,
+        "recall": 0.8846,
+        "f1": 0.7797,
+        "auc": 0.8961
+      },
+      {
+        "round": 5,
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8289,
+        "precision": 0.7619,
+        "recall": 0.9143,
+        "f1": 0.8312,
+        "auc": 0.9226
+      },
+      {
+        "round": 5,
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.8621,
+        "precision": 0.9259,
+        "recall": 0.9259,
+        "f1": 0.9259,
+        "auc": 0.6111
+      },
+      {
+        "round": 6,
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.8356,
+        "precision": 0.7059,
+        "recall": 0.9231,
+        "f1": 0.8,
+        "auc": 0.9043
+      },
+      {
+        "round": 6,
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.8621,
+        "precision": 0.9259,
+        "recall": 0.9259,
+        "f1": 0.9259,
+        "auc": 0.5926
+      },
+      {
+        "round": 6,
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8421,
+        "precision": 0.7805,
+        "recall": 0.9143,
+        "f1": 0.8421,
+        "auc": 0.9303
+      },
+      {
+        "round": 6,
+        "hospital": "va_long_beach",
+        "n_test": 35,
+        "accuracy": 0.7714,
+        "precision": 0.7879,
+        "recall": 0.963,
+        "f1": 0.8667,
         "auc": 0.7917
       },
       {
-        "round": 4,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.875,
-        "precision": 1.0,
-        "recall": 0.8333,
-        "f1": 0.9091,
-        "auc": 0.9167
-      },
-      {
-        "round": 4,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
-        "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.963
-      },
-      {
-        "round": 4,
-        "hospital": "hospital_1",
-        "n_test": 15,
-        "accuracy": 0.6,
-        "precision": 0.8571,
-        "recall": 0.5455,
-        "f1": 0.6667,
-        "auc": 0.7273
-      },
-      {
-        "round": 5,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.8571,
-        "precision": 0.5,
-        "recall": 0.5,
-        "f1": 0.5,
-        "auc": 0.7917
-      },
-      {
-        "round": 5,
-        "hospital": "hospital_1",
-        "n_test": 15,
-        "accuracy": 0.8,
-        "precision": 0.9,
-        "recall": 0.8182,
-        "f1": 0.8571,
-        "auc": 0.7273
-      },
-      {
-        "round": 5,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
-        "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.9753
-      },
-      {
-        "round": 5,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.75,
-        "precision": 1.0,
-        "recall": 0.6667,
-        "f1": 0.8,
-        "auc": 0.9167
-      },
-      {
-        "round": 5,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.8571,
-        "precision": 0.75,
-        "recall": 0.8571,
-        "f1": 0.8,
-        "auc": 0.9286
-      },
-      {
-        "round": 6,
-        "hospital": "hospital_1",
-        "n_test": 15,
-        "accuracy": 0.8,
-        "precision": 0.9,
-        "recall": 0.8182,
-        "f1": 0.8571,
-        "auc": 0.7273
-      },
-      {
-        "round": 6,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.75,
-        "precision": 1.0,
-        "recall": 0.6667,
-        "f1": 0.8,
-        "auc": 0.9167
-      },
-      {
-        "round": 6,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
-        "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.9753
-      },
-      {
-        "round": 6,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.7857,
-        "precision": 0.3333,
-        "recall": 0.5,
-        "f1": 0.4,
-        "auc": 0.75
-      },
-      {
-        "round": 6,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.8571,
-        "precision": 0.75,
-        "recall": 0.8571,
-        "f1": 0.8,
-        "auc": 0.9286
+        "round": 7,
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8553,
+        "precision": 0.8,
+        "recall": 0.9143,
+        "f1": 0.8533,
+        "auc": 0.9352
       },
       {
         "round": 7,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
-        "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.9753
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.8219,
+        "precision": 0.697,
+        "recall": 0.8846,
+        "f1": 0.7797,
+        "auc": 0.9083
       },
       {
         "round": 7,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.75,
-        "precision": 1.0,
-        "recall": 0.6667,
-        "f1": 0.8,
-        "auc": 0.9167
+        "hospital": "va_long_beach",
+        "n_test": 35,
+        "accuracy": 0.7714,
+        "precision": 0.7879,
+        "recall": 0.963,
+        "f1": 0.8667,
+        "auc": 0.8009
       },
       {
         "round": 7,
-        "hospital": "hospital_1",
-        "n_test": 15,
-        "accuracy": 0.8,
-        "precision": 0.9,
-        "recall": 0.8182,
-        "f1": 0.8571,
-        "auc": 0.7045
-      },
-      {
-        "round": 7,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.8571,
-        "precision": 0.75,
-        "recall": 0.8571,
-        "f1": 0.8,
-        "auc": 0.9184
-      },
-      {
-        "round": 7,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.7857,
-        "precision": 0.3333,
-        "recall": 0.5,
-        "f1": 0.4,
-        "auc": 0.75
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.8621,
+        "precision": 0.9259,
+        "recall": 0.9259,
+        "f1": 0.9259,
+        "auc": 0.5741
       },
       {
         "round": 8,
-        "hospital": "hospital_1",
-        "n_test": 15,
-        "accuracy": 0.8,
-        "precision": 0.9,
-        "recall": 0.8182,
-        "f1": 0.8571,
-        "auc": 0.7273
+        "hospital": "va_long_beach",
+        "n_test": 35,
+        "accuracy": 0.7714,
+        "precision": 0.7879,
+        "recall": 0.963,
+        "f1": 0.8667,
+        "auc": 0.8102
       },
       {
         "round": 8,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.8571,
-        "precision": 0.75,
-        "recall": 0.8571,
-        "f1": 0.8,
-        "auc": 0.9184
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.8966,
+        "precision": 0.9286,
+        "recall": 0.963,
+        "f1": 0.9455,
+        "auc": 0.5185
       },
       {
         "round": 8,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.7857,
-        "precision": 0.3333,
-        "recall": 0.5,
-        "f1": 0.4,
-        "auc": 0.75
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.8493,
+        "precision": 0.7419,
+        "recall": 0.8846,
+        "f1": 0.807,
+        "auc": 0.9133
       },
       {
         "round": 8,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.75,
-        "precision": 1.0,
-        "recall": 0.6667,
-        "f1": 0.8,
-        "auc": 0.9167
-      },
-      {
-        "round": 8,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
-        "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.9753
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8816,
+        "precision": 0.825,
+        "recall": 0.9429,
+        "f1": 0.88,
+        "auc": 0.9394
       },
       {
         "round": 9,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
-        "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.9753
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.8493,
+        "precision": 0.7419,
+        "recall": 0.8846,
+        "f1": 0.807,
+        "auc": 0.9116
       },
       {
         "round": 9,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.75,
-        "precision": 1.0,
-        "recall": 0.6667,
-        "f1": 0.8,
-        "auc": 0.9167
+        "hospital": "va_long_beach",
+        "n_test": 35,
+        "accuracy": 0.7714,
+        "precision": 0.7879,
+        "recall": 0.963,
+        "f1": 0.8667,
+        "auc": 0.8102
       },
       {
         "round": 9,
-        "hospital": "hospital_1",
-        "n_test": 15,
-        "accuracy": 0.8,
-        "precision": 0.9,
-        "recall": 0.8182,
-        "f1": 0.8571,
-        "auc": 0.75
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8816,
+        "precision": 0.825,
+        "recall": 0.9429,
+        "f1": 0.88,
+        "auc": 0.9366
       },
       {
         "round": 9,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.7857,
-        "precision": 0.3333,
-        "recall": 0.5,
-        "f1": 0.4,
-        "auc": 0.75
-      },
-      {
-        "round": 9,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.8571,
-        "precision": 0.75,
-        "recall": 0.8571,
-        "f1": 0.8,
-        "auc": 0.9082
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.8966,
+        "precision": 0.9286,
+        "recall": 0.963,
+        "f1": 0.9455,
+        "auc": 0.5
       },
       {
         "round": 10,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.8571,
-        "precision": 0.75,
-        "recall": 0.8571,
-        "f1": 0.8,
-        "auc": 0.9082
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.8621,
+        "precision": 0.9259,
+        "recall": 0.9259,
+        "f1": 0.9259,
+        "auc": 0.5
       },
       {
         "round": 10,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.7857,
-        "precision": 0.3333,
-        "recall": 0.5,
-        "f1": 0.4,
-        "auc": 0.75
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.8493,
+        "precision": 0.7586,
+        "recall": 0.8462,
+        "f1": 0.8,
+        "auc": 0.9149
       },
       {
         "round": 10,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.75,
-        "precision": 1.0,
-        "recall": 0.6667,
-        "f1": 0.8,
-        "auc": 0.9167
+        "hospital": "va_long_beach",
+        "n_test": 35,
+        "accuracy": 0.7714,
+        "precision": 0.7879,
+        "recall": 0.963,
+        "f1": 0.8667,
+        "auc": 0.8102
       },
       {
         "round": 10,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
-        "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.9753
-      },
-      {
-        "round": 10,
-        "hospital": "hospital_1",
-        "n_test": 15,
-        "accuracy": 0.8,
-        "precision": 0.9,
-        "recall": 0.8182,
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8553,
+        "precision": 0.7857,
+        "recall": 0.9429,
         "f1": 0.8571,
-        "auc": 0.75
+        "auc": 0.9373
       },
       {
         "round": 11,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.8571,
-        "precision": 0.75,
-        "recall": 0.8571,
-        "f1": 0.8,
-        "auc": 0.9082
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.8276,
+        "precision": 0.9231,
+        "recall": 0.8889,
+        "f1": 0.9057,
+        "auc": 0.5
       },
       {
         "round": 11,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.75,
-        "precision": 1.0,
-        "recall": 0.6667,
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.8493,
+        "precision": 0.7586,
+        "recall": 0.8462,
         "f1": 0.8,
-        "auc": 0.9167
+        "auc": 0.9206
       },
       {
         "round": 11,
-        "hospital": "hospital_1",
-        "n_test": 15,
-        "accuracy": 0.8,
-        "precision": 0.9,
-        "recall": 0.8182,
-        "f1": 0.8571,
-        "auc": 0.75
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8421,
+        "precision": 0.7674,
+        "recall": 0.9429,
+        "f1": 0.8462,
+        "auc": 0.9373
       },
       {
         "round": 11,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.7857,
-        "precision": 0.3333,
-        "recall": 0.5,
-        "f1": 0.4,
-        "auc": 0.75
-      },
-      {
-        "round": 11,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
-        "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.9753
+        "hospital": "va_long_beach",
+        "n_test": 35,
+        "accuracy": 0.7714,
+        "precision": 0.7879,
+        "recall": 0.963,
+        "f1": 0.8667,
+        "auc": 0.8056
       },
       {
         "round": 12,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.75,
-        "precision": 1.0,
-        "recall": 0.6667,
-        "f1": 0.8,
-        "auc": 1.0
+        "hospital": "va_long_beach",
+        "n_test": 35,
+        "accuracy": 0.8,
+        "precision": 0.8125,
+        "recall": 0.963,
+        "f1": 0.8814,
+        "auc": 0.8148
       },
       {
         "round": 12,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
-        "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.9753
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8421,
+        "precision": 0.7674,
+        "recall": 0.9429,
+        "f1": 0.8462,
+        "auc": 0.9366
       },
       {
         "round": 12,
-        "hospital": "hospital_1",
-        "n_test": 15,
-        "accuracy": 0.8,
-        "precision": 0.9,
-        "recall": 0.8182,
-        "f1": 0.8571,
-        "auc": 0.75
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.8276,
+        "precision": 0.9231,
+        "recall": 0.8889,
+        "f1": 0.9057,
+        "auc": 0.5
       },
       {
         "round": 12,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.8571,
-        "precision": 0.75,
-        "recall": 0.8571,
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.8493,
+        "precision": 0.7586,
+        "recall": 0.8462,
         "f1": 0.8,
-        "auc": 0.9082
-      },
-      {
-        "round": 12,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.7857,
-        "precision": 0.3333,
-        "recall": 0.5,
-        "f1": 0.4,
-        "auc": 0.75
+        "auc": 0.9223
       },
       {
         "round": 13,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.8571,
-        "precision": 0.75,
-        "recall": 0.8571,
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.8493,
+        "precision": 0.7586,
+        "recall": 0.8462,
         "f1": 0.8,
-        "auc": 0.9082
+        "auc": 0.9198
       },
       {
         "round": 13,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.7857,
-        "precision": 0.3333,
-        "recall": 0.5,
-        "f1": 0.4,
-        "auc": 0.75
-      },
-      {
-        "round": 13,
-        "hospital": "hospital_1",
-        "n_test": 15,
+        "hospital": "va_long_beach",
+        "n_test": 35,
         "accuracy": 0.8,
-        "precision": 0.9,
-        "recall": 0.8182,
-        "f1": 0.8571,
-        "auc": 0.75
+        "precision": 0.8125,
+        "recall": 0.963,
+        "f1": 0.8814,
+        "auc": 0.8056
       },
       {
         "round": 13,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.75,
-        "precision": 1.0,
-        "recall": 0.6667,
-        "f1": 0.8,
-        "auc": 1.0
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.8276,
+        "precision": 0.9231,
+        "recall": 0.8889,
+        "f1": 0.9057,
+        "auc": 0.5
       },
       {
         "round": 13,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
-        "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.9753
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8421,
+        "precision": 0.7674,
+        "recall": 0.9429,
+        "f1": 0.8462,
+        "auc": 0.9359
       },
       {
         "round": 14,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.7857,
-        "precision": 0.3333,
-        "recall": 0.5,
-        "f1": 0.4,
-        "auc": 0.75
-      },
-      {
-        "round": 14,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
-        "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.9877
-      },
-      {
-        "round": 14,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.8571,
-        "precision": 0.75,
-        "recall": 0.8571,
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.8493,
+        "precision": 0.7586,
+        "recall": 0.8462,
         "f1": 0.8,
-        "auc": 0.9082
+        "auc": 0.919
       },
       {
         "round": 14,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.75,
-        "precision": 1.0,
-        "recall": 0.6667,
-        "f1": 0.8,
-        "auc": 1.0
-      },
-      {
-        "round": 14,
-        "hospital": "hospital_1",
-        "n_test": 15,
+        "hospital": "va_long_beach",
+        "n_test": 35,
         "accuracy": 0.8,
-        "precision": 0.9,
-        "recall": 0.8182,
-        "f1": 0.8571,
-        "auc": 0.75
+        "precision": 0.8125,
+        "recall": 0.963,
+        "f1": 0.8814,
+        "auc": 0.8056
+      },
+      {
+        "round": 14,
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8421,
+        "precision": 0.7674,
+        "recall": 0.9429,
+        "f1": 0.8462,
+        "auc": 0.9359
+      },
+      {
+        "round": 14,
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.8276,
+        "precision": 0.9231,
+        "recall": 0.8889,
+        "f1": 0.9057,
+        "auc": 0.5
       },
       {
         "round": 15,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.75,
-        "precision": 1.0,
-        "recall": 0.6667,
-        "f1": 0.8,
-        "auc": 1.0
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.8276,
+        "precision": 0.9231,
+        "recall": 0.8889,
+        "f1": 0.9057,
+        "auc": 0.4815
       },
       {
         "round": 15,
-        "hospital": "hospital_1",
-        "n_test": 15,
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.863,
+        "precision": 0.7667,
+        "recall": 0.8846,
+        "f1": 0.8214,
+        "auc": 0.9182
+      },
+      {
+        "round": 15,
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8421,
+        "precision": 0.7674,
+        "recall": 0.9429,
+        "f1": 0.8462,
+        "auc": 0.9366
+      },
+      {
+        "round": 15,
+        "hospital": "va_long_beach",
+        "n_test": 35,
         "accuracy": 0.8,
-        "precision": 0.9,
-        "recall": 0.8182,
-        "f1": 0.8571,
-        "auc": 0.75
+        "precision": 0.8125,
+        "recall": 0.963,
+        "f1": 0.8814,
+        "auc": 0.8056
       },
       {
-        "round": 15,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
+        "round": 16,
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.8276,
+        "precision": 0.9231,
         "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.9877
-      },
-      {
-        "round": 15,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.8571,
-        "precision": 0.75,
-        "recall": 0.8571,
-        "f1": 0.8,
-        "auc": 0.9184
-      },
-      {
-        "round": 15,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.7857,
-        "precision": 0.3333,
-        "recall": 0.5,
-        "f1": 0.4,
-        "auc": 0.75
+        "f1": 0.9057,
+        "auc": 0.5185
       },
       {
         "round": 16,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
-        "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.9877
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.863,
+        "precision": 0.7667,
+        "recall": 0.8846,
+        "f1": 0.8214,
+        "auc": 0.9149
       },
       {
         "round": 16,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.8571,
-        "precision": 0.75,
-        "recall": 0.8571,
-        "f1": 0.8,
-        "auc": 0.9082
-      },
-      {
-        "round": 16,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.7857,
-        "precision": 0.3333,
-        "recall": 0.5,
-        "f1": 0.4,
-        "auc": 0.75
-      },
-      {
-        "round": 16,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.75,
-        "precision": 1.0,
-        "recall": 0.6667,
-        "f1": 0.8,
-        "auc": 1.0
-      },
-      {
-        "round": 16,
-        "hospital": "hospital_1",
-        "n_test": 15,
+        "hospital": "va_long_beach",
+        "n_test": 35,
         "accuracy": 0.8,
-        "precision": 0.9,
-        "recall": 0.8182,
-        "f1": 0.8571,
-        "auc": 0.75
+        "precision": 0.8125,
+        "recall": 0.963,
+        "f1": 0.8814,
+        "auc": 0.8009
+      },
+      {
+        "round": 16,
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8421,
+        "precision": 0.7674,
+        "recall": 0.9429,
+        "f1": 0.8462,
+        "auc": 0.9338
       },
       {
         "round": 17,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.7857,
-        "precision": 0.3333,
-        "recall": 0.5,
-        "f1": 0.4,
-        "auc": 0.75
+        "hospital": "va_long_beach",
+        "n_test": 35,
+        "accuracy": 0.8286,
+        "precision": 0.8387,
+        "recall": 0.963,
+        "f1": 0.8966,
+        "auc": 0.8102
       },
       {
         "round": 17,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.8276,
+        "precision": 0.9231,
         "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.9877
+        "f1": 0.9057,
+        "auc": 0.5185
       },
       {
         "round": 17,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.75,
-        "precision": 1.0,
-        "recall": 0.6667,
-        "f1": 0.8,
-        "auc": 1.0
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.8493,
+        "precision": 0.7419,
+        "recall": 0.8846,
+        "f1": 0.807,
+        "auc": 0.9157
       },
       {
         "round": 17,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.8095,
-        "precision": 0.7143,
-        "recall": 0.7143,
-        "f1": 0.7143,
-        "auc": 0.9082
-      },
-      {
-        "round": 17,
-        "hospital": "hospital_1",
-        "n_test": 15,
-        "accuracy": 0.7333,
-        "precision": 0.8889,
-        "recall": 0.7273,
-        "f1": 0.8,
-        "auc": 0.75
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8421,
+        "precision": 0.7674,
+        "recall": 0.9429,
+        "f1": 0.8462,
+        "auc": 0.9324
       },
       {
         "round": 18,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.75,
-        "precision": 1.0,
-        "recall": 0.6667,
-        "f1": 0.8,
-        "auc": 1.0
-      },
-      {
-        "round": 18,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.7857,
-        "precision": 0.3333,
-        "recall": 0.5,
-        "f1": 0.4,
-        "auc": 0.75
-      },
-      {
-        "round": 18,
-        "hospital": "hospital_1",
-        "n_test": 15,
-        "accuracy": 0.7333,
-        "precision": 0.8889,
-        "recall": 0.7273,
-        "f1": 0.8,
-        "auc": 0.75
-      },
-      {
-        "round": 18,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.8276,
+        "precision": 0.9231,
         "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.9877
+        "f1": 0.9057,
+        "auc": 0.537
       },
       {
         "round": 18,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.8095,
-        "precision": 0.7143,
-        "recall": 0.7143,
-        "f1": 0.7143,
-        "auc": 0.9082
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8421,
+        "precision": 0.7674,
+        "recall": 0.9429,
+        "f1": 0.8462,
+        "auc": 0.9331
       },
       {
-        "round": 19,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.8571,
+        "round": 18,
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.8493,
+        "precision": 0.7419,
+        "recall": 0.8846,
+        "f1": 0.807,
+        "auc": 0.9141
+      },
+      {
+        "round": 18,
+        "hospital": "va_long_beach",
+        "n_test": 35,
+        "accuracy": 0.8,
         "precision": 0.8333,
-        "recall": 0.7143,
-        "f1": 0.7692,
-        "auc": 0.9082
+        "recall": 0.9259,
+        "f1": 0.8772,
+        "auc": 0.8148
       },
       {
         "round": 19,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.75,
-        "precision": 1.0,
-        "recall": 0.6667,
-        "f1": 0.8,
-        "auc": 1.0
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8421,
+        "precision": 0.7674,
+        "recall": 0.9429,
+        "f1": 0.8462,
+        "auc": 0.931
       },
       {
         "round": 19,
-        "hospital": "hospital_1",
-        "n_test": 15,
-        "accuracy": 0.7333,
-        "precision": 0.8889,
-        "recall": 0.7273,
-        "f1": 0.8,
-        "auc": 0.75
-      },
-      {
-        "round": 19,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.8276,
+        "precision": 0.9231,
         "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.9877
+        "f1": 0.9057,
+        "auc": 0.537
       },
       {
         "round": 19,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.7857,
-        "precision": 0.3333,
-        "recall": 0.5,
-        "f1": 0.4,
-        "auc": 0.75
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.8356,
+        "precision": 0.7333,
+        "recall": 0.8462,
+        "f1": 0.7857,
+        "auc": 0.9165
       },
       {
-        "round": 20,
-        "hospital": "hospital_4",
-        "n_test": 21,
-        "accuracy": 0.8571,
+        "round": 19,
+        "hospital": "va_long_beach",
+        "n_test": 35,
+        "accuracy": 0.8,
         "precision": 0.8333,
-        "recall": 0.7143,
-        "f1": 0.7692,
-        "auc": 0.9082
+        "recall": 0.9259,
+        "f1": 0.8772,
+        "auc": 0.8102
       },
       {
         "round": 20,
-        "hospital": "hospital_2",
-        "n_test": 8,
-        "accuracy": 0.75,
-        "precision": 1.0,
-        "recall": 0.6667,
-        "f1": 0.8,
-        "auc": 1.0
+        "hospital": "cleveland",
+        "n_test": 76,
+        "accuracy": 0.8421,
+        "precision": 0.7674,
+        "recall": 0.9429,
+        "f1": 0.8462,
+        "auc": 0.9317
       },
       {
         "round": 20,
-        "hospital": "hospital_5",
-        "n_test": 18,
-        "accuracy": 0.8889,
-        "precision": 0.8889,
+        "hospital": "switzerland",
+        "n_test": 29,
+        "accuracy": 0.8276,
+        "precision": 0.9231,
         "recall": 0.8889,
-        "f1": 0.8889,
-        "auc": 0.9877
+        "f1": 0.9057,
+        "auc": 0.537
       },
       {
         "round": 20,
-        "hospital": "hospital_1",
-        "n_test": 15,
-        "accuracy": 0.7333,
-        "precision": 0.8889,
-        "recall": 0.7273,
-        "f1": 0.8,
-        "auc": 0.75
+        "hospital": "va_long_beach",
+        "n_test": 35,
+        "accuracy": 0.8,
+        "precision": 0.8333,
+        "recall": 0.9259,
+        "f1": 0.8772,
+        "auc": 0.8009
       },
       {
         "round": 20,
-        "hospital": "hospital_3",
-        "n_test": 14,
-        "accuracy": 0.7857,
-        "precision": 0.3333,
-        "recall": 0.5,
-        "f1": 0.4,
-        "auc": 0.75
+        "hospital": "hungary",
+        "n_test": 73,
+        "accuracy": 0.8356,
+        "precision": 0.7333,
+        "recall": 0.8462,
+        "f1": 0.7857,
+        "auc": 0.9157
       }
     ]
   }

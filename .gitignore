@@ -11,3 +11,6 @@ experiments/results/*.csv
 ~$*
 node_modules/
 .DS_Store
+
+# Old Cleveland-only result files, kept locally for reference only
+experiments/results/_old_cleveland_only/
