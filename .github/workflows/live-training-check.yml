@@ -15,6 +15,7 @@ on:
       - "src/data/**"
       - "tests/**"
       - "requirements-live.txt"
+      - "render.yaml"
       - ".github/workflows/live-training-check.yml"
   workflow_dispatch:
 
