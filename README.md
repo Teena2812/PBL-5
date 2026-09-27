@@ -154,11 +154,14 @@ personalization = 10 epochs of local fine-tuning of the FedProx model. Five
 model-initialization seeds (42, 1, 7, 123, 2024). Run on Google Colab
 ([`notebooks/phase6_colab.ipynb`](notebooks/phase6_colab.ipynb)) with
 [`experiments/phase3_baselines.py`](experiments/phase3_baselines.py) to
-[`phase6_shap_analysis.py`](experiments/phase6_shap_analysis.py); outputs in
-`experiments/results/`, logs in `experiments/results/logs/`, and the
-dashboard JSON generated from them by
-[`export_dashboard_data.py`](experiments/export_dashboard_data.py). Every
-number below is read from those files.
+[`phase6_shap_analysis.py`](experiments/phase6_shap_analysis.py). The run
+writes result CSVs to `experiments/results/` (gitignored; rerun the notebook
+to regenerate them). Committed: the run logs (`experiments/results/logs/`),
+the saved models (`experiments/results/models/`) and the dashboard JSON
+generated from the CSVs by
+[`export_dashboard_data.py`](experiments/export_dashboard_data.py)
+(`experiments/results/dashboard_data/`). Every number below is read from
+that JSON.
 
 ### 1. Federated vs alone vs pooled (5 seeds)
 
